@@ -1,0 +1,43 @@
+/* ===== Чертежи ===== */
+.figure {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: var(--radius);
+}
+.figure svg { max-width: 100%; height: auto; }
+.figure__caption {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* ===== «Разминка» (актуализация) ===== */
+.warmup-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+.warmup-item {
+    background: #f0fdf4;
+    border-radius: 8px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--color-success);
+    font-size: 0.95rem;
+}
+.warmup-item__num {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-success);
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-right: 6px;
+}
