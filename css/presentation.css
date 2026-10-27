@@ -208,3 +208,29 @@ body.presentation-mode {
   body.presentation-mode{font-size:16px;}
   .nav button{padding:10px 20px; font-size:14px;}
 }
+/* Поле ввода ответа в презентации */
+.input-answer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+.input-answer input {
+  padding: 10px 14px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 18px;
+  width: 100px;
+}
+.input-answer input:focus {
+  outline: none;
+  border-color: var(--main);
+}
+.input-answer__result {
+  font-weight: bold;
+  font-size: 18px;
+}
+.input-answer__result.is-correct { color: var(--main); }
+.input-answer__result.is-wrong { color: #e74c3c; }
