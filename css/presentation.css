@@ -1,0 +1,210 @@
+/* =========================================
+   presentation.css — Стили для уроков-презентаций
+   ========================================= */
+
+:root{
+  --main:#27ae60;
+  --dark:#1e8449;
+  --light:#e8f6ed;
+  --border:#a9dfc0;
+  --bg:#fcfbf9;
+  --accent:#e28743;
+  --accent-light:#fcefdf;
+  --text:#1e293b;
+}
+
+body.presentation-mode {
+  margin: 0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+.progress{
+  position:fixed; top:0; left:0; height:6px;
+  background:var(--main); width:0%; z-index:100;
+  transition:width .3s ease;
+}
+
+.counter{
+  position:fixed; top:14px; right:20px; z-index:100;
+  background:#fff; color:var(--dark);
+  border:2px solid var(--border); border-radius:24px;
+  padding:6px 20px;
+  font-size:17px; font-weight:800;
+  box-shadow:0 4px 14px rgba(39,174,96,.2);
+}
+
+.slide{
+  display:none;
+  max-width:1100px;
+  margin:70px auto 130px;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 18px 46px rgba(39,174,96,.15);
+  padding:42px 52px 52px;
+  position:relative;
+  animation:fade .35s ease;
+}
+.slide.active{display:block;}
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:none;}
+}
+
+.slide-num{
+  position:absolute; top:18px; left:26px;
+  font-size:15px; color:var(--border); font-weight:800;
+}
+
+.slide h1{
+  font-size:2.3rem;
+  color:var(--dark);
+  text-align:center;
+  margin:0 0 12px;
+  font-weight:900;
+}
+.slide .subtitle{
+  text-align:center;
+  color:var(--main);
+  font-size:1.15rem;
+  margin-bottom:32px;
+  font-weight:700;
+}
+
+.slide h2{
+  font-size:1.8rem;
+  color:#fff;
+  margin:0 0 24px;
+  padding:12px 24px;
+  background:var(--main);
+  border-radius:14px;
+  font-weight:900;
+  box-shadow:0 8px 20px rgba(39,174,96,.3);
+  display:inline-block;
+}
+
+.slide p{margin:12px 0; font-size:19px;}
+.slide ul, .slide ol{margin:12px 0 12px 26px; padding:0;}
+.slide li{margin:8px 0; font-size:19px; font-weight:500;}
+
+.plate{
+  border-radius:18px;
+  padding:22px 28px;
+  margin:20px 0;
+  border:2px solid var(--border);
+  background:var(--light);
+}
+.plate-title{
+  display:inline-block;
+  font-size:1.3rem;
+  font-weight:900;
+  padding:8px 22px;
+  border-radius:12px;
+  margin-bottom:14px;
+  color:#fff;
+  background:var(--main);
+}
+
+.plate-orange {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+.plate-orange .plate-title {
+  background: var(--accent);
+}
+
+.grid{display:grid; gap:20px;}
+.grid-2{grid-template-columns:1fr 1fr;}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+
+.hint{
+  background:#fef9e0;
+  border-left:8px solid #f1c40f;
+  border-radius:10px;
+  padding:16px 22px;
+  margin:18px 0;
+  font-size:18px;
+  font-weight:600;
+}
+.hint b{color:#b45309;}
+
+.figure{
+  display:flex; justify-content:center; align-items:center;
+  margin:14px 0;
+  background:#f8fafc;
+  padding:20px;
+  border-radius:12px;
+}
+.figure svg{max-width:100%; height:auto; overflow:visible;}
+
+.quiz-item{
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:14px;
+  padding:14px 20px;
+  margin:10px 0;
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+}
+.quiz-item .q-text{
+  flex:1; min-width:220px;
+  font-weight:700;
+  font-size:17px;
+}
+.quiz-btns{display:flex; gap:10px; flex-wrap:wrap;}
+.quiz-btn{
+  border:2px solid var(--main);
+  background:#fff; color:var(--main);
+  border-radius:12px;
+  padding:8px 20px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .2s;
+  font-family: inherit;
+}
+.quiz-btn:hover{background:var(--light);}
+.quiz-btn.correct{background:var(--main); border-color:var(--main); color:#fff;}
+.quiz-btn.wrong{background:#e74c3c; border-color:#e74c3c; color:#fff;}
+.quiz-feedback{
+  flex-basis:100%;
+  font-size:16px;
+  font-weight:800;
+}
+.quiz-feedback.ok{color:var(--main);}
+.quiz-feedback.no{color:#e74c3c;}
+
+.nav{
+  position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+  display:flex; gap:14px; z-index:100;
+}
+.nav button{
+  background:var(--main); color:#fff; border:none;
+  padding:12px 28px; border-radius:32px;
+  font-size:17px; font-weight:800; cursor:pointer;
+  box-shadow:0 8px 22px rgba(39,174,96,.4);
+  transition:background .2s, transform .1s;
+  font-family: inherit;
+}
+.nav button:hover{background:var(--dark);}
+.nav button:active{transform:scale(.97);}
+.nav button:disabled{background:#c7e7d3; cursor:default; box-shadow:none;}
+
+/* Фон для клетчатых сеток */
+.grid-bg {
+  background-image: linear-gradient(#e2e8f0 1px, transparent 1px),
+                    linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@media (max-width:760px){
+  .slide{margin:60px 12px 130px; padding:24px 18px 32px;}
+  .grid-2,.grid-3{grid-template-columns:1fr;}
+  .slide h1{font-size:1.6rem;}
+  .slide h2{font-size:1.35rem; padding:10px 18px;}
+  body.presentation-mode{font-size:16px;}
+  .nav button{padding:10px 20px; font-size:14px;}
+}
