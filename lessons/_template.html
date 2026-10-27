@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок N. Тема</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/lesson.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-header__title">Урок N</h1>
+            <p class="site-header__subtitle">Тема урока</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ===================== 1. АКТУАЛИЗАЦИЯ ===================== -->
+        <section class="lesson-block lesson-block--actual">
+            <h2 class="lesson-block__title">🔁 Разминка</h2>
+            <p>Пара коротких заданий, чтобы разогреться перед новой темой.</p>
+
+            <div class="warmup-list">
+                <div class="warmup-item">
+                    <span class="warmup-item__num">1</span>
+                    <!-- короткое задание, например: 3 · 4 = ? -->
+                </div>
+                <div class="warmup-item">
+                    <span class="warmup-item__num">2</span>
+                    <!-- короткое задание -->
+                </div>
+                <div class="warmup-item">
+                    <span class="warmup-item__num">3</span>
+                    <!-- короткое задание -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== 2. ТЕОРИЯ ===================== -->
+        <section class="lesson-block lesson-block--theory">
+            <h2 class="lesson-block__title">📖 Новая теория</h2>
+            <!-- определения, формулы, чертежи -->
+        </section>
+
+        <!-- ===================== 3. ОТРАБОТКА ===================== -->
+        <section class="lesson-block lesson-block--practice">
+            <h2 class="lesson-block__title">✏️ Отработка</h2>
+
+            <div class="quiz" data-quiz>
+                <div class="quiz__question">
+                    <p>Вопрос 1</p>
+                    <div class="quiz__answers">
+                        <div class="quiz__answer" data-correct="false">Вариант A</div>
+                        <div class="quiz__answer" data-correct="true">Вариант B</div>
+                        <div class="quiz__answer" data-correct="false">Вариант C</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-answer" data-input-answer="0">
+                <label>Задание с вводом ответа:</label>
+                <input type="text" placeholder="Ответ">
+                <button class="btn">Проверить</button>
+                <span class="input-answer__result"></span>
+            </div>
+        </section>
+
+        <!-- ===================== 4. ДОМАШНЕЕ ЗАДАНИЕ ===================== -->
+        <section class="lesson-block lesson-block--homework">
+            <h2 class="lesson-block__title">🏠 Домашнее задание</h2>
+
+            <div class="homework-item">
+                <p>Задача 1</p>
+                <button class="btn btn--ghost" data-toggle-answer>Показать ответ</button>
+                <div class="homework-item__answer">Ответ и решение</div>
+            </div>
+        </section>
+
+        <!-- ===================== ОТМЕТКА «ПРОЙДЕНО» ===================== -->
+        <div class="complete-lesson">
+            <button class="btn" data-complete-lesson="N">
+                Отметить урок пройденным
+            </button>
+        </div>
+
+        <!-- ===================== НАВИГАЦИЯ ===================== -->
+        <nav class="lesson-nav">
+            <a class="btn btn--ghost" href="lesson-(N-1).html">← Предыдущий</a>
+            <a class="btn btn--ghost" href="../index.html">К оглавлению</a>
+            <a class="btn" href="lesson-(N+1).html">Следующий →</a>
+        </nav>
+
+    </main>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
