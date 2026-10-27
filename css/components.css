@@ -1,0 +1,184 @@
+/* ===== Блоки урока ===== */
+.lesson-block {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+}
+
+.lesson-block__title {
+    font-size: 1.35rem;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lesson-block--actual   { border-left: 5px solid var(--color-success); }
+.lesson-block--theory   { border-left: 5px solid var(--color-primary); }
+.lesson-block--practice { border-left: 5px solid var(--color-accent); }
+.lesson-block--homework { border-left: 5px solid var(--color-homework); }
+
+.lesson-block p { margin-bottom: 12px; }
+.lesson-block p:last-child { margin-bottom: 0; }
+.lesson-block ul,
+.lesson-block ol { margin: 12px 0 12px 24px; }
+.lesson-block li { margin-bottom: 6px; }
+
+/* ===== Кнопки ===== */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: var(--color-primary);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.btn:hover { background: var(--color-primary-dark); }
+
+.btn--ghost {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+.btn--ghost:hover { background: var(--color-primary); color: #fff; }
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ===== Формула ===== */
+.formula {
+    background: #eff6ff;
+    border-left: 4px solid var(--color-primary);
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    margin: 16px 0;
+    text-align: center;
+    font-family: Georgia, serif;
+}
+
+/* ===== Определение / заметка ===== */
+.definition {
+    background: #eff6ff;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 14px 0;
+    border-left: 4px solid var(--color-primary);
+}
+.note {
+    background: #fef3c7;
+    border-left: 4px solid var(--color-accent);
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+.note strong { color: #92400e; }
+
+/* ===== Тест ===== */
+.quiz__question {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed var(--color-border);
+}
+.quiz__question:last-child { border-bottom: none; padding-bottom: 0; }
+.quiz__question p { font-weight: 500; margin-bottom: 10px; }
+
+.quiz__answers { display: grid; gap: 8px; }
+
+.quiz__answer {
+    padding: 12px 16px;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    user-select: none;
+}
+.quiz__answer:hover { border-color: var(--color-primary); background: #f8fafc; }
+.quiz__answer.is-correct {
+    border-color: var(--color-success);
+    background: #ecfdf5;
+    color: #065f46;
+}
+.quiz__answer.is-wrong {
+    border-color: var(--color-danger);
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+/* ===== Ввод ответа ===== */
+.input-answer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+.input-answer label { width: 100%; font-weight: 500; }
+.input-answer input {
+    padding: 10px 14px;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 130px;
+}
+.input-answer input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+.input-answer__result {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.input-answer__result.is-correct { color: var(--color-success); }
+.input-answer__result.is-wrong { color: var(--color-danger); }
+
+/* ===== Домашнее задание ===== */
+.homework-item {
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--color-border);
+}
+.homework-item:last-child { border-bottom: none; }
+.homework-item p { margin-bottom: 10px; }
+
+.homework-item__answer {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #f0fdf4;
+    border-left: 3px solid var(--color-success);
+    border-radius: 8px;
+    display: none;
+}
+.homework-item__answer.is-open { display: block; }
+
+/* ===== Навигация по урокам ===== */
+.lesson-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 32px 0 48px;
+    flex-wrap: wrap;
+}
+
+/* ===== Кнопка «Отметить урок пройденным» ===== */
+.complete-lesson {
+    text-align: center;
+    margin: 24px 0;
+}
+.complete-lesson .btn { min-width: 260px; }
+.complete-lesson .btn.is-completed {
+    background: var(--color-success);
+    cursor: default;
+}
