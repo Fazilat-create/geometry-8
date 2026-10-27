@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 1. Понятие площади многоугольника</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/lesson.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-header__title">Урок 1</h1>
+            <p class="site-header__subtitle">Понятие площади многоугольника</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ===================== 1. АКТУАЛИЗАЦИЯ ===================== -->
+        <section class="lesson-block lesson-block--actual">
+            <h2 class="lesson-block__title">🔁 Разминка</h2>
+            <p>Проверим, что мы уже знаем. Ответь на вопросы.</p>
+
+            <!-- Вопрос 1 -->
+            <div class="quiz" data-quiz>
+                <div class="quiz__question">
+                    <p><strong>1. Какие из этих фигур являются многоугольниками?</strong></p>
+                    <div class="figure" style="padding: 10px; margin: 10px 0; background: #fff;">
+                        <svg viewBox="0 0 500 120" style="width: 100%; max-width: 400px;">
+                            <!-- 1 Многоугольник -->
+                            <polygon points="40,100 80,20 140,20 160,100" fill="var(--color-bg)" stroke="var(--color-primary)" stroke-width="2"/>
+                            <text x="100" y="115" text-anchor="middle" font-size="14">1</text>
+                            <!-- 2 Окружность -->
+                            <circle cx="230" cy="60" r="40" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                            <text x="230" y="115" text-anchor="middle" font-size="14">2</text>
+                            <!-- 3 Ломаная -->
+                            <polyline points="300,100 330,30 370,80 410,20" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                            <text x="355" y="115" text-anchor="middle" font-size="14">3</text>
+                            <!-- 4 Многоугольник -->
+                            <polygon points="440,100 460,40 500,40 500,100" fill="var(--color-bg)" stroke="var(--color-primary)" stroke-width="2"/>
+                            <text x="470" y="115" text-anchor="middle" font-size="14">4</text>
+                        </svg>
+                    </div>
+                    <div class="quiz__answers">
+                        <div class="quiz__answer" data-correct="false">Только 1</div>
+                        <div class="quiz__answer" data-correct="true">1 и 4</div>
+                        <div class="quiz__answer" data-correct="false">2 и 3</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 2 -->
+                <div class="quiz__question">
+                    <p><strong>2. Что характеризует площадь фигуры?</strong></p>
+                    <div class="quiz__answers">
+                        <div class="quiz__answer" data-correct="false">Длину её границы (периметр)</div>
+                        <div class="quiz__answer" data-correct="true">Размер части плоскости, занимаемой фигурой</div>
+                        <div class="quiz__answer" data-correct="false">Количество вершин</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 3 -->
+                <div class="quiz__question">
+                    <p><strong>3. На сетке две фигуры. У какой площадь больше?</strong></p>
+                    <div class="figure" style="padding: 10px; margin: 10px 0; background: #fff;">
+                        <svg viewBox="0 0 400 100" style="width: 100%; max-width: 300px; background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px); background-size: 20px 20px;">
+                            <!-- Фигура А (9 клеток) -->
+                            <rect x="40" y="20" width="60" height="60" fill="rgba(37, 99, 235, 0.2)" stroke="var(--color-primary)" stroke-width="2"/>
+                            <text x="70" y="15" text-anchor="middle" font-size="14" font-weight="bold">А</text>
+                            <!-- Фигура Б (8 клеток) -->
+                            <rect x="200" y="20" width="80" height="40" fill="rgba(245, 158, 11, 0.2)" stroke="var(--color-accent)" stroke-width="2"/>
+                            <text x="240" y="15" text-anchor="middle" font-size="14" font-weight="bold">Б</text>
+                        </svg>
+                    </div>
+                    <div class="quiz__answers">
+                        <div class="quiz__answer" data-correct="true">Фигура А</div>
+                        <div class="quiz__answer" data-correct="false">Фигура Б</div>
+                        <div class="quiz__answer" data-correct="false">Они равны</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== 2. ТЕОРИЯ ===================== -->
+        <section class="lesson-block lesson-block--theory">
+            <h2 class="lesson-block__title">📖 Новая теория</h2>
+
+            <p>Посмотри на две фигуры. Какая из них занимает <strong>большую часть плоскости</strong>? На глаз это определить сложно: у одной фигуры длинная граница, у другой — широкая внутренняя часть. Чтобы сравнивать фигуры, нужна специальная величина — <strong>площадь</strong>.</p>
+
+            <div class="figure">
+                <svg width="300" height="150" viewBox="0 0 300 150">
+                    <polygon points="20,130 100,20 180,130" fill="#eff6ff" stroke="var(--color-primary)" stroke-width="2"/>
+                    <rect x="190" y="50" width="90" height="80" fill="#fef3c7" stroke="var(--color-accent)" stroke-width="2"/>
+                </svg>
+                <p class="figure__caption">Какая фигура больше?</p>
+            </div>
+
+            <div class="definition">
+                <strong>Площадь</strong> — это величина, которая показывает, какую часть плоскости занимает фигура.
+            </div>
+
+            <p>Площадь — это <strong>численная характеристика</strong> размера фигуры. Не путай с <strong>периметром</strong>: периметр — это длина границы (как забор), а площадь — это то, что внутри (как газон).</p>
+
+            <h3 style="margin-top: 24px; margin-bottom: 12px; color: var(--color-primary);">Единицы измерения площади</h3>
+            <p>Чтобы измерять площадь, нужна единица измерения. За единицу площади принимают квадрат, сторона которого равна единице длины.</p>
+            <p>Квадрат со стороной 1 см имеет площадь 1 квадратный сантиметр (1 см²).</p>
+
+            <div class="figure">
+                <svg width="160" height="160" viewBox="0 0 160 160">
+                    <rect x="30" y="30" width="100" height="100" fill="#eff6ff" stroke="var(--color-primary)" stroke-width="3"/>
+                    <text x="80" y="150" text-anchor="middle" font-size="14">1 см</text>
+                    <text x="15" y="85" text-anchor="middle" font-size="14">1 см</text>
+                    <text x="80" y="85" text-anchor="middle" font-size="20" fill="var(--color-primary)" font-weight="bold">1 см²</text>
+                </svg>
+                <p class="figure__caption">Квадратный сантиметр</p>
+            </div>
+
+            <h3 style="margin-top: 24px; margin-bottom: 12px; color: var(--color-primary);">Свойства площадей</h3>
+            
+            <div class="definition">
+                <strong>Свойство 1.</strong> Равные многоугольники имеют равные площади.<br>
+                <em>Если фигуры полностью совпадают при наложении, их площади равны.</em>
+            </div>
+            
+            <div class="definition">
+                <strong>Свойство 2.</strong> Если многоугольник составлен из нескольких неперекрывающихся многоугольников, его площадь равна сумме площадей этих частей.
+            </div>
+
+            <div class="figure">
+                <svg width="300" height="130" viewBox="0 0 300 130">
+                    <rect x="50" y="20" width="80" height="80" fill="#eff6ff" stroke="var(--color-primary)" stroke-width="2"/>
+                    <rect x="130" y="20" width="80" height="80" fill="#fef3c7" stroke="var(--color-accent)" stroke-width="2"/>
+                    <text x="90" y="65" text-anchor="middle" font-size="18" fill="var(--color-primary)">S₁</text>
+                    <text x="170" y="65" text-anchor="middle" font-size="18" fill="var(--color-accent)">S₂</text>
+                    <text x="130" y="120" text-anchor="middle" font-size="16">S = S₁ + S₂</text>
+                </svg>
+                <p class="figure__caption">Сложение площадей</p>
+            </div>
+
+            <p><strong>Равновеликие многоугольники</strong> — это многоугольники с равными площадями. Они могут выглядеть по-разному, но занимать одинаковое количество клеток.</p>
+        </section>
+
+        <!-- ===================== 3. ОТРАБОТКА (Miro) ===================== -->
+        <section class="lesson-block lesson-block--practice">
+            <h2 class="lesson-block__title">✏️ Задания для работы на Miro</h2>
+            <p>Эти задания учитель переносит на доску Miro для совместного решения в классе.</p>
+
+            <div class="homework-item">
+                <p><strong>Задание 1.</strong> Подсчитай площадь каждой фигуры на клетчатой сетке. Площадь одной клетки равна 1 см².</p>
+                <div class="figure" style="background: #fff;">
+                    <svg viewBox="0 0 500 120" style="width: 100%; max-width: 400px; background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px); background-size: 20px 20px;">
+                        <rect x="20" y="20" width="60" height="40" fill="rgba(37, 99, 235, 0.2)" stroke="var(--color-primary)" stroke-width="2"/>
+                        <text x="50" y="100" text-anchor="middle" font-size="14">А</text>
+                        
+                        <rect x="120" y="20" width="40" height="60" fill="rgba(245, 158, 11, 0.2)" stroke="var(--color-accent)" stroke-width="2"/>
+                        <text x="140" y="100" text-anchor="middle" font-size="14">Б</text>
+                        
+                        <rect x="220" y="20" width="40" height="40" fill="rgba(37, 99, 235, 0.2)" stroke="var(--color-primary)" stroke-width="2"/>
+                        <text x="240" y="100" text-anchor="middle" font-size="14">В</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="homework-item">
+                <p><strong>Задание 2.</strong> Расположи три фигуры по возрастанию площади.</p>
+                <div class="figure" style="background: #fff;">
+                    <svg viewBox="0 0 400 120" style="width: 100%; max-width: 350px; background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px); background-size: 20px 20px;">
+                        <rect x="20" y="20" width="40" height="40" fill="rgba(37, 99, 235, 0.2)" stroke="var(--color-primary)" stroke-width="2"/>
+                        <text x="40" y="100" text-anchor="middle" font-size="14">1</text>
+                        
+                        <rect x="120" y="20" width="60" height="40" fill="rgba(245, 158, 11, 0.2)" stroke="var(--color-accent)" stroke-width="2"/>
+                        <text x="150" y="100" text-anchor="middle" font-size="14">2</text>
+                        
+                        <rect x="240" y="20" width="40" height="60" fill="rgba(37, 99, 235, 0.2)" stroke="var(--color-primary)" stroke-width="2"/>
+                        <text x="260" y="100" text-anchor="middle" font-size="14">3</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="homework-item">
+                <p><strong>Задание 3.</strong> Верно или неверно: «Если два многоугольника имеют одинаковый периметр, то их площади равны». Обоснуй ответ.</p>
+            </div>
+
+            <div class="homework-item">
+                <p><strong>Задание 4.</strong> Фигура состоит из двух неперекрывающихся частей с площадями 8 см² и 5 см². Найди площадь всей фигуры.</p>
+                <div class="figure" style="background: #fff;">
+                    <svg viewBox="0 0 300 100" style="width: 100%; max-width: 250px;">
+                        <rect x="50" y="10" width="100" height="70" fill="rgba(37, 99, 235, 0.2)" stroke="var(--color-primary)" stroke-width="2"/>
+                        <text x="100" y="50" text-anchor="middle" font-size="16">8 см²</text>
+                        <rect x="150" y="10" width="100" height="70" fill="rgba(245, 158, 11, 0.2)" stroke="var(--color-accent)" stroke-width="2"/>
+                        <text x="200" y="50" text-anchor="middle" font-size="16">5 см²</text>
+                        <text x="150" y="95" text-anchor="middle" font-size="16">?</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="homework-item">
+                <p><strong>Задание 5.</strong> Найди ошибку: «Чтобы найти площадь многоугольника, нужно посчитать количество его сторон». Объясни, почему это неверно.</p>
+            </div>
+        </section>
+
+        <!-- ===================== 4. ИТОГОВАЯ ПРОВЕРКА ===================== -->
+        <section class="lesson-block lesson-block--homework">
+            <h2 class="lesson-block__title">🏠 Итоговая проверка (ДЗ)</h2>
+            <p>Ответь на вопросы, чтобы закрепить тему.</p>
+
+            <div class="quiz" data-quiz>
+                <div class="quiz__question">
+                    <p><strong>1. Выбери правильное определение площади:</strong></p>
+                    <div class="quiz__answers">
+                        <div class="quiz__answer" data-correct="false">Это длина границы фигуры.</div>
+                        <div class="quiz__answer" data-correct="true">Это размер части плоскости, которую занимает фигура.</div>
+                        <div class="quiz__answer" data-correct="false">Это количество углов фигуры.</div>
+                    </div>
+                </div>
+
+                <div class="quiz__question">
+                    <p><strong>2. Какое свойство площадей верно?</strong></p>
+                    <div class="quiz__answers">
+                        <div class="quiz__answer" data-correct="false">Если у фигур одинаковый периметр, то и площадь одинаковая.</div>
+                        <div class="quiz__answer" data-correct="true">Если фигура состоит из нескольких частей, её площадь равна сумме площадей этих частей.</div>
+                        <div class="quiz__answer" data-correct="false">Площадь зависит от количества вершин.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== НАВИГАЦИЯ ===================== -->
+        <div class="complete-lesson">
+            <button class="btn" data-complete-lesson="1">Отметить урок пройденным</button>
+        </div>
+
+        <nav class="lesson-nav">
+            <a class="btn btn--ghost" href="../index.html">← К оглавлению</a>
+            <a class="btn" href="lesson-02.html">Следующий урок →</a>
+        </nav>
+    </main>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
