@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Если слайдов нет, выходим
     if (slides.length === 0) return;
 
+    // 1. Функция переключения слайдов (только навигация)
     function showSlide(index){
         slides.forEach((s, i) => s.classList.toggle('active', i === index));
         current = index;
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({top:0, behavior:'smooth'});
     }
 
+    // 2. Обработка кнопок навигации
     prevBtn.addEventListener('click', () => { if(current > 0) showSlide(current - 1); });
     nextBtn.addEventListener('click', () => { if(current < slides.length - 1) showSlide(current + 1); });
 
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(e.key === 'ArrowRight' && current < slides.length - 1) showSlide(current + 1);
     });
 
-    /* Логика тестов */
+    // 3. Логика тестов с выбором варианта
     document.querySelectorAll('.quiz-item').forEach(item => {
         const feedback = item.querySelector('.quiz-feedback');
         const buttons = item.querySelectorAll('.quiz-btn');
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     feedback.className = 'quiz-feedback ok';
                 } else {
                     btn.classList.add('wrong');
+                    // Подсвечиваем правильный ответ
                     buttons.forEach(b => {
                         if (b.dataset.ans === 'true') b.classList.add('correct');
                     });
@@ -57,5 +60,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 4. Логика для полей ввода (Input-answer) — вынесена отдельно!
+    document.querySelectorAll('.input-answer').forEach(block => {
+        const input = block.querySelector('input');
+        const btn = block.querySelector('button');
+        const result = block.querySelector('.input-answer__result');
+        const correct = block.dataset.inputAnswer;
+
+        if(!btn) return;
+
+        btn.addEventListener('click', () => {
+            const value = input.value.trim().replace(',', '.');
+            if (parseFloat(value) === parseFloat(correct)) {
+                result.textContent = '✓ Верно!';
+                result.className = 'input-answer__result is-correct';
+            } else {
+                result.textContent = '✗ Попробуй ещё раз';
+                result.className = 'input-answer__result is-wrong';
+            }
+        });
+
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') btn.click();
+        });
+    });
+
+    // Инициализация первого слайда
     showSlide(0);
 });
