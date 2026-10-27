@@ -4,21 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Урок 1. Понятие площади многоугольника</title>
-    <!-- Подключаем базовые стили (на случай возврата на главную) -->
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Подключаем стили презентации -->
     <link rel="stylesheet" href="../css/presentation.css">
 </head>
 <body class="presentation-mode">
 
     <div class="progress" id="progress"></div>
-    <div class="counter" id="counter">1 / 12</div>
+    <div class="counter" id="counter">1 / 17</div>
 
     <!-- ================= СЛАЙД 1. Титул ================= -->
     <section class="slide active">
         <span class="slide-num">Слайд 1</span>
         <h1>Понятие площади<br>многоугольника</h1>
-        <p class="subtitle">Геометрия · 8 класс</p>
+        <p class="subtitle">Геометрия · 8 класс · Урок 1</p>
         <div class="figure" style="background:transparent;">
             <svg viewBox="0 0 400 150" style="width:100%; max-width:300px;">
                 <rect x="20" y="20" width="100" height="100" fill="var(--light)" stroke="var(--main)" stroke-width="3"/>
@@ -27,104 +25,84 @@
         </div>
     </section>
 
-    <!-- ================= СЛАЙД 2. Вопрос 1 ================= -->
+    <!-- ================= СЛАЙД 2. Кроссворд (Актуализация) ================= -->
     <section class="slide">
         <span class="slide-num">Слайд 2</span>
-        <h2>Вопрос 1</h2>
-        <p>Какие из этих фигур являются многоугольниками?</p>
-        <div class="figure">
-            <svg viewBox="0 0 500 120" style="width:100%; max-width:500px;">
-                <polygon points="40,100 80,20 140,20 160,100" fill="var(--light)" stroke="var(--main)" stroke-width="2"/>
-                <text x="100" y="115" text-anchor="middle" font-size="14">1</text>
-                <circle cx="230" cy="60" r="40" fill="none" stroke="#94a3b8" stroke-width="2"/>
-                <text x="230" y="115" text-anchor="middle" font-size="14">2</text>
-                <polyline points="300,100 330,30 370,80 410,20" fill="none" stroke="#94a3b8" stroke-width="2"/>
-                <text x="355" y="115" text-anchor="middle" font-size="14">3</text>
-                <polygon points="440,100 460,40 500,40 500,100" fill="var(--light)" stroke="var(--main)" stroke-width="2"/>
-                <text x="470" y="115" text-anchor="middle" font-size="14">4</text>
-            </svg>
-        </div>
-        <div class="quiz-item">
-            <div class="quiz-btns" style="width:100%; justify-content:center;">
-                <button class="quiz-btn" data-ans="false">Только 1</button>
-                <button class="quiz-btn" data-ans="true">1 и 4</button>
-                <button class="quiz-btn" data-ans="false">2 и 3</button>
-                <button class="quiz-btn" data-ans="false">Все фигуры</button>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </section>
-
-    <!-- ================= СЛАЙД 3. Вопрос 2 ================= -->
-    <section class="slide">
-        <span class="slide-num">Слайд 3</span>
-        <h2>Вопрос 2</h2>
-        <p>У прямоугольника со сторонами 3 см и 4 см нашли длину всех сторон (3 + 4 + 3 + 4 = 14 см). Как называется эта величина?</p>
-        <div class="quiz-item">
-            <div class="quiz-btns" style="width:100%; justify-content:center;">
-                <button class="quiz-btn" data-ans="false">Площадь</button>
-                <button class="quiz-btn" data-ans="true">Периметр</button>
-                <button class="quiz-btn" data-ans="false">Объём</button>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </section>
-
-    <!-- ================= СЛАЙД 4. Вопрос 3 ================= -->
-    <section class="slide">
-        <span class="slide-num">Слайд 4</span>
-        <h2>Вопрос 3</h2>
-        <p>Чему равна сумма углов выпуклого четырёхугольника?</p>
-        <div class="quiz-item">
-            <div class="quiz-btns" style="width:100%; justify-content:center;">
-                <button class="quiz-btn" data-ans="false">180°</button>
-                <button class="quiz-btn" data-ans="true">360°</button>
-                <button class="quiz-btn" data-ans="false">540°</button>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </section>
-
-    <!-- ================= СЛАЙД 5. Проблемная ситуация ================= -->
-    <section class="slide">
-        <span class="slide-num">Слайд 5</span>
-        <h2>Проблемная ситуация</h2>
+        <h2>Разминка: Кроссворд</h2>
         <div class="grid grid-2">
             <div>
-                <p>Посмотри на две фигуры. Какая из них занимает <b>большую часть плоскости</b>?</p>
-                <p>На глаз это определить сложно. Чтобы сравнивать фигуры, нужна специальная величина — <b>площадь</b>.</p>
+                <p><b>По горизонтали:</b></p>
+                <ol>
+                    <li>Четырехугольник, у которого противоположные стороны параллельны.</li>
+                    <li>Четырехугольник, у которого только две противоположные стороны параллельны.</li>
+                    <li>Параллелограмм, у которого все углы прямые.</li>
+                    <li>Точка, из которой выходят стороны четырехугольников.</li>
+                </ol>
+                <p style="margin-top:20px;"><b>По вертикали:</b></p>
+                <ol>
+                    <li>Сумма длин всех сторон.</li>
+                    <li>Отрезок, соединяющий противоположные вершины четырехугольника.</li>
+                    <li>Прямоугольник, у которого все стороны равны.</li>
+                </ol>
             </div>
-            <div class="figure">
-                <svg viewBox="0 0 300 200">
-                    <polygon points="20,180 100,20 180,180" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="3"/>
-                    <rect x="190" y="60" width="90" height="120" fill="var(--light)" stroke="var(--main)" stroke-width="3"/>
+            <div class="figure" style="background:#fff; border:2px solid var(--border);">
+                <svg viewBox="0 0 200 200" style="width:100%; max-width:200px;">
+                    <!-- Имитация сетки кроссворда -->
+                    <rect x="10" y="10" width="180" height="180" fill="none" stroke="var(--border)" stroke-width="2"/>
+                    <path d="M 10 40 L 190 40 M 10 70 L 190 70 M 10 100 L 190 100 M 10 130 L 190 130 M 10 160 L 190 160" stroke="var(--border)" stroke-width="1"/>
+                    <path d="M 40 10 L 40 190 M 70 10 L 70 190 M 100 10 L 100 190 M 130 10 L 130 190 M 160 10 L 160 190" stroke="var(--border)" stroke-width="1"/>
+                    <text x="55" y="135" font-size="12" fill="var(--text)">П</text>
+                    <text x="85" y="105" font-size="12" fill="var(--text)">Е</text>
+                    <text x="115" y="75" font-size="12" fill="var(--text)">Р</text>
+                    <text x="145" y="45" font-size="12" fill="var(--text)">И</text>
                 </svg>
             </div>
         </div>
     </section>
 
-    <!-- ================= СЛАЙД 6. Определение площади ================= -->
+    <!-- ================= СЛАЙД 3. Историческая справка ================= -->
     <section class="slide">
-        <span class="slide-num">Слайд 6</span>
-        <h2>Что такое площадь?</h2>
+        <span class="slide-num">Слайд 3</span>
+        <h2>Историческая справка</h2>
         <div class="plate">
-            <span class="plate-title">Определение</span>
-            <p><b>Площадь</b> — это величина, которая показывает, какую часть плоскости занимает фигура.</p>
-        </div>
-        <div class="hint">
-            <b>Важно:</b> Периметр — это длина границы (как забор), а площадь — это то, что внутри (как газон).
+            <p>В обычной жизни на каждом шагу мы встречаемся с понятием «площадь». Площадь комнаты, площадь садового участка. Но что такое «площадь» с математической точки зрения?</p>
+            <p>Измерение площадей считают одним из самых древних разделов геометрии. Согласно легенде, эта наука возникла в <b>Древнем Египте</b>, где после каждого разлива Нила приходилось заново производить разметку участков и вычисление их площадей.</p>
         </div>
     </section>
 
-    <!-- ================= СЛАЙД 7. Единицы измерения ================= -->
+    <!-- ================= СЛАЙД 4. Определение площади ================= -->
     <section class="slide">
-        <span class="slide-num">Слайд 7</span>
+        <span class="slide-num">Слайд 4</span>
+        <h2>Что такое площадь?</h2>
+        <div class="plate">
+            <span class="plate-title">Определение</span>
+            <p><b>Площадь</b> — это положительное число, которое ставится в соответствие ограниченной плоской фигуре. Показывает, какую часть плоскости занимает фигура.</p>
+            <p>Обозначается буквой <b>S</b>.</p>
+        </div>
+        <div class="figure">
+            <svg viewBox="0 0 200 150" style="max-width:200px;">
+                <rect x="20" y="20" width="160" height="100" fill="var(--light)" stroke="var(--main)" stroke-width="3"/>
+                <text x="100" y="80" text-anchor="middle" font-size="24" fill="var(--main)" font-weight="bold">S</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 5. Единицы измерения ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 5</span>
         <h2>Единицы измерения площади</h2>
+        <p>Сначала нужно выбрать единицу площади — указать единичный квадрат, сторона которого служит единицей длины.</p>
         <div class="grid grid-2">
             <div>
-                <p>Чтобы измерять площадь, нужна единица измерения.</p>
-                <p>За единицу площади принимают квадрат, сторона которого равна единице длины.</p>
-                <p>Квадрат со стороной <b>1 см</b> имеет площадь <b>1 квадратный сантиметр (1 см²)</b>.</p>
+                <ul>
+                    <li>1 мм²</li>
+                    <li>1 см²</li>
+                    <li>1 дм²</li>
+                    <li>1 м²</li>
+                    <li>1 ар (сотка) = 100 м²</li>
+                    <li>1 га = 10 000 м²</li>
+                    <li>1 км² = 1 000 000 м²</li>
+                </ul>
             </div>
             <div class="figure">
                 <svg viewBox="0 0 160 160" style="max-width:200px;">
@@ -137,17 +115,67 @@
         </div>
     </section>
 
-    <!-- ================= СЛАЙД 8. Свойства площадей ================= -->
+    <!-- ================= СЛАЙД 6. Подсчёт клеток ================= -->
     <section class="slide">
-        <span class="slide-num">Слайд 8</span>
+        <span class="slide-num">Слайд 6</span>
+        <h2>Как измерить площадь?</h2>
+        <p>При выбранной единице измерения площадь показывает, сколько раз единица измерения и её части укладываются в данном многоугольнике.</p>
+        <div class="figure grid-bg">
+            <svg viewBox="0 0 400 200" style="width:100%; max-width:400px;">
+                <!-- Многоугольник на сетке -->
+                <polygon points="100,50 200,20 300,80 250,180 100,150" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="3"/>
+                <!-- Выделенный единичный квадрат внутри -->
+                <rect x="120" y="120" width="20" height="20" fill="var(--main)"/>
+                <text x="130" y="195" text-anchor="middle" font-size="14">1 см²</text>
+            </svg>
+        </div>
+        <p style="text-align:center; font-weight:bold; color:var(--dark);">Если форма сложная, этот процесс неудобен. Нужны формулы!</p>
+    </section>
+
+    <!-- ================= СЛАЙД 7. Свойство 1 ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 7</span>
         <h2>Свойства площадей</h2>
         <div class="plate">
             <span class="plate-title">Свойство 1</span>
-            <p>Равные многоугольники имеют равные площади.</p>
+            <p><b>Равные многоугольники имеют равные площади.</b></p>
+            <p>Если два многоугольника равны, то единицы измерения укладываются в них одинаковое число раз.</p>
         </div>
+        <div class="figure">
+            <svg viewBox="0 0 300 120" style="max-width:300px;">
+                <polygon points="50,100 80,20 130,20 160,100" fill="var(--light)" stroke="var(--main)" stroke-width="2"/>
+                <polygon points="200,100 230,20 280,20 310,100" fill="var(--light)" stroke="var(--main)" stroke-width="2" transform="translate(-10,0)"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 8. Равновеликие фигуры ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 8</span>
+        <h2>Равновеликие фигуры</h2>
+        <div class="plate plate-orange">
+            <span class="plate-title">Определение</span>
+            <p><b>Равновеликие многоугольники</b> — это многоугольники, имеющие равные площади.</p>
+            <p>При этом форма таких фигур может быть совершенно различной!</p>
+        </div>
+        <div class="figure grid-bg">
+            <svg viewBox="0 0 400 120" style="width:100%; max-width:400px;">
+                <!-- Фигура 1 -->
+                <polygon points="20,20 100,20 100,100 20,100" fill="rgba(226,135,67, 0.2)" stroke="var(--accent)" stroke-width="2"/>
+                <!-- Фигура 2 -->
+                <polygon points="150,20 250,20 250,60 150,60" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="2"/>
+                <polygon points="150,60 200,60 200,100 150,100" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="2"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 9. Свойство 2 ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 9</span>
+        <h2>Свойство 2</h2>
         <div class="plate">
-            <span class="plate-title">Свойство 2</span>
-            <p>Если многоугольник составлен из нескольких неперекрывающихся многоугольников, его площадь равна сумме площадей этих частей.</p>
+            <span class="plate-title">Сложение площадей</span>
+            <p>Если многоугольник составлен из нескольких многоугольников, то его площадь равна сумме площадей его частей.</p>
         </div>
         <div class="figure">
             <svg viewBox="0 0 300 120" style="max-width:300px;">
@@ -160,70 +188,180 @@
         </div>
     </section>
 
-    <!-- ================= СЛАЙД 9. Miro Задание 1 ================= -->
-    <section class="slide">
-        <span class="slide-num">Слайд 9</span>
-        <h2>Задание 1 (для Miro)</h2>
-        <p>Подсчитай площадь каждой фигуры на клетчатой сетке. Площадь одной клетки равна 1 см².</p>
-        <div class="figure grid-bg">
-            <svg viewBox="0 0 500 120" style="width:100%; max-width:450px;">
-                <rect x="20" y="20" width="60" height="40" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="2"/>
-                <text x="50" y="100" text-anchor="middle" font-size="14">А</text>
-                <rect x="120" y="20" width="40" height="60" fill="rgba(226,135,67, 0.2)" stroke="var(--accent)" stroke-width="2"/>
-                <text x="140" y="100" text-anchor="middle" font-size="14">Б</text>
-                <rect x="220" y="20" width="40" height="40" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="2"/>
-                <text x="240" y="100" text-anchor="middle" font-size="14">В</text>
-            </svg>
-        </div>
-    </section>
-
-    <!-- ================= СЛАЙД 10. Miro Задание 2 ================= -->
+    <!-- ================= СЛАЙД 10. Свойство 3 ================= -->
     <section class="slide">
         <span class="slide-num">Слайд 10</span>
-        <h2>Задание 2 (для Miro)</h2>
-        <p>Расположи три фигуры по возрастанию площади.</p>
-        <div class="figure grid-bg">
-            <svg viewBox="0 0 400 120" style="width:100%; max-width:400px;">
-                <rect x="20" y="20" width="40" height="40" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="2"/>
-                <text x="40" y="100" text-anchor="middle" font-size="14">1</text>
-                <rect x="120" y="20" width="60" height="40" fill="rgba(226,135,67, 0.2)" stroke="var(--accent)" stroke-width="2"/>
-                <text x="150" y="100" text-anchor="middle" font-size="14">2</text>
-                <rect x="240" y="20" width="40" height="60" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="2"/>
-                <text x="260" y="100" text-anchor="middle" font-size="14">3</text>
+        <h2>Свойство 3</h2>
+        <div class="plate">
+            <span class="plate-title">Площадь квадрата</span>
+            <p>Площадь квадрата равна квадрату его стороны.</p>
+            <p style="text-align:center; font-size:24px; font-family:Georgia; color:var(--main); font-weight:bold;">S = a²</p>
+        </div>
+        <div class="figure">
+            <svg viewBox="0 0 200 150" style="max-width:200px;">
+                <rect x="30" y="30" width="80" height="80" fill="var(--light)" stroke="var(--main)" stroke-width="3"/>
+                <text x="70" y="135" text-anchor="middle" font-size="14">a</text>
+                <text x="15" y="75" text-anchor="middle" font-size="14">a</text>
             </svg>
         </div>
     </section>
 
-    <!-- ================= СЛАЙД 11. Итог ================= -->
+    <!-- ================= СЛАЙД 11. Первичное закрепление ================= -->
     <section class="slide">
         <span class="slide-num">Слайд 11</span>
-        <h2>Главное за урок</h2>
-        <div class="plate"><p><b>Площадь</b> — это размер части плоскости, которую занимает фигура.</p></div>
-        <div class="plate"><p>Измеряется в <b>квадратных единицах</b> (см², м² и т.д.).</p></div>
-        <div class="plate"><p><b>Свойство 1:</b> Равные фигуры имеют равные площади.</p></div>
-        <div class="plate"><p><b>Свойство 2:</b> Площадь фигуры равна сумме площадей её неперекрывающихся частей.</p></div>
-    </section>
-
-    <!-- ================= СЛАЙД 12. Итоговая проверка ================= -->
-    <section class="slide">
-        <span class="slide-num">Слайд 12</span>
-        <h2>Проверь себя</h2>
+        <h2>Первичное закрепление</h2>
         <div class="quiz-item">
-            <div class="q-text">1. Выбери правильное определение площади:</div>
+            <div class="q-text">1. Квадрат со стороной 5 см. Чему равна его площадь?</div>
             <div class="quiz-btns" style="width:100%;">
-                <button class="quiz-btn" data-ans="false">Это длина границы фигуры</button>
-                <button class="quiz-btn" data-ans="true">Это размер части плоскости, занимаемой фигурой</button>
-                <button class="quiz-btn" data-ans="false">Это количество углов фигуры</button>
+                <button class="quiz-btn" data-ans="false">10 см²</button>
+                <button class="quiz-btn" data-ans="true">25 см²</button>
+                <button class="quiz-btn" data-ans="false">20 см²</button>
             </div>
             <div class="quiz-feedback"></div>
         </div>
         <div class="quiz-item">
-            <div class="q-text">2. Какое свойство площадей верно?</div>
+            <div class="q-text">2. Фигура состоит из двух частей: 4 см² и 5 см². Чему равна площадь всей фигуры?</div>
             <div class="quiz-btns" style="width:100%;">
-                <button class="quiz-btn" data-ans="false">Если у фигур одинаковый периметр, то и площадь одинаковая</button>
-                <button class="quiz-btn" data-ans="true">Если фигура состоит из частей, её площадь равна сумме площадей этих частей</button>
+                <button class="quiz-btn" data-ans="true">9 см²</button>
+                <button class="quiz-btn" data-ans="false">1 см²</button>
+                <button class="quiz-btn" data-ans="false">20 см²</button>
             </div>
             <div class="quiz-feedback"></div>
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 12. Формула Пика ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 12</span>
+        <h2>Формула Пика</h2>
+        <p>Как найти площадь многоугольника с вершинами в узлах квадратной сетки? Нам поможет простая формула, открытая австрийским математиком Пиком в 1899 г.</p>
+        <div class="hint" style="text-align:center; font-size:24px; font-family:Georgia; font-weight:bold;">
+            S = В + Г/2 − 1
+        </div>
+        <div class="grid grid-2">
+            <div>
+                <p><b>В</b> — количество узлов сетки, лежащих <i>внутри</i> многоугольника.</p>
+                <p><b>Г</b> — количество узлов сетки, лежащих на <i>границах</i> многоугольника.</p>
+            </div>
+            <div class="figure">
+                <svg viewBox="0 0 250 200" style="max-width:250px;">
+                    <polygon points="50,150 100,30 200,50 180,150" fill="rgba(39,174,96, 0.2)" stroke="var(--main)" stroke-width="3"/>
+                    <!-- Внутренние узлы (В) -->
+                    <circle cx="100" cy="80" r="4" fill="#e74c3c"/>
+                    <circle cx="130" cy="80" r="4" fill="#e74c3c"/>
+                    <circle cx="130" cy="110" r="4" fill="#e74c3c"/>
+                    <!-- Граничные узлы (Г) -->
+                    <circle cx="50" cy="150" r="4" fill="#2980b9"/>
+                    <circle cx="100" cy="30" r="4" fill="#2980b9"/>
+                    <circle cx="200" cy="50" r="4" fill="#2980b9"/>
+                    <circle cx="180" cy="150" r="4" fill="#2980b9"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 13. Пример на формулу Пика ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 13</span>
+        <h2>Задание на Miro: формула Пика</h2>
+        <p>Найдите площадь четырехугольника ABCD, считая стороны квадратных клеток равными 1.</p>
+        <div class="figure grid-bg">
+            <svg viewBox="0 0 300 250" style="width:100%; max-width:300px;">
+                <polygon points="50,150 120,50 250,100 180,200" fill="rgba(226,135,67, 0.2)" stroke="var(--accent)" stroke-width="3"/>
+                <text x="40" y="165" font-size="16" font-weight="bold">A</text>
+                <text x="120" y="40" font-size="16" font-weight="bold">D</text>
+                <text x="255" y="95" font-size="16" font-weight="bold">C</text>
+                <text x="180" y="220" font-size="16" font-weight="bold">B</text>
+            </svg>
+        </div>
+        <div class="hint">
+            <b>Подсказка:</b> посчитай внутренние узлы (В) и граничные узлы (Г).
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 14. Физкультминутка ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 14</span>
+        <h2>Физкультминутка</h2>
+        <p style="font-size:24px; text-align:center; margin-top:40px;">«Истинно — ложно»</p>
+        <p style="text-align:center; font-size:20px; color:var(--dark);">
+            Если предложение <b>ложное</b> — встаёте.<br>
+            Если <b>верное</b> — поднимаете руку.
+        </p>
+        <ul style="max-width:500px; margin:20px auto; font-size:18px;">
+            <li>3² = 6</li>
+            <li>Диагонали прямоугольника равны.</li>
+            <li>Площадь квадрата равна квадрату его стороны.</li>
+            <li>Все углы квадрата прямые.</li>
+        </ul>
+    </section>
+
+    <!-- ================= СЛАЙД 15. Закрепление (Практика) ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 15</span>
+        <h2>Закрепление на Miro</h2>
+        <p>Начертите квадрат и примите его за единицу измерения площадей (1 клетка = 1).</p>
+        <div class="plate">
+            <ul>
+                <li>Начертите квадрат, площадь которого равна 4.</li>
+                <li>Начертите прямоугольник, площадь которого равна 4.</li>
+                <li>Начертите треугольник, площадь которого равна 2.</li>
+            </ul>
+        </div>
+        <div class="figure grid-bg" style="height:200px;">
+            <!-- Пустое клетчатое поле для рисования в Miro -->
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 16. Самостоятельная работа ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 16</span>
+        <h2>Самостоятельная работа</h2>
+        <div class="quiz-item">
+            <div class="q-text">1. Найти периметр квадрата со стороной 6 см.</div>
+            <div class="quiz-btns" style="width:100%;">
+                <button class="quiz-btn" data-ans="false">12 см</button>
+                <button class="quiz-btn" data-ans="true">24 см</button>
+                <button class="quiz-btn" data-ans="false">36 см</button>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+        <div class="quiz-item">
+            <div class="q-text">2. Найти площадь квадрата со стороной 4 м.</div>
+            <div class="quiz-btns" style="width:100%;">
+                <button class="quiz-btn" data-ans="false">8 м²</button>
+                <button class="quiz-btn" data-ans="false">16 м²</button>
+                <button class="quiz-btn" data-ans="true">16 м²</button>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+        <div class="quiz-item">
+            <div class="q-text">3. Диагональ квадрата делит его на две фигуры. Эти фигуры являются...</div>
+            <div class="quiz-btns" style="width:100%;">
+                <button class="quiz-btn" data-ans="true">равными треугольниками</button>
+                <button class="quiz-btn" data-ans="false">равными квадратами</button>
+                <button class="quiz-btn" data-ans="false">равновеликими треугольниками</button>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+    </section>
+
+    <!-- ================= СЛАЙД 17. Итог и рефлексия ================= -->
+    <section class="slide">
+        <span class="slide-num">Слайд 17</span>
+        <h2>Итог и рефлексия</h2>
+        <div class="plate">
+            <p><b>Домашнее задание:</b> п. 48, вопросы 1, 2 (стр. 133). № 445, № 449.</p>
+        </div>
+        <div class="grid grid-2" style="margin-top:20px;">
+            <div class="plate" style="text-align:center; cursor:pointer;" onclick="alert('Отлично! Вы отлично поработали.')">
+                <p style="font-size:40px; margin:0;">🟩</p>
+                <p>Было хорошо — покажи квадрат</p>
+            </div>
+            <div class="plate plate-orange" style="text-align:center; cursor:pointer;" onclick="alert('Не грусти! На следующем уроке разберемся подробнее.')">
+                <p style="font-size:40px; margin:0;">▰</p>
+                <p>Было скучно — покажи параллелограмм</p>
+            </div>
         </div>
     </section>
 
@@ -233,7 +371,6 @@
         <button id="next">Вперёд →</button>
     </div>
 
-    <!-- Подключаем логику презентации -->
     <script src="../js/presentation.js"></script>
 </body>
 </html>
