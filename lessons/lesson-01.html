@@ -258,7 +258,7 @@ MathJax = {
     padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;
   }
 
-  /* Пик: сетка из 6 задач */
+  /* Пик: сетка из 12 задач */
   .pick-grid-6 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -742,7 +742,7 @@ MathJax = {
   </div>
 </section>
 
-<!-- СЛАЙД 11. Отработка по 6 чертежам (ИЗ КАРТИНКИ) -->
+<!-- СЛАЙД 11. Отработка по 12 чертежам -->
 <section class="slide">
   <span class="slide-tag">Практика</span>
   <h2>Отработка формулы Пика</h2>
@@ -1013,45 +1013,38 @@ function toggleReveal(id) {
   if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
 }
 
-/* ========== 6 ЧЕРТЕЖЕЙ ПО ПИКУ (Самостоятельная) ========== */
-// Точные координаты фигур из картинки (в пикселях, клетка 20px)
-const sixFigures = [
-  // 1) 
-  {
-    vertices: [[20,20],[120,20],[120,80],[80,120],[20,120]],
-    w: 140, h: 140
-  },
-  // 2)
-  {
-    vertices: [[20,20],[120,20],[120,60],[60,120],[20,120]],
-    w: 140, h: 140
-  },
-  // 3)
-  {
-    vertices: [[20,20],[120,20],[120,100],[60,120],[20,60]],
-    w: 140, h: 140
-  },
-  // 4)
-  {
-    vertices: [[100,20],[100,60],[60,120],[20,120],[20,80],[60,60],[60,20]],
-    w: 140, h: 140
-  },
-  // 5)
-  {
-    vertices: [[20,20],[120,20],[120,120],[60,120],[20,80]],
-    w: 140, h: 140
-  },
-  // 6)
-  {
-    vertices: [[20,20],[100,40],[120,120],[20,120]],
-    w: 140, h: 140
-  }
+/* ========== 12 ЧЕРТЕЖЕЙ ПО ПИКУ ========== */
+// Объединяем прошлые 6 и новые 6 фигур.
+// Размер одной клетки на всех чертежах взят 20px.
+const allFigures = [
+  // --- ПЕРВЫЕ 6 ИЗ ПРЕДЫДУЩЕГО ЗАПРОСА ---
+  { vertices: [[20,20],[120,20],[120,80],[80,120],[20,120]], w: 140, h: 140 },
+  { vertices: [[20,20],[120,20],[120,60],[60,120],[20,120]], w: 140, h: 140 },
+  { vertices: [[20,20],[120,20],[120,100],[60,120],[20,60]], w: 140, h: 140 },
+  { vertices: [[100,20],[100,60],[60,120],[20,120],[20,80],[60,60],[60,20]], w: 140, h: 140 },
+  { vertices: [[20,20],[120,20],[120,120],[60,120],[20,80]], w: 140, h: 140 },
+  { vertices: [[20,20],[100,40],[120,120],[20,120]], w: 140, h: 140 },
+  
+  // --- НОВЫЕ 6 ИЗ ВАШЕГО ПОСЛЕДНЕГО ЗАПРОСА ---
+  // 7) 1-я картинка (верхний левый)
+  { vertices: [[20,40],[120,20],[120,120],[20,120]], w: 140, h: 140 },
+  // 8) 2-я картинка (верхний правый)
+  { vertices: [[80,20],[120,60],[100,120],[40,120],[20,80]], w: 140, h: 140 },
+  // 9) 3-я картинка (нижний левый)
+  { vertices: [[40,20],[100,60],[80,120],[20,100],[20,60]], w: 140, h: 140 },
+  // 10) 4-я картинка (нижний правый)
+  { vertices: [[40,20],[100,20],[120,80],[80,120],[20,100],[20,60]], w: 140, h: 140 },
+  
+  // 11) Фигура с сеткой 1 (2-я картинка запроса)
+  { vertices: [[20,20],[100,20],[120,40],[100,100],[20,100]], w: 140, h: 140 },
+  // 12) Фигура с сеткой 2 (3-я картинка запроса)
+  { vertices: [[20,40],[60,20],[120,40],[100,120],[40,120],[20,60]], w: 140, h: 140 }
 ];
 
 const pickGrid6 = document.getElementById('pickGrid6');
 const pickResults = [];
 
-sixFigures.forEach((fig, idx) => {
+allFigures.forEach((fig, idx) => {
   const cell = document.createElement('div');
   cell.className = 'pick-card';
   
@@ -1062,7 +1055,7 @@ sixFigures.forEach((fig, idx) => {
   svg.setAttribute('height', fig.h);
   svg.setAttribute('viewBox', `0 0 ${fig.w} ${fig.h}`);
   
-  // Сетка
+  // Сетка (клетка 20px)
   const defs = document.createElementNS(svgNS, "defs");
   const pattern = document.createElementNS(svgNS, "pattern");
   pattern.setAttribute('id', `pat${idx}`);
@@ -1153,7 +1146,7 @@ sixFigures.forEach((fig, idx) => {
   pickGrid6.appendChild(cell);
 });
 
-// Проверка ответов для 6 чертежей
+// Проверка ответов для 12 чертежей
 function checkPick(idx) {
   const bVal = document.getElementById(`pb${idx}`).value.trim();
   const gVal = document.getElementById(`pg${idx}`).value.trim();
