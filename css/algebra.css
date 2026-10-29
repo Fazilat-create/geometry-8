@@ -208,3 +208,36 @@ body.presentation-mode {
     .slide { padding: 16px; }
     .flip-card { height: 140px; }
 }
+/* Увеличение шрифтов для читаемости */
+.theory-block { max-width: 100%; padding: 30px 40px; }
+.theory-block h3 { font-size: 24px; }
+.theory-block p { font-size: 20px; }
+.formula-highlight { font-size: 32px; }
+.key-idea { max-width: 100%; font-size: 20px; padding: 20px 28px; }
+
+/* Стили для новых заданий с корнями */
+.math-tasks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    margin-top: 15px;
+}
+.math-task-item {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.math-task-item .letter {
+    color: var(--muted);
+    font-weight: bold;
+}
+.math-task-item .expr {
+    font-weight: 600;
+    color: var(--blue-dark);
+}
