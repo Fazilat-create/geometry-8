@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Урок · Уравнение x² = a</title>
+<script>MathJax = { tex: {inlineMath: [['$','$'],['\\(','\\)']]}, svg: {fontCache: 'global'} };</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root{ --orange:#ea580c;--orange-dark:#c2410c;--amber:#f59e0b;--ok:#10b981;--ok-light:#d1fae5;--err:#ef4444;--blue:#2563eb;--blue-dark:#1e40af;--blue-light:#dbeafe;--green:#16a34a;--green-light:#dcfce7;--text:#1e293b;--muted:#78716c;--border:#fed7aa; }
+  *{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif;} html,body{margin:0;padding:0;height:100%;overflow:hidden;}
+  body{ background:radial-gradient(1200px 600px at 5% -5%, #ffedd5 0%, transparent 55%), radial-gradient(900px 500px at 100% 100%, #fef3c7 0%, transparent 55%), #fffbf5; color:var(--text);height:100vh;display:flex;flex-direction:column;position:relative; }
+  
+  header{padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,251,245,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;position:relative;z-index:10;}
+  .header-title{font-size:13px;font-weight:800;color:var(--orange-dark);}
+  .progress-pills{display:flex;gap:4px;align-items:center;flex-wrap:wrap;}
+  .progress-pill{height:26px;min-width:26px;padding:0 8px;border-radius:13px;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--muted);cursor:pointer;transition:.2s;}
+  .progress-pill.active{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;} 
+  .progress-pill.done{background:var(--ok-light);color:var(--ok);border-color:var(--ok);}
+  .progress-pill.theory{background:var(--blue-light);color:var(--blue-dark);border-color:#93c5fd;} 
+  .progress-pill.theory.active{background:linear-gradient(135deg,var(--blue),#1d4ed8);color:#fff;}
+
+  main{flex:1;padding:16px 20px 80px;display:flex;justify-content:center;position:relative;z-index:5;overflow:hidden;min-height:0;}
+  .slide{display:none;background:#fffdf9;border-radius:20px;padding:24px 32px;box-shadow:0 14px 50px rgba(234,88,12,.12);border:1px solid var(--border);width:100%;max-width:1500px;animation:fade .4s ease;position:relative;overflow:hidden;height:100%;flex-direction:column;}
+  .slide.active{display:flex;} @keyframes fade{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+  .slide-header{flex-shrink:0;margin-bottom:20px;position:relative;z-index:2;}
+  .slide-tag{display:inline-block;background:#fef3c7;color:#d97706;padding:4px 12px;border-radius:16px;font-size:11px;font-weight:700;margin-bottom:8px;}
+  .slide-tag.theory-tag{background:var(--blue-light);color:var(--blue-dark);border-color:#93c5fd;} 
+  .slide-tag.result-tag{background:var(--green-light);color:#166534;border-color:#86efac;}
+  .slide h2{font-size:24px;margin:0 0 6px;color:var(--orange-dark);font-weight:800;} 
+  .slide h2.blue{color:var(--blue-dark);} .slide h2.green{color:#166534;} 
+  .slide .subtitle{color:var(--muted);font-size:14px;margin:0;}
+  .content{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:2;gap:16px;} 
+  .content.center{align-items:center;justify-content:center;}
+  
+  /* АКТУАЛИЗАЦИЯ */
+  .flip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;flex:1;min-height:0;align-content:center;}
+  .flip-card{perspective:1200px;height:180px;cursor:pointer;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d;}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front,.flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:18px;display:flex;align-items:center;justify-content:center;padding:22px;text-align:center;font-size:18px;box-shadow:0 8px 24px rgba(15,23,42,.12);}
+  .flip-front{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:700;}
+  .flip-back{background:linear-gradient(135deg,#ecfdf5,#d1fae5);color:#065f46;font-weight:700;transform:rotateY(180deg);border:2px solid var(--ok);font-size:16px;}
+
+  .input-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0;align-content:center;}
+  .input-card{background:#fff;border:3px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px;text-align:center;justify-content:center;}
+  .input-card .point{font-size:22px;font-weight:800;color:var(--orange-dark);}
+  .input-card .row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:800;}
+  .input-card .row input{width:90px;padding:10px 6px;border:2px solid var(--border);border-radius:9px;font-size:18px;text-align:center;font-weight:800;}
+  .input-card .row input.correct{background:var(--ok-light);border-color:var(--ok);} .input-card .row input.wrong{background:var(--err-light);border-color:var(--err);}
+
+  .tf-grid{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center;max-width:900px;margin:0 auto;width:100%;}
+  .tf-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:16px 22px;display:flex;align-items:center;gap:18px;transition:.25s;}
+  .tf-card .tf-text{flex:1;font-size:17px;font-weight:600;} .tf-card .tf-btns{display:flex;gap:8px;}
+  .tf-btn{padding:10px 22px;border:2px solid var(--border);background:#fff;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;color:var(--muted);}
+  .tf-btn.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;} .tf-btn.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
+
+  .quiz-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+  .quiz-card{background:#fff;border:3px solid var(--border);border-radius:18px;padding:28px 40px;text-align:center;max-width:700px;width:100%;}
+  .quiz-card .quiz-expr{font-size:32px;font-weight:800;color:var(--orange-dark);margin-bottom:20px;}
+  .quiz-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .quiz-opt{padding:16px;border:3px solid var(--border);background:#fff;border-radius:12px;font-size:20px;font-weight:800;cursor:pointer;transition:.2s;color:var(--orange-dark);}
+  .quiz-opt:hover{border-color:var(--orange);background:var(--orange-light);}
+  .quiz-opt.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;} .quiz-opt.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
+
+  /* ТЕОРИЯ (Основной) */
+  .theory-block{background:#fff;border:2px solid var(--border);border-radius:14px;padding:20px 28px;width:100%;max-width:900px;}
+  .theory-block h3{margin:0 0 12px;font-size:18px;color:var(--blue-dark);} .theory-block p{font-size:16px;line-height:1.6;margin:8px 0;}
+  .formula-highlight{background:linear-gradient(135deg,#ffedd5,#fed7aa);border:2px solid var(--orange);border-radius:12px;padding:12px 20px;text-align:center;font-size:24px;font-weight:700;color:var(--orange-dark);margin:12px 0;}
+  .key-idea{background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:6px solid #d97706;border-radius:12px;padding:14px 20px;font-size:16px;line-height:1.6;width:100%;max-width:900px;}
+
+  /* КЛЕТЧАТЫЕ ПОЛЯ */
+  .static-grid{flex:1;display:grid;grid-template-columns:repeat(3, 1fr);gap:20px;min-height:0;}
+  .static-grid-4{grid-template-columns:repeat(4, 1fr); grid-template-rows:repeat(2, 1fr);}
+  .static-grid-2{grid-template-columns:repeat(2, 1fr);}
+  .static-cell{background:#fff;border:2px dashed #f59e0b;border-radius:14px;padding:14px 16px;position:relative;display:flex;flex-direction:column;gap:12px;min-height:0;}
+  .static-cell::before{content:'✏️ Решение';position:absolute;top:-10px;left:16px;background:#fff;padding:0 8px;font-size:10px;font-weight:800;color:#d97706;text-transform:uppercase;border-radius:5px;}
+  .static-head{display:flex;align-items:flex-start;gap:10px;flex-shrink:0;}
+  .static-letter{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:800;font-size:13px;width:28px;height:28px;border-radius:8px;flex-shrink:0;}
+  .static-expr{background:rgba(255,247,237,.95);border-radius:8px;padding:8px 12px;font-size:18px;font-weight:700;border:1px solid rgba(234,88,12,.15);flex:1;}
+  .static-work{flex:1;border-radius:10px;background:linear-gradient(#fed7aa 1px, transparent 1px), linear-gradient(90deg, #fed7aa 1px, transparent 1px);background-size:20px 20px;min-height:100px;border:1px solid rgba(245,158,11,.15);}
+
+  /* СПЕЦИАЛЬНО ДЛЯ ЗАДАНИЯ С ОШИБКАМИ */
+  .error-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+  .error-card .expr{font-size:18px; font-weight:600;}
+
+  /* ИНТЕРАКТИВНОЕ СОЕДИНЕНИЕ */
+  .match-layout{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0;align-content:center;}
+  .match-col{display:flex;flex-direction:column;gap:12px;}
+  .match-item{background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px 20px;font-size:20px;font-weight:700;color:var(--orange-dark);cursor:pointer;transition:.2s;user-select:none;text-align:center;display:flex;align-items:center;justify-content:center;}
+  .match-item:hover{border-color:var(--orange);background:var(--orange-light);transform:translateY(-2px);}
+  .match-item.selected{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;transform:scale(1.02);}
+  .match-item.matched{border-color:var(--ok);background:var(--ok-light);color:#065f46;cursor:default;opacity:0.7;}
+  .match-item.wrong-flash{border-color:var(--err);background:var(--err-light);color:#991b1b;animation:shake 0.4s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+
+  /* САМОСТОЯТЕЛЬНАЯ */
+  .hw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;flex:1;min-height:0;align-content:center;}
+  .hw-card{background:#fff;border:2px dashed var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;justify-content:space-between;transition:.2s;}
+  .hw-card:hover{border-color:var(--orange);}
+  .hw-card .expr{font-size:20px;font-weight:800;color:var(--orange-dark);min-height:40px;display:flex;align-items:center;justify-content:center;}
+  .hw-work{background:linear-gradient(#f1f5f9 1px, transparent 1px), linear-gradient(90deg, #f1f5f9 1px, transparent 1px);background-size:16px 16px;height:80px;border-radius:8px;border:1px solid #e2e8f0;}
+  .hw-card .row{display:flex;align-items:center;justify-content:center;gap:6px;font-size:18px;font-weight:800;margin-top:8px;}
+  .hw-card .row input{width:90px;padding:8px 4px;border:2px solid var(--border);border-radius:8px;font-size:18px;text-align:center;font-weight:800;background:#fffdf9;}
+  .hw-card .row input.correct{background:var(--ok-light);border-color:var(--ok);} .hw-card .row input.wrong{background:var(--err-light);border-color:var(--err);}
+  
+  nav{position:fixed;bottom:0;left:0;right:0;padding:12px 24px;background:rgba(255,251,245,.9);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;z-index:100;}
+  nav button{padding:10px 24px;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;} nav .nav-prev{background:#fff;color:var(--orange);border:2px solid var(--orange);} nav .nav-next{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;} nav button:disabled{opacity:.4;}
+  nav .nav-info{font-size:13px;font-weight:700;color:var(--muted);}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-title">Уравнение $x^2 = a$ <span>· Актуализация + Основной урок</span></div>
+  <div class="progress-pills">
+    <!-- 1-6 Актуализация (синие) -->
+    <div class="progress-pill theory active" data-slide="0">1</div>
+    <div class="progress-pill theory" data-slide="1">2</div>
+    <div class="progress-pill theory" data-slide="2">3</div>
+    <div class="progress-pill theory" data-slide="3">4</div>
+    <div class="progress-pill theory" data-slide="4">5</div>
+    <div class="progress-pill theory" data-slide="5">6</div>
+    <!-- 7-18 Основной (оранжевые) -->
+    <div class="progress-pill" data-slide="6">7</div>
+    <div class="progress-pill" data-slide="7">8</div>
+    <div class="progress-pill" data-slide="8">9</div>
+    <div class="progress-pill" data-slide="9">10</div>
+    <div class="progress-pill" data-slide="10">11</div>
+    <div class="progress-pill" data-slide="11">12</div>
+    <div class="progress-pill" data-slide="12">13</div>
+    <div class="progress-pill" data-slide="13">14</div>
+    <div class="progress-pill" data-slide="14">15</div>
+    <div class="progress-pill" data-slide="15">16</div>
+  </div>
+</header>
+<main>
+
+  <!-- ================= АКТУАЛИЗАЦИЯ ================= -->
+
+  <section class="slide active">
+    <div class="slide-header"><span class="slide-tag theory-tag">Актуализация · 1</span><h2>Как решать линейные уравнения?</h2><p class="subtitle">Нажми на карточку — проверь себя.</p></div>
+    <div class="content"><div class="flip-grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Как переносить слагаемые?</div><div class="flip-back">При переносе через знак $=$ знак слагаемого <b>меняется</b> на противоположный.<br><small>$x + 5 = 10 \Rightarrow x = 10 - 5$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Как найти неизвестный множитель?</div><div class="flip-back">Нужно произведение разделить на известный множитель.<br><small>$3x = 12 \Rightarrow x = 12 : 3 = 4$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Как раскрыть скобки?</div><div class="flip-back">Умножить число перед скобкой на каждое слагаемое внутри.<br><small>$2(x + 3) = 2x + 6$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Что значит «решить уравнение»?</div><div class="flip-back">Найти все его корни (или доказать, что их нет).</div></div></div>
+    </div></div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag theory-tag">Актуализация · 2</span><h2>Реши уравнения</h2></div>
+    <div class="content"><div class="input-grid">
+      <div class="input-card" data-answer="5"><div class="point">$x + 7 = 12$</div><div class="row">$x =$ <input type="text" data-k="5" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="3"><div class="point">$4x = 12$</div><div class="row">$x =$ <input type="text" data-k="3" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="4"><div class="point">$2x - 5 = 3$</div><div class="row">$x =$ <input type="text" data-k="4" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="-2"><div class="point">$3x + 6 = 0$</div><div class="row">$x =$ <input type="text" data-k="-2" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="2"><div class="point">$5x = 10$</div><div class="row">$x =$ <input type="text" data-k="2" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="-4"><div class="point">$x - 3 = -7$</div><div class="row">$x =$ <input type="text" data-k="-4" onchange="checkInput(this)"></div></div>
+    </div></div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag theory-tag">Актуализация · 3</span><h2>Что мы знаем о квадрате?</h2></div>
+    <div class="content"><div class="flip-grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Что значит возвести число в квадрат?</div><div class="flip-back">Умножить число само на себя.<br><small>$5^2 = 5 \cdot 5 = 25$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Какое число получится, если возвести в квадрат отрицательное?</div><div class="flip-back">Всегда <b>положительное</b> (или нуль).<br><small>$(-4)^2 = 16$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Что такое арифметический квадратный корень?</div><div class="flip-back">Неотрицательное число, квадрат которого равен $a$.<br><small>$\sqrt{25} = 5$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Чему равен $\sqrt{0}$?</div><div class="flip-back">Нулю.<br><small>Потому что $0^2 = 0$</small></div></div></div>
+    </div></div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag theory-tag">Актуализация · 4</span><h2>Проверь утверждение про корни</h2></div>
+    <div class="content"><div class="tf-grid">
+      <div class="tf-card" data-answer="true"><div class="tf-text">$\sqrt{9} = 3$</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+      <div class="tf-card" data-answer="false"><div class="tf-text">Корень из отрицательного числа существует</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+      <div class="tf-card" data-answer="true"><div class="tf-text">$\sqrt{0{,}25} = 0{,}5$</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+      <div class="tf-card" data-answer="false"><div class="tf-text">$\sqrt{2} = 1$</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+    </div></div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag theory-tag">Актуализация · 5</span><h2>Сколько корней имеет уравнение?</h2><p class="subtitle">Это мы узнаем сегодня!</p></div>
+    <div class="content"><div class="quiz-wrap">
+      <div class="quiz-card">
+        <div class="quiz-expr">$x^2 = 16$</div>
+        <div class="quiz-options">
+          <button class="quiz-opt" onclick="checkQuiz(this, true)">Два</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">Один</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">Ни одного</button>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag theory-tag">Актуализация · 6</span><h2>Извлеки корень</h2></div>
+    <div class="content"><div class="input-grid">
+      <div class="input-card" data-answer="4"><div class="point">$\sqrt{16}$</div><div class="row"><input type="text" data-k="4" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="0.6"><div class="point">$\sqrt{0{,}36}$</div><div class="row"><input type="text" data-k="0.6" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="10"><div class="point">$\sqrt{100}$</div><div class="row"><input type="text" data-k="10" onchange="checkInput(this)"></div></div>
+    </div></div>
+  </section>
+
+  <!-- ================= ОСНОВНОЙ УРОК ================= -->
+
+  <!-- 7. Имеют ли корни -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Задание 1</span><h2 class="green">Имеют ли корни уравнения?</h2><p class="subtitle">Если да, укажите их количество (устно).</p></div>
+    <div class="content">
+      <div class="static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$x^2 = 11$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$x^2 = 0$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$x^2 = -25$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">$x^2 = 18$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">д</span><div class="static-expr">$x^2 = -14$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">е</span><div class="static-expr">$x^2 = 0{,}64$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. ТЕОРИЯ СЛОЖНЫЕ СЛУЧАИ -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag theory-tag">Разбор · Как решать</span><h2 class="blue">Более сложные уравнения</h2><p class="subtitle">Что делать, если перед $x^2$ есть число или мешают слагаемые?</p></div>
+    <div class="content center">
+      <div class="theory-block">
+        <h3>Шаг 1. Перенеси числа вправо</h3>
+        <p>Если есть слагаемое без $x$, переносим его через знак $=$ с противоположным знаком.</p>
+        <div class="formula-highlight">$x^2 - 5 = 20 \Rightarrow x^2 = 20 + 5 \Rightarrow x^2 = 25$</div>
+      </div>
+      <div class="theory-block">
+        <h3>Шаг 2. Раздели обе части на коэффициент</h3>
+        <p>Если перед $x^2$ стоит число, разделим обе части уравнения на это число.</p>
+        <div class="formula-highlight">$3x^2 = 12 \Rightarrow x^2 = \frac{12}{3} \Rightarrow x^2 = 4$</div>
+      </div>
+      <div class="key-idea">
+        <b>Только после этого</b> мы извлекаем корень и пишем ответ $x = \pm\sqrt{a}$.
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. РАЗБОР ПРИМЕРА У ДОСКИ (НОВЫЙ СЛАЙД) -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Разбор у доски</span><h2 class="green">Решим вместе</h2><p class="subtitle">Применим наши шаги на практике.</p></div>
+    <div class="content">
+      <div class="static-grid" style="grid-template-columns:repeat(2,1fr); max-width:1000px; margin:0 auto; width:100%;">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$2x^2 - 8 = 0$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$x^2 + 9 = 0$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$4x^2 = 36$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">$5x^2 = \frac{1}{5}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Ошибки -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Задание 2</span><h2 class="green">Найдите и исправьте ошибки</h2></div>
+    <div class="content">
+      <div class="static-grid">
+        <div class="error-card">
+          <div class="expr">$x^2 + 3 = 2$</div>
+          <div class="expr">$x^2 = -1$</div>
+          <div class="expr">$x_1 = 1$</div>
+          <div class="expr">$x_2 = -1$</div>
+          <div class="expr" style="color:var(--err);">Ответ: $-1; 1$</div>
+        </div>
+        <div class="error-card">
+          <div class="expr">$3x^2 - 6 = 0$</div>
+          <div class="expr">$3x^2 = 6$</div>
+          <div class="expr">$x^2 = 2$</div>
+          <div class="expr">$x = \sqrt{2}$</div>
+          <div class="expr" style="color:var(--err);">Ответ: $\sqrt{2}$</div>
+        </div>
+        <div class="error-card">
+          <div class="expr">$8x^2 = 0$</div>
+          <div class="expr">$x^2 = 0$</div>
+          <div class="expr">нет решений</div>
+          <div class="expr" style="color:var(--err);">Ответ: нет решений</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Соединение -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Задание 3</span><h2 class="green">Соедините уравнения и их корни</h2><p class="subtitle">Кликни на уравнение слева, затем на корень справа.</p></div>
+    <div class="content">
+      <div class="match-layout">
+        <div class="match-col" id="matchLeft">
+          <div class="match-item" data-pair="1">1) $4x^2 - 6 = 3$</div>
+          <div class="match-item" data-pair="2">2) $-2x^2 + 5 = 3$</div>
+          <div class="match-item" data-pair="3">3) $x^2 - 4 = 3$</div>
+          <div class="match-item" data-pair="4">4) $4x^2 + 3 = 3$</div>
+          <div class="match-item" data-pair="5">5) $8x^2 - 6 = -10$</div>
+        </div>
+        <div class="match-col" id="matchRight">
+          <div class="match-item" data-pair="4">в) $0$</div>
+          <div class="match-item" data-pair="5">д) нет решений</div>
+          <div class="match-item" data-pair="1">б) $1{,}5; -1{,}5$</div>
+          <div class="match-item" data-pair="3">г) $\sqrt{7}; -\sqrt{7}$</div>
+          <div class="match-item" data-pair="2">а) $1; -1$</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. Задание 4 -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Задание 4</span><h2 class="green">Решите уравнения</h2></div>
+    <div class="content">
+      <div class="static-grid-4 static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$25 + x^2 = 0$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$0{,}6x^2 = 135$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$3x^2 = 4{,}32$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">$5x^2 = \dfrac{1}{20}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Параметр -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Задание 6</span><h2 class="green">При каком значении $a$ уравнение $7x^2 - a = 4$:</h2></div>
+    <div class="content center">
+      <div style="background:#fff; padding:40px; border-radius:14px; border:2px dashed var(--border); font-size:24px; width:100%; max-width:900px;">
+        <p style="margin-bottom:24px;"><b>а)</b> имеет одно решение?</p>
+        <p style="margin-bottom:24px;"><b>б)</b> имеет два решения?</p>
+        <p><b>в)</b> не имеет решений?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. ОДЗ -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Задание 7</span><h2 class="green">При каких значениях переменной имеет смысл выражение:</h2></div>
+    <div class="content center">
+      <div style="background:#fff; padding:40px; border-radius:14px; border:2px dashed var(--border); font-size:28px; width:100%; max-width:900px; display:flex; justify-content:space-around;">
+        <p>а) $\sqrt{a}$</p>
+        <p>б) $\sqrt{-a}$</p>
+        <p>в) $\sqrt{-3 \cdot (-a)}$</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. Разбор Варианта 1 -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Подготовка к самостоятельной</span><h2 class="green">Вариант 1 (образец)</h2></div>
+    <div class="content">
+      <div class="static-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">$x^2 = 64$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">$0{,}04x^2 = 1$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">$10 + y^2 = -6$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">4</span><div class="static-expr">$(x - 1)^2 = 16$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">5</span><div class="static-expr">$-\dfrac{1}{3}x^2 = -12$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16. Самостоятельная Вариант 2 -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Самостоятельная работа</span><h2 class="green">Вариант 2</h2></div>
+    <div class="content"><div class="hw-grid">
+      <div class="hw-card" data-answer="11"><div class="expr">1) $x^2 = 121$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="11" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="6"><div class="expr">2) $0{,}25x^2 = 9$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="6" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="0"><div class="expr">3) $7 + b^2 = 3$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="0" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="2"><div class="expr">4) $(x + 5)^2 = 49$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="2" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="6" style="grid-column: span 2;"><div class="expr">5) $-\dfrac{1}{2}x^2 = -18$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="6" onchange="checkInput(this)"></div></div>
+    </div></div>
+  </section>
+
+  <!-- 17. Самостоятельная Вариант 3 -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag result-tag">Самостоятельная работа</span><h2 class="green">Вариант 3</h2></div>
+    <div class="content"><div class="hw-grid">
+      <div class="hw-card" data-answer="15"><div class="expr">1) $x^2 = 225$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="15" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="10"><div class="expr">2) $1{,}21x^2 = 121$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="10" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="6"><div class="expr">3) $25 - y^2 = -11$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="6" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="8"><div class="expr">4) $(x - 4)^2 = 12$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="8" onchange="checkInput(this)"></div></div>
+      <div class="hw-card" data-answer="6" style="grid-column: span 2;"><div class="expr">5) $\dfrac{2}{3}x^2 = 24$</div><div class="hw-work"></div><div class="row">$x =$ <input type="text" data-k="6" onchange="checkInput(this)"></div></div>
+    </div></div>
+  </section>
+
+</main>
+<nav><button class="nav-prev" onclick="changeSlide(-1)" disabled>← Назад</button><div class="nav-info" id="navInfo">Слайд 1 из 17</div><button class="nav-next" onclick="changeSlide(1)">Далее →</button></nav>
+<script>
+var current = 0; var slides = document.querySelectorAll('.slide'); var total = slides.length;
+function showSlide(i){ slides.forEach((s, idx)=>s.classList.toggle('active', idx === i)); document.querySelectorAll('.progress-pill').forEach((p, idx)=>{p.classList.toggle('active', idx === i); p.classList.toggle('done', idx < i);}); document.querySelector('.nav-prev').disabled = (i === 0); document.querySelector('.nav-next').disabled = (i === total - 1); document.getElementById('navInfo').textContent = 'Слайд ' + (i + 1) + ' из ' + total; renderMath(); }
+function changeSlide(dir){ current = Math.min(Math.max(current + dir, 0), total - 1); showSlide(current); }
+function renderMath(){ if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise(); }
+function checkInput(inp){ var card = inp.closest('.input-card') || inp.closest('.hw-card'); if(card.dataset.answered === 'true') return; var user = inp.value.trim().replace(',', '.').replace('−','-'); if(user === '') return; if(parseFloat(user) === parseFloat(inp.dataset.k)){ inp.classList.add('correct'); card.dataset.answered = 'true'; } else { inp.classList.add('wrong'); setTimeout(()=>{ inp.classList.remove('wrong'); }, 1000); } }
+function checkTF(btn, answer){ var card = btn.closest('.tf-card'); if(card.dataset.answered === 'true') return; if(answer === card.dataset.answer){ btn.classList.add('correct'); card.dataset.answered = 'true'; card.querySelectorAll('.tf-btn').forEach(b=>b.disabled=true); } else { btn.classList.add('wrong'); setTimeout(()=>btn.classList.remove('wrong'), 900); } }
+function checkQuiz(btn, isCorrect){ var card = btn.closest('.quiz-card'); if(card.dataset.answered === 'true') return; card.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true); if(isCorrect){ btn.classList.add('correct'); card.dataset.answered = 'true'; } else { btn.classList.add('wrong'); setTimeout(()=>{ btn.classList.remove('wrong'); card.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=false); }, 900); } }
+var matchSel = null; document.querySelectorAll('.match-item').forEach(function(item){ item.addEventListener('click', function(){ if(item.classList.contains('matched')) return; if(!matchSel) { if(item.closest('#matchLeft')){ matchSel = item; item.classList.add('selected'); } return; } if(item === matchSel) { item.classList.remove('selected'); matchSel = null; return; } if(item.closest('#matchLeft') === matchSel.closest('#matchLeft')){ matchSel.classList.remove('selected'); matchSel = item; item.classList.add('selected'); return; } if(item.dataset.pair === matchSel.dataset.pair){ matchSel.classList.remove('selected'); matchSel.classList.add('matched'); item.classList.add('matched'); matchSel = null; } else { item.classList.add('wrong-flash'); matchSel.classList.add('wrong-flash'); var a = item, b = matchSel; setTimeout(function(){ a.classList.remove('wrong-flash'); b.classList.remove('wrong-flash', 'selected'); }, 700); matchSel = null; } }); });
+window.addEventListener('load', ()=>{ showSlide(0); renderMath(); });
+</script>
+</body>
+</html>
