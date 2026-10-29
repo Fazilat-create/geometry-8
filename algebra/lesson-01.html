@@ -18,7 +18,7 @@
     <header class="algebra-header">
         <div class="header-title">Урок 1 <span>· Уравнение $x^2 = a$</span></div>
         <div class="progress-pills">
-            <!-- Теперь 21 слайд -->
+            <!-- 22 слайда -->
             <div class="progress-pill active" data-slide="0">1</div>
             <div class="progress-pill" data-slide="1">2</div>
             <div class="progress-pill" data-slide="2">3</div>
@@ -36,12 +36,13 @@
             <div class="progress-pill" data-slide="13">14</div>
             <div class="progress-pill" data-slide="14">15</div>
             <div class="progress-pill" data-slide="15">16</div>
-            
             <div class="progress-pill" data-slide="16">17</div>
+            
             <div class="progress-pill" data-slide="17">18</div>
             <div class="progress-pill" data-slide="18">19</div>
             <div class="progress-pill" data-slide="19">20</div>
             <div class="progress-pill" data-slide="20">21</div>
+            <div class="progress-pill" data-slide="21">22</div>
         </div>
     </header>
 
@@ -49,31 +50,39 @@
         
         <!-- ================= БЛОК 0: РАЗОГРЕВ (ЛИНЕЙНЫЕ УРАВНЕНИЯ) ================= -->
         <section class="slide active">
-            <div class="slide-header"><span class="slide-tag">Разогрев</span><h2>Вспомним линейные уравнения</h2><p class="subtitle">Реши уравнения в уме и выбери правильный ответ.</p></div>
+            <div class="slide-header"><span class="slide-tag">Разогрев</span><h2>Вспомним линейные уравнения</h2><p class="subtitle">Найди корень уравнения. Выбери правильный ответ.</p></div>
             <div class="content center">
-                <div class="quiz-wrap" style="max-width: 800px;">
-                    <div class="quiz-card" style="padding: 20px 30px;">
-                        <div class="quiz-expr" style="font-size: 28px; margin-bottom: 15px;">$2x = 10$</div>
+                <div class="quiz-wrap" style="max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="quiz-card" style="padding: 20px;">
+                        <div class="quiz-expr" style="font-size: 32px; margin-bottom: 15px;">$3x = 15$</div>
                         <div class="quiz-options">
-                            <button class="quiz-opt" onclick="checkQuiz(this, false)">2</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">3</button>
                             <button class="quiz-opt" onclick="checkQuiz(this, true)">5</button>
-                            <button class="quiz-opt" onclick="checkQuiz(this, false)">20</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">45</button>
                         </div>
                     </div>
-                    <div class="quiz-card" style="padding: 20px 30px; margin-top: 15px;">
-                        <div class="quiz-expr" style="font-size: 28px; margin-bottom: 15px;">$x + 7 = 3$</div>
+                    <div class="quiz-card" style="padding: 20px;">
+                        <div class="quiz-expr" style="font-size: 32px; margin-bottom: 15px;">$x + 8 = 2$</div>
                         <div class="quiz-options">
                             <button class="quiz-opt" onclick="checkQuiz(this, false)">10</button>
-                            <button class="quiz-opt" onclick="checkQuiz(this, false)">4</button>
-                            <button class="quiz-opt" onclick="checkQuiz(this, true)">-4</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">6</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, true)">-6</button>
                         </div>
                     </div>
-                    <div class="quiz-card" style="padding: 20px 30px; margin-top: 15px;">
-                        <div class="quiz-expr" style="font-size: 28px; margin-bottom: 15px;">$3x - 5 = 7$</div>
+                    <div class="quiz-card" style="padding: 20px;">
+                        <div class="quiz-expr" style="font-size: 32px; margin-bottom: 15px;">$2x - 4 = 10$</div>
                         <div class="quiz-options">
-                            <button class="quiz-opt" onclick="checkQuiz(this, false)">2</button>
-                            <button class="quiz-opt" onclick="checkQuiz(this, true)">4</button>
-                            <button class="quiz-opt" onclick="checkQuiz(this, false)">6</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">3</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, true)">7</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">14</button>
+                        </div>
+                    </div>
+                    <div class="quiz-card" style="padding: 20px;">
+                        <div class="quiz-expr" style="font-size: 32px; margin-bottom: 15px;">$-5x = 20$</div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">4</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">15</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, true)">-4</button>
                         </div>
                     </div>
                 </div>
@@ -247,35 +256,31 @@
             </div>
         </section>
 
-        <!-- НОВЫЙ СЛАЙД С ЗАДАНИЯМИ ИЗ СКРИНШОТА -->
+        <!-- НОВЫЕ СЛАЙДЫ С ЗАДАНИЯМИ ИЗ СКРИНШОТА -->
         <section class="slide">
-            <div class="slide-header"><span class="slide-tag result-tag">Задания повышенной сложности</span><h2 class="green">Вычислите</h2><p class="subtitle">Примените свойства корней и формулы сокращенного умножения.</p></div>
+            <div class="slide-header"><span class="slide-tag result-tag">Задания повышенной сложности (часть 1)</span><h2 class="green">Вычислите</h2><p class="subtitle">Примените свойства корней и формулы сокращенного умножения.</p></div>
             <div class="content" style="overflow-y: auto;">
                 <div class="math-tasks">
-                    <div class="math-task-item">
-                        <span class="letter">а)</span>
-                        <span class="expr">$\sqrt{145^2 - 144^2}$</span>
-                    </div>
-                    <div class="math-task-item">
-                        <span class="letter">б)</span>
-                        <span class="expr">$\sqrt{3{,}13^2 - 3{,}12^2}$</span>
-                    </div>
-                    <div class="math-task-item">
-                        <span class="letter">в)</span>
-                        <span class="expr">$\sqrt{\left(\frac{25}{49}\right)^2 - \left(\frac{24}{49}\right)^2}$</span>
-                    </div>
-                    <div class="math-task-item">
-                        <span class="letter">г)</span>
-                        <span class="expr">$\sqrt{\left(6\frac{8}{9}\right)^2 - \left(5\frac{5}{9}\right)^2}$</span>
-                    </div>
-                    <div class="math-task-item">
-                        <span class="letter">д)</span>
-                        <span class="expr">$\sqrt{2{,}3^2 + 2 \cdot 2{,}3 \cdot 6{,}7 + 6{,}7^2}$</span>
-                    </div>
-                    <div class="math-task-item">
-                        <span class="letter">е)</span>
-                        <span class="expr">$\sqrt{2{,}26^2 - 2{,}26 \cdot 2{,}02 + 1{,}01^2}$</span>
-                    </div>
+                    <div class="math-task-item"><span class="letter">в)</span><span class="expr">$-\frac{1}{7}\sqrt{196} - 1{,}5\sqrt{0{,}36}$</span></div>
+                    <div class="math-task-item"><span class="letter">г)</span><span class="expr">$1000\sqrt{0{,}0324} - \frac{5}{84}\sqrt{289}$</span></div>
+                    <div class="math-task-item"><span class="letter">д)</span><span class="expr">$\frac{3}{8}\sqrt{2{,}56} + \sqrt{225} : \sqrt{\frac{1}{9}}$</span></div>
+                    <div class="math-task-item"><span class="letter">е)</span><span class="expr">$\frac{1}{6}\sqrt{5{,}76} - \sqrt{196} : 0{,}2$</span></div>
+                    <div class="math-task-item"><span class="letter">ж)</span><span class="expr">$31 \cdot \sqrt{0{,}01} - 15 : \sqrt{6{,}25}$</span></div>
+                    <div class="math-task-item"><span class="letter">з)</span><span class="expr">$95 : \sqrt{3{,}61} + 12 \cdot \sqrt{0{,}25}$</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag result-tag">Задания повышенной сложности (часть 2)</span><h2 class="green">Вычислите</h2><p class="subtitle">Примените формулы разности квадратов и квадрата суммы.</p></div>
+            <div class="content" style="overflow-y: auto;">
+                <div class="math-tasks" style="grid-template-columns: 1fr;">
+                    <div class="math-task-item"><span class="letter">а)</span><span class="expr">$\sqrt{145^2 - 144^2}$</span></div>
+                    <div class="math-task-item"><span class="letter">б)</span><span class="expr">$\sqrt{3{,}13^2 - 3{,}12^2}$</span></div>
+                    <div class="math-task-item"><span class="letter">в)</span><span class="expr">$\sqrt{\left(\frac{25}{49}\right)^2 - \left(\frac{24}{49}\right)^2}$</span></div>
+                    <div class="math-task-item"><span class="letter">г)</span><span class="expr">$\sqrt{\left(6\frac{8}{9}\right)^2 - \left(5\frac{5}{9}\right)^2}$</span></div>
+                    <div class="math-task-item"><span class="letter">д)</span><span class="expr">$\sqrt{2{,}3^2 + 2 \cdot 2{,}3 \cdot 6{,}7 + 6{,}7^2}$</span></div>
+                    <div class="math-task-item"><span class="letter">е)</span><span class="expr">$\sqrt{2{,}26^2 - 2{,}26 \cdot 2{,}02 + 1{,}01^2}$</span></div>
                 </div>
             </div>
         </section>
@@ -340,7 +345,7 @@
 
     <nav class="algebra-nav">
         <button class="nav-prev" disabled>← Назад</button>
-        <div class="nav-info" id="navInfo">Слайд 1 из 21</div>
+        <div class="nav-info" id="navInfo">Слайд 1 из 22</div>
         <button class="nav-next">Далее →</button>
     </nav>
 
