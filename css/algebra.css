@@ -1,79 +1,194 @@
-/* Практика (сетка с клетчатым полем) */
+/* =========================================
+   algebra.css — Стили для уроков алгебры (оранжевая тема)
+   ========================================= */
+
+:root {
+    --orange: #ea580c;
+    --orange-dark: #c2410c;
+    --orange-light: #ffedd5;
+    --amber: #f59e0b;
+    --amber-dark: #d97706;
+    --amber-light: #fef3c7;
+    --ok: #10b981;
+    --ok-light: #d1fae5;
+    --err: #ef4444;
+    --err-light: #fee2e2;
+    --blue: #2563eb;
+    --blue-dark: #1e40af;
+    --blue-light: #dbeafe;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --text: #1e293b;
+    --muted: #78716c;
+    --border: #fed7aa;
+}
+
+body.presentation-mode {
+    background: radial-gradient(1200px 600px at 5% -5%, #ffedd5 0%, transparent 55%), 
+                radial-gradient(900px 500px at 100% 100%, #fef3c7 0%, transparent 55%), 
+                #fffbf5;
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* Шапка */
+.algebra-header {
+    padding: 10px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 251, 245, .85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+    z-index: 10;
+}
+.header-title { font-size: 13px; font-weight: 800; color: var(--orange-dark); }
+.header-title span { color: var(--muted); font-weight: 600; margin-left: 8px; }
+
+.progress-pills { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.progress-pill {
+    height: 28px; min-width: 28px; padding: 0 11px; border-radius: 14px;
+    background: #fff; border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: var(--muted); cursor: pointer; transition: .2s;
+}
+.progress-pill.active { background: linear-gradient(135deg, var(--orange), var(--amber)); color: #fff; border-color: transparent; }
+.progress-pill.done { background: var(--ok-light); color: var(--ok); border-color: var(--ok); }
+.progress-pill.theory { background: var(--blue-light); color: var(--blue-dark); border-color: #93c5fd; }
+.progress-pill.theory.active { background: linear-gradient(135deg, var(--blue), #1d4ed8); color: #fff; }
+
+/* Основной контейнер */
+.algebra-main {
+    flex: 1; padding: 16px 20px 90px; display: flex; justify-content: center;
+    position: relative; z-index: 5; overflow: hidden; min-height: 0;
+}
+
+.slide {
+    display: none;
+    background: #fffdf9; border-radius: 20px; padding: 22px 32px;
+    box-shadow: 0 14px 50px rgba(234, 88, 12, .12); border: 1px solid var(--border);
+    width: 100%; max-width: 1400px; animation: fade .4s ease; position: relative;
+    overflow: hidden; height: 100%; flex-direction: column;
+}
+.slide.active { display: flex; }
+@keyframes fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.slide-header { flex-shrink: 0; margin-bottom: 16px; position: relative; z-index: 2; }
+.slide-tag {
+    display: inline-block; background: var(--amber-light); color: var(--amber-dark);
+    padding: 4px 12px; border-radius: 16px; font-size: 11px; font-weight: 700;
+    margin-bottom: 8px; border: 1px solid rgba(245, 158, 11, .3);
+}
+.slide-tag.theory-tag { background: var(--blue-light); color: var(--blue-dark); border-color: #93c5fd; }
+.slide-tag.result-tag { background: var(--green-light); color: #166534; border-color: #86efac; }
+
+.slide h2 { font-size: 22px; margin: 0 0 4px; color: var(--orange-dark); font-weight: 800; letter-spacing: -.3px; }
+.slide h2.blue { color: var(--blue-dark); }
+.slide h2.green { color: #166534; }
+.slide .subtitle { color: var(--muted); font-size: 13px; margin: 0; }
+
+.content { flex: 1; display: flex; flex-direction: column; min-height: 0; position: relative; z-index: 2; }
+.content.center { align-items: center; justify-content: center; }
+
+/* --- АКТУАЛИЗАЦИЯ (Флип-карточки и Поиск пар) --- */
+.flip-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; flex: 1; min-height: 0; align-content: center; }
+.flip-card { perspective: 1200px; height: 180px; cursor: pointer; }
+.flip-inner { position: relative; width: 100%; height: 100%; transition: transform .7s cubic-bezier(.4, .2, .2, 1); transform-style: preserve-3d; }
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center;
+    font-size: 18px; box-shadow: 0 8px 24px rgba(15, 23, 42, .12); line-height: 1.4;
+}
+.flip-front { background: linear-gradient(135deg, var(--orange), var(--amber)); color: #fff; font-weight: 700; }
+.flip-back { background: linear-gradient(135deg, #ecfdf5, #d1fae5); color: #065f46; font-weight: 700; transform: rotateY(180deg); border: 2px solid var(--ok); font-size: 16px; }
+
+.match-layout { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; min-height: 0; align-content: center; }
+.match-col { display: flex; flex-direction: column; gap: 10px; }
+.match-item {
+    background: #fff; border: 2px solid var(--border); border-radius: 12px; padding: 14px 18px;
+    font-size: 20px; font-weight: 800; color: var(--orange-dark); cursor: pointer; transition: .2s; user-select: none; text-align: center;
+}
+.match-item.selected { background: linear-gradient(135deg, var(--orange), var(--amber)); color: #fff; border-color: transparent; }
+.match-item.matched { border-color: var(--ok); background: var(--ok-light); color: #065f46; cursor: default; }
+.match-item.wrong-flash { border-color: var(--err); background: var(--err-light); color: #991b1b; }
+
+/* Устный счет (Inputs) */
+.input-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; flex: 1; min-height: 0; align-content: center; }
+.input-card {
+    background: #fff; border: 3px solid var(--border); border-radius: 14px; padding: 20px;
+    display: flex; flex-direction: column; gap: 16px; transition: .25s; text-align: center; justify-content: center;
+}
+.input-card .point { font-size: 24px; font-weight: 800; color: var(--orange-dark); }
+.input-card .row { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px; font-weight: 800; }
+.input-card .row input {
+    width: 90px; padding: 10px 6px; border: 2px solid var(--border); border-radius: 9px;
+    font-size: 18px; font-family: inherit; text-align: center; font-weight: 800; background: #fff;
+}
+.input-card .row input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(234, 88, 12, .12); }
+.input-card .row input.correct { background: var(--ok-light); border-color: var(--ok); color: #065f46; }
+.input-card .row input.wrong { background: var(--err-light); border-color: var(--err); color: #991b1b; }
+
+/* --- ТЕОРИЯ --- */
+.theory-block { background: #fff; border: 2px solid var(--border); border-radius: 12px; padding: 30px 40px; width: 100%; max-width: 100%; }
+.theory-block h3 { margin: 0 0 12px; font-size: 24px; color: var(--blue-dark); font-weight: 800; }
+.theory-block p { font-size: 20px; line-height: 1.75; margin: 8px 0; }
+.formula-highlight {
+    background: linear-gradient(135deg, #ffedd5, #fed7aa); border: 2px solid var(--orange);
+    border-radius: 12px; padding: 14px 22px; text-align: center; font-size: 32px; font-weight: 700; color: var(--orange-dark); margin: 10px 0;
+}
+.formula-highlight.blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); border-color: var(--blue); color: var(--blue-dark); }
+.formula-highlight.big { font-size: 34px; padding: 20px 30px; }
+.key-idea { background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 5px solid #d97706; border-radius: 12px; padding: 20px 28px; font-size: 20px; line-height: 1.65; margin: 8px 0; width: 100%; max-width: 100%; }
+.key-idea.blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); border-left-color: var(--blue-dark); }
+
+/* --- ПРАКТИКА (Сетка с клетчатым полем) --- */
 .static-grid { 
     flex: 1; 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
     gap: 20px; 
-    align-content: center;
+    align-items: start; 
 }
 .static-cell {
     background: #fff; border: 2px solid var(--border); border-radius: 12px; padding: 15px;
-    display: flex; flex-direction: column; gap: 10px; height: 180px;
+    display: flex; flex-direction: column; gap: 10px; height: 200px;
 }
-.static-head { 
-    display: flex; align-items: center; gap: 10px; 
-}
+.static-head { display: flex; align-items: center; gap: 10px; }
 .static-letter { 
     display: inline-flex; align-items: center; justify-content: center; 
     background: var(--orange); color: #fff; font-weight: 800; font-size: 16px; 
     width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0; 
 }
-/* УВЕЛИЧЕННЫЙ ШРИФТ УРАВНЕНИЙ */
-.static-expr { 
-    font-size: 24px; /* Было 16px */
-    font-weight: 700; 
-    color: var(--orange-dark);
-    flex: 1;
-}
-/* КОМПАКТНОЕ ПОЛЕ ДЛЯ РЕШЕНИЯ */
+.static-expr { font-size: 24px; font-weight: 700; color: var(--orange-dark); flex: 1; }
 .static-work { 
-    flex: 1; 
-    border-radius: 8px; 
+    flex: 1; border-radius: 8px; 
     background: linear-gradient(#fed7aa 1px, transparent 1px), linear-gradient(90deg, #fed7aa 1px, transparent 1px); 
-    background-size: 20px 20px; 
-    border: 1px solid rgba(245, 158, 11, 0.2); 
-    max-height: 80px; /* Ограничили высоту */
+    background-size: 20px 20px; border: 1px solid rgba(245, 158, 11, 0.2); min-height: 90px;
 }
 
-/* Сетка для сложных заданий с корнями */
-.math-tasks {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    width: 100%;
-    margin-top: 10px;
-}
-.math-task-item {
-    background: #fff;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 20px;
-    font-size: 22px; /* Крупный шрифт */
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.math-task-item .letter {
-    color: var(--muted);
-    font-weight: bold;
-    font-size: 18px;
-}
-.math-task-item .expr {
-    font-weight: 600;
-    color: var(--blue-dark);
-}
-/* Стили для заданий с полем решения */
+/* --- СЛОЖНЫЕ ЗАДАНИЯ (С условием слева и решением справа) --- */
 .task-layout {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     align-items: stretch;
     height: 100%;
+    width: 100%;
 }
 .task-condition {
-    flex: 1;
+    flex: 1.2; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 10px;
 }
 .task-solution {
     flex: 1;
@@ -84,27 +199,71 @@
         linear-gradient(#fed7aa 1px, transparent 1px),
         linear-gradient(90deg, #fed7aa 1px, transparent 1px);
     background-size: 25px 25px;
+    min-height: 300px;
 }
 
-/* Новые карточки для a - sqrt(a) */
+.math-tasks { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; }
+.math-task-item {
+    background: #fff; border: 2px solid var(--border); border-radius: 12px;
+    padding: 10px 20px; font-size: 20px; display: flex; align-items: center; gap: 12px;
+}
+.math-task-item .letter { color: var(--muted); font-weight: bold; font-size: 18px; }
+.math-task-item .expr { font-weight: 600; color: var(--blue-dark); }
+
+/* Карточки для a - sqrt(a) */
 .new-task-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-top: 20px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 10px;
 }
 .new-task-card {
-    background: #fff;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    background: #fff; border: 2px solid var(--border); border-radius: 12px; padding: 15px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
 }
-.new-task-card .expr {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--blue-dark);
+.new-task-card .expr { font-size: 22px; font-weight: 700; color: var(--blue-dark); }
+
+/* --- ТЕСТЫ И РЕФЛЕКСИЯ --- */
+.tf-grid { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; max-width: 900px; margin: 0 auto; width: 100%; }
+.tf-card { background: #fff; border: 2px solid var(--border); border-radius: 14px; padding: 16px 22px; display: flex; align-items: center; gap: 18px; transition: .25s; }
+.tf-card .tf-text { flex: 1; font-size: 17px; font-weight: 600; }
+.tf-card .tf-btns { display: flex; gap: 8px; }
+.tf-btn { padding: 10px 22px; border: 2px solid var(--border); background: #fff; border-radius: 10px; font-size: 15px; font-weight: 800; cursor: pointer; transition: .2s; color: var(--muted); }
+.tf-btn.correct { background: var(--ok-light); border-color: var(--ok); color: #065f46; }
+.tf-btn.wrong { background: var(--err-light); border-color: var(--err); color: #991b1b; }
+.tf-card.answered-correct { border-color: var(--ok); background: linear-gradient(135deg, #f0fdf4, #fff); }
+
+.quiz-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+.quiz-card { background: #fff; border: 3px solid var(--border); border-radius: 18px; padding: 28px 40px; text-align: center; max-width: 700px; width: 100%; }
+.quiz-card .quiz-expr { font-size: 36px; font-weight: 800; color: var(--orange-dark); margin-bottom: 20px; }
+.quiz-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.quiz-opt { padding: 16px; border: 3px solid var(--border); background: #fff; border-radius: 12px; font-size: 22px; font-weight: 800; cursor: pointer; transition: .2s; color: var(--orange-dark); }
+.quiz-opt.correct { background: var(--ok-light); border-color: var(--ok); color: #065f46; }
+.quiz-opt.wrong { background: var(--err-light); border-color: var(--err); color: #991b1b; }
+
+.reflect-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; flex: 1; align-content: center; }
+.reflect-card { background: #fff; border: 2px solid var(--border); border-radius: 14px; padding: 20px 24px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: .25s; }
+.reflect-card:hover { border-color: var(--orange); background: var(--orange-light); }
+.reflect-card.selected { border-color: var(--orange); background: linear-gradient(135deg, var(--orange), var(--amber)); color: #fff; }
+.reflect-emoji { font-size: 38px; }
+.reflect-text { font-size: 16px; font-weight: 700; }
+
+/* --- НАВИГАЦИЯ --- */
+.algebra-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; padding: 10px 24px;
+    background: rgba(255, 251, 245, .9); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 14px; z-index: 100;
+}
+.algebra-nav button { padding: 9px 22px; border: none; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.algebra-nav .nav-prev { background: #fff; color: var(--orange); border: 2px solid var(--orange); }
+.algebra-nav .nav-next { background: linear-gradient(135deg, var(--orange), var(--amber)); color: #fff; }
+.algebra-nav button:disabled { opacity: .4; }
+.algebra-nav .nav-info { font-size: 12px; font-weight: 700; color: var(--muted); }
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .flip-grid, .match-layout, .static-grid, .reflect-grid, .input-grid, .new-task-grid, .quiz-options { 
+        grid-template-columns: 1fr; 
+    }
+    .slide { padding: 16px; }
+    .flip-card { height: 140px; }
+    .task-layout { flex-direction: column; }
+    .task-solution { min-height: 200px; }
 }
