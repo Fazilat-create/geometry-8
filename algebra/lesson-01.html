@@ -276,6 +276,146 @@
         <button class="nav-next">Далее →</button>
     </nav>
 
-    <script src="../js/algebra.js"></script>
+    <!-- ВСТРОЕННЫЙ СКРИПТ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.querySelector('.algebra-nav .nav-prev');
+            const nextBtn = document.querySelector('.algebra-nav .nav-next');
+            const navInfo = document.getElementById('navInfo');
+            const pills = document.querySelectorAll('.progress-pill');
+            let currentSlide = 0;
+
+            if (slides.length === 0) return;
+
+            function showSlide(index) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                pills.forEach((p, i) => {
+                    p.classList.toggle('active', i === index);
+                    p.classList.toggle('done', i < index);
+                });
+                
+                currentSlide = index;
+                if (prevBtn) prevBtn.disabled = (index === 0);
+                if (nextBtn) nextBtn.disabled = (index === slides.length - 1);
+                if (navInfo) navInfo.textContent = `Слайд ${index + 1} из ${slides.length}`;
+                
+                renderMath();
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+            
+            pills.forEach((p, i) => p.addEventListener('click', () => showSlide(i)));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentSlide > 0) showSlide(currentSlide - 1);
+                if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+            });
+
+            function renderMath() {
+                if (window.MathJax && MathJax.typesetPromise) {
+                    MathJax.typesetPromise().catch(err => console.log(err));
+                }
+            }
+
+            showSlide(0);
+            setTimeout(renderMath, 500);
+
+            // Глобальные функции для онкликов
+            window.checkTF = function(btn, answer) {
+                const card = btn.closest('.tf-card');
+                if (card.dataset.answered === 'true') return;
+                if (answer === card.dataset.answer) {
+                    btn.classList.add('correct');
+                    card.classList.add('answered-correct');
+                    card.dataset.answered = 'true';
+                    card.querySelectorAll('.tf-btn').forEach(b => b.disabled = true);
+                } else {
+                    btn.classList.add('wrong');
+                    setTimeout(() => btn.classList.remove('wrong'), 900);
+                }
+            };
+
+            window.checkQuiz = function(btn, isCorrect) {
+                const card = btn.closest('.quiz-card');
+                if (card.dataset.answered === 'true') return;
+                card.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+                if (isCorrect) {
+                    btn.classList.add('correct');
+                    card.dataset.answered = 'true';
+                } else {
+                    btn.classList.add('wrong');
+                    setTimeout(() => {
+                        btn.classList.remove('wrong');
+                        card.querySelectorAll('.quiz-opt').forEach(b => b.disabled = false);
+                    }, 900);
+                }
+            };
+
+            window.selectReflect = function(card) {
+                document.querySelectorAll('.reflect-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+            };
+
+            window.checkInput = function(inp) {
+                const card = inp.closest('.input-card');
+                if (card.dataset.answered === 'true') return;
+                const user = inp.value.trim().replace(',', '.').replace('−', '-').replace(/\s+/g, '');
+                if (user === '') return;
+                if (parseFloat(user) === parseFloat(inp.dataset.k)) {
+                    inp.classList.add('correct');
+                    card.classList.add('answered-correct');
+                    card.dataset.answered = 'true';
+                } else {
+                    inp.classList.add('wrong');
+                    card.classList.add('answered-wrong');
+                    setTimeout(() => {
+                        inp.classList.remove('wrong');
+                        card.classList.remove('answered-wrong');
+                    }, 1000);
+                }
+            };
+
+            document.querySelectorAll('.input-card .row input').forEach(inp => {
+                inp.addEventListener('change', () => checkInput(inp));
+                inp.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') checkInput(inp);
+                });
+            });
+
+            let matchSelection = null;
+            document.querySelectorAll('[data-match]').forEach(item => {
+                item.addEventListener('click', () => {
+                    if (item.classList.contains('matched')) return;
+                    if (!matchSelection) {
+                        matchSelection = item;
+                        item.classList.add('selected');
+                    } else {
+                        if (matchSelection === item) {
+                            item.classList.remove('selected');
+                            matchSelection = null;
+                            return;
+                        }
+                        if (matchSelection.dataset.match === item.dataset.match) {
+                            matchSelection.classList.remove('selected');
+                            matchSelection.classList.add('matched');
+                            item.classList.add('matched');
+                            matchSelection = null;
+                        } else {
+                            item.classList.add('wrong-flash');
+                            matchSelection.classList.add('wrong-flash');
+                            const a = item, b = matchSelection;
+                            setTimeout(() => {
+                                a.classList.remove('wrong-flash');
+                                b.classList.remove('wrong-flash', 'selected');
+                            }, 700);
+                            matchSelection = null;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
