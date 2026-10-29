@@ -18,35 +18,70 @@
     <header class="algebra-header">
         <div class="header-title">Урок 1 <span>· Уравнение $x^2 = a$</span></div>
         <div class="progress-pills">
-            <!-- 19 слайдов -->
+            <!-- Теперь 21 слайд -->
             <div class="progress-pill active" data-slide="0">1</div>
             <div class="progress-pill" data-slide="1">2</div>
             <div class="progress-pill" data-slide="2">3</div>
             <div class="progress-pill" data-slide="3">4</div>
+            <div class="progress-pill" data-slide="4">5</div>
             
-            <div class="progress-pill theory" data-slide="4">5</div>
             <div class="progress-pill theory" data-slide="5">6</div>
             <div class="progress-pill theory" data-slide="6">7</div>
             <div class="progress-pill theory" data-slide="7">8</div>
             <div class="progress-pill theory" data-slide="8">9</div>
             <div class="progress-pill theory" data-slide="9">10</div>
-            <div class="progress-pill" data-slide="10">11</div>
+            <div class="progress-pill theory" data-slide="10">11</div>
             <div class="progress-pill" data-slide="11">12</div>
             <div class="progress-pill" data-slide="12">13</div>
             <div class="progress-pill" data-slide="13">14</div>
             <div class="progress-pill" data-slide="14">15</div>
-            
             <div class="progress-pill" data-slide="15">16</div>
+            
             <div class="progress-pill" data-slide="16">17</div>
             <div class="progress-pill" data-slide="17">18</div>
             <div class="progress-pill" data-slide="18">19</div>
+            <div class="progress-pill" data-slide="19">20</div>
+            <div class="progress-pill" data-slide="20">21</div>
         </div>
     </header>
 
     <main class="algebra-main">
         
-        <!-- ================= БЛОК 1: АКТУАЛИЗАЦИЯ ================= -->
+        <!-- ================= БЛОК 0: РАЗОГРЕВ (ЛИНЕЙНЫЕ УРАВНЕНИЯ) ================= -->
         <section class="slide active">
+            <div class="slide-header"><span class="slide-tag">Разогрев</span><h2>Вспомним линейные уравнения</h2><p class="subtitle">Реши уравнения в уме и выбери правильный ответ.</p></div>
+            <div class="content center">
+                <div class="quiz-wrap" style="max-width: 800px;">
+                    <div class="quiz-card" style="padding: 20px 30px;">
+                        <div class="quiz-expr" style="font-size: 28px; margin-bottom: 15px;">$2x = 10$</div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">2</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, true)">5</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">20</button>
+                        </div>
+                    </div>
+                    <div class="quiz-card" style="padding: 20px 30px; margin-top: 15px;">
+                        <div class="quiz-expr" style="font-size: 28px; margin-bottom: 15px;">$x + 7 = 3$</div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">10</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">4</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, true)">-4</button>
+                        </div>
+                    </div>
+                    <div class="quiz-card" style="padding: 20px 30px; margin-top: 15px;">
+                        <div class="quiz-expr" style="font-size: 28px; margin-bottom: 15px;">$3x - 5 = 7$</div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">2</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, true)">4</button>
+                            <button class="quiz-opt" onclick="checkQuiz(this, false)">6</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= БЛОК 1: АКТУАЛИЗАЦИЯ ================= -->
+        <section class="slide">
             <div class="slide-header"><span class="slide-tag">Задание 1 · Вспомним</span><h2>Что мы знаем о квадрате?</h2><p class="subtitle">Нажми на карточку — проверь себя.</p></div>
             <div class="content"><div class="flip-grid">
                 <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Что значит возвести число в квадрат?</div><div class="flip-back">Умножить число само на себя.<br><small>$5^2 = 5 \cdot 5 = 25$</small></div></div></div>
@@ -153,9 +188,9 @@
             <div class="content center">
                 <div class="theory-block" style="text-align:center; background:linear-gradient(135deg,#fff7ed,#ffedd5); border-color:var(--orange);">
                     <h3 style="text-align:center; color:var(--orange-dark);">Уравнение $x^2 = a$</h3>
-                    <p style="font-size:20px;"><b>1.</b> Если $a > 0$, то $x = \pm\sqrt{a}$ <span style="color:var(--muted);font-size:16px;">(два корня)</span></p>
-                    <p style="font-size:20px;"><b>2.</b> Если $a = 0$, то $x = 0$ <span style="color:var(--muted);font-size:16px;">(один корень)</span></p>
-                    <p style="font-size:20px;"><b>3.</b> Если $a < 0$, то корней нет</p>
+                    <p style="font-size:22px;"><b>1.</b> Если $a > 0$, то $x = \pm\sqrt{a}$ <span style="color:var(--muted);font-size:18px;">(два корня)</span></p>
+                    <p style="font-size:22px;"><b>2.</b> Если $a = 0$, то $x = 0$ <span style="color:var(--muted);font-size:18px;">(один корень)</span></p>
+                    <p style="font-size:22px;"><b>3.</b> Если $a < 0$, то корней нет</p>
                 </div>
             </div>
         </section>
@@ -212,14 +247,47 @@
             </div>
         </section>
 
+        <!-- НОВЫЙ СЛАЙД С ЗАДАНИЯМИ ИЗ СКРИНШОТА -->
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag result-tag">Задания повышенной сложности</span><h2 class="green">Вычислите</h2><p class="subtitle">Примените свойства корней и формулы сокращенного умножения.</p></div>
+            <div class="content" style="overflow-y: auto;">
+                <div class="math-tasks">
+                    <div class="math-task-item">
+                        <span class="letter">а)</span>
+                        <span class="expr">$\sqrt{145^2 - 144^2}$</span>
+                    </div>
+                    <div class="math-task-item">
+                        <span class="letter">б)</span>
+                        <span class="expr">$\sqrt{3{,}13^2 - 3{,}12^2}$</span>
+                    </div>
+                    <div class="math-task-item">
+                        <span class="letter">в)</span>
+                        <span class="expr">$\sqrt{\left(\frac{25}{49}\right)^2 - \left(\frac{24}{49}\right)^2}$</span>
+                    </div>
+                    <div class="math-task-item">
+                        <span class="letter">г)</span>
+                        <span class="expr">$\sqrt{\left(6\frac{8}{9}\right)^2 - \left(5\frac{5}{9}\right)^2}$</span>
+                    </div>
+                    <div class="math-task-item">
+                        <span class="letter">д)</span>
+                        <span class="expr">$\sqrt{2{,}3^2 + 2 \cdot 2{,}3 \cdot 6{,}7 + 6{,}7^2}$</span>
+                    </div>
+                    <div class="math-task-item">
+                        <span class="letter">е)</span>
+                        <span class="expr">$\sqrt{2{,}26^2 - 2{,}26 \cdot 2{,}02 + 1{,}01^2}$</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="slide">
             <div class="slide-header"><span class="slide-tag">Итог</span><h2>Что мы узнали?</h2></div>
             <div class="content center">
                 <div class="theory-block" style="text-align:center;">
-                    <p style="font-size:18px;">Уравнение $x^2 = a$ может иметь:</p>
-                    <p style="font-size:20px; margin-top:10px;"><b style="color:var(--ok);">Два корня</b>, если $a > 0$ ($x = \pm\sqrt{a}$)</p>
-                    <p style="font-size:20px;"><b style="color:var(--amber-dark);">Один корень</b>, если $a = 0$ ($x = 0$)</p>
-                    <p style="font-size:20px;"><b style="color:var(--err);">Нет корней</b>, если $a < 0$</p>
+                    <p style="font-size:22px;">Уравнение $x^2 = a$ может иметь:</p>
+                    <p style="font-size:24px; margin-top:15px;"><b style="color:var(--ok);">Два корня</b>, если $a > 0$ ($x = \pm\sqrt{a}$)</p>
+                    <p style="font-size:24px;"><b style="color:var(--amber-dark);">Один корень</b>, если $a = 0$ ($x = 0$)</p>
+                    <p style="font-size:24px;"><b style="color:var(--err);">Нет корней</b>, если $a < 0$</p>
                 </div>
             </div>
         </section>
@@ -272,7 +340,7 @@
 
     <nav class="algebra-nav">
         <button class="nav-prev" disabled>← Назад</button>
-        <div class="nav-info" id="navInfo">Слайд 1 из 19</div>
+        <div class="nav-info" id="navInfo">Слайд 1 из 21</div>
         <button class="nav-next">Далее →</button>
     </nav>
 
@@ -322,7 +390,6 @@
             showSlide(0);
             setTimeout(renderMath, 500);
 
-            // Глобальные функции для онкликов
             window.checkTF = function(btn, answer) {
                 const card = btn.closest('.tf-card');
                 if (card.dataset.answered === 'true') return;
