@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 1. Уравнение x² = a</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/algebra.css">
+
+    <script>
+        MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body class="presentation-mode">
+
+    <header class="algebra-header">
+        <div class="header-title">Урок 1 <span>· Уравнение $x^2 = a$</span></div>
+        <div class="progress-pills">
+            <!-- 19 слайдов -->
+            <div class="progress-pill active" data-slide="0">1</div>
+            <div class="progress-pill" data-slide="1">2</div>
+            <div class="progress-pill" data-slide="2">3</div>
+            <div class="progress-pill" data-slide="3">4</div>
+            
+            <div class="progress-pill theory" data-slide="4">5</div>
+            <div class="progress-pill theory" data-slide="5">6</div>
+            <div class="progress-pill theory" data-slide="6">7</div>
+            <div class="progress-pill theory" data-slide="7">8</div>
+            <div class="progress-pill theory" data-slide="8">9</div>
+            <div class="progress-pill theory" data-slide="9">10</div>
+            <div class="progress-pill" data-slide="10">11</div>
+            <div class="progress-pill" data-slide="11">12</div>
+            <div class="progress-pill" data-slide="12">13</div>
+            <div class="progress-pill" data-slide="13">14</div>
+            <div class="progress-pill" data-slide="14">15</div>
+            
+            <div class="progress-pill" data-slide="15">16</div>
+            <div class="progress-pill" data-slide="16">17</div>
+            <div class="progress-pill" data-slide="17">18</div>
+            <div class="progress-pill" data-slide="18">19</div>
+        </div>
+    </header>
+
+    <main class="algebra-main">
+        
+        <!-- ================= БЛОК 1: АКТУАЛИЗАЦИЯ ================= -->
+        <section class="slide active">
+            <div class="slide-header"><span class="slide-tag">Задание 1 · Вспомним</span><h2>Что мы знаем о квадрате?</h2><p class="subtitle">Нажми на карточку — проверь себя.</p></div>
+            <div class="content"><div class="flip-grid">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Что значит возвести число в квадрат?</div><div class="flip-back">Умножить число само на себя.<br><small>$5^2 = 5 \cdot 5 = 25$</small></div></div></div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Какое число получится, если возвести в квадрат отрицательное?</div><div class="flip-back">Всегда <b>положительное</b> (или нуль).<br><small>$(-4)^2 = 16$</small></div></div></div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Что такое арифметический квадратный корень?</div><div class="flip-back">Неотрицательное число, квадрат которого равен $a$.<br><small>$\sqrt{25} = 5$</small></div></div></div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Чему равен $\sqrt{0}$?</div><div class="flip-back">Нулю.<br><small>Потому что $0^2 = 0$</small></div></div></div>
+            </div></div>
+        </section>
+        
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Задание 2 · Устный счёт</span><h2>Возведи в квадрат</h2><p class="subtitle">Введи ответ и нажми Enter.</p></div>
+            <div class="content"><div class="input-grid">
+                <div class="input-card" data-answer="36"><div class="point">$6^2$</div><div class="row"><input type="text" data-k="36"></div></div>
+                <div class="input-card" data-answer="0.16"><div class="point">$(0{,}4)^2$</div><div class="row"><input type="text" data-k="0.16"></div></div>
+                <div class="input-card" data-answer="81"><div class="point">$(-9)^2$</div><div class="row"><input type="text" data-k="81"></div></div>
+                <div class="input-card" data-answer="0"><div class="point">$0^2$</div><div class="row"><input type="text" data-k="0"></div></div>
+            </div></div>
+        </section>
+        
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Задание 3 · Найди пару</span><h2>Соедини выражение и результат</h2><p class="subtitle">Кликни на выражение слева, потом на результат справа.</p></div>
+            <div class="content"><div class="match-layout">
+                <div class="match-col">
+                    <div class="match-item" data-match="1">$\sqrt{64}$</div>
+                    <div class="match-item" data-match="2">$\sqrt{0{,}25}$</div>
+                    <div class="match-item" data-match="3">$\sqrt{\dfrac{1}{9}}$</div>
+                </div>
+                <div class="match-col">
+                    <div class="match-item" data-match="3">$\dfrac{1}{3}$</div>
+                    <div class="match-item" data-match="1">$8$</div>
+                    <div class="match-item" data-match="2">$0{,}5$</div>
+                </div>
+            </div></div>
+        </section>
+        
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Задание 4 · Таблица</span><h2>Вспомни таблицу квадратов</h2><p class="subtitle">Кликни, чтобы перевернуть.</p></div>
+            <div class="content"><div class="flip-grid" style="grid-template-columns:repeat(4,1fr);">
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$11^2$</div><div class="flip-back">$121$</div></div></div>
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$12^2$</div><div class="flip-back">$144$</div></div></div>
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$13^2$</div><div class="flip-back">$169$</div></div></div>
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$14^2$</div><div class="flip-back">$196$</div></div></div>
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$15^2$</div><div class="flip-back">$225$</div></div></div>
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$16^2$</div><div class="flip-back">$256$</div></div></div>
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$17^2$</div><div class="flip-back">$289$</div></div></div>
+                <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$18^2$</div><div class="flip-back">$324$</div></div></div>
+            </div></div>
+        </section>
+
+        <!-- ================= БЛОК 2: ТЕОРИЯ ================= -->
+        <section class="slide">
+            <div class="content center"><div style="text-align:center;"><span class="slide-tag theory-tag">Новая тема</span><h2 style="font-size:44px;margin:18px 0 8px;">Уравнение $x^2 = a$</h2><p style="font-size:19px;color:var(--muted);margin:0 0 34px;">Сколько корней может быть у уравнения?</p><div class="formula-highlight big" style="display:inline-block;">$x^2 = a$</div></div></div>
+        </section>
+        
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag theory-tag">Цель урока</span><h2 class="blue">Чему мы научимся?</h2></div>
+            <div class="content center">
+                <div class="theory-block"><h3>Проблемный вопрос</h3><p>Мы знаем, что $5^2 = 25$ и $(-5)^2 = 25$. Значит, уравнение $x^2 = 25$ имеет <b>два</b> корня. А всегда ли так?</p></div>
+                <div class="key-idea blue"><b>Цель:</b> узнать, сколько корней имеет уравнение $x^2 = a$ в зависимости от числа $a$, и научиться их находить.</div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag theory-tag">Открытие 1</span><h2 class="blue">Случай 1: $a > 0$</h2></div>
+            <div class="content center">
+                <div class="theory-block">
+                    <h3>Пример: $x^2 = 9$</h3>
+                    <p>Какие числа при возведении в квадрат дают $9$?</p>
+                    <p>Это $3$ (т.к. $3^2 = 9$) и $-3$ (т.к. $(-3)^2 = 9$).</p>
+                    <div class="formula-highlight">$x^2 = 9 \Rightarrow x_1 = 3, \; x_2 = -3$</div>
+                </div>
+                <div class="key-idea blue"><b>Правило:</b> Если $a > 0$, уравнение $x^2 = a$ имеет <b>два корня</b>: $x = \sqrt{a}$ и $x = -\sqrt{a}$.<br><small>Коротко пишут: $x = \pm\sqrt{a}$.</small></div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag theory-tag">Открытие 2</span><h2 class="blue">Случай 2: $a = 0$</h2></div>
+            <div class="content center">
+                <div class="theory-block">
+                    <h3>Пример: $x^2 = 0$</h3>
+                    <p>Какое число при возведении в квадрат дает $0$?</p>
+                    <p>Только само число $0$. Никакое другое число не даст в квадрате $0$.</p>
+                    <div class="formula-highlight">$x^2 = 0 \Rightarrow x = 0$</div>
+                </div>
+                <div class="key-idea blue"><b>Правило:</b> Если $a = 0$, уравнение $x^2 = 0$ имеет <b>только один корень</b>: $x = 0$.</div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag theory-tag">Открытие 3</span><h2 class="blue">Случай 3: $a < 0$</h2></div>
+            <div class="content center">
+                <div class="theory-block">
+                    <h3>Пример: $x^2 = -4$</h3>
+                    <p>Есть ли число, которое в квадрате дает отрицательное число?</p>
+                    <p>Нет! Квадрат любого числа всегда $\geq 0$.</p>
+                    <div class="formula-highlight">$x^2 = -4 \Rightarrow$ нет корней</div>
+                </div>
+                <div class="key-idea blue"><b>Правило:</b> Если $a < 0$, уравнение $x^2 = a$ <b>не имеет корней</b>.</div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag theory-tag">Итог теории</span><h2 class="blue">Все три случая</h2></div>
+            <div class="content center">
+                <div class="theory-block" style="text-align:center; background:linear-gradient(135deg,#fff7ed,#ffedd5); border-color:var(--orange);">
+                    <h3 style="text-align:center; color:var(--orange-dark);">Уравнение $x^2 = a$</h3>
+                    <p style="font-size:20px;"><b>1.</b> Если $a > 0$, то $x = \pm\sqrt{a}$ <span style="color:var(--muted);font-size:16px;">(два корня)</span></p>
+                    <p style="font-size:20px;"><b>2.</b> Если $a = 0$, то $x = 0$ <span style="color:var(--muted);font-size:16px;">(один корень)</span></p>
+                    <p style="font-size:20px;"><b>3.</b> Если $a < 0$, то корней нет</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag result-tag">Первичное закрепление</span><h2 class="green">Решите уравнения</h2><p class="subtitle">Определи количество корней и запиши ответ.</p></div>
+            <div class="content">
+                <div class="static-grid">
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$x^2 = 49$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$x^2 = 0{,}25$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$x^2 = -9$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">$x^2 = 0$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">д</span><div class="static-expr">$x^2 = 12$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">е</span><div class="static-expr">$x^2 = \dfrac{4}{9}$</div></div><div class="static-work"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag theory-tag">Важный нюанс</span><h2 class="blue">Почему $x = \pm\sqrt{a}$?</h2></div>
+            <div class="content center">
+                <div class="theory-block">
+                    <h3>Знак $\pm$</h3>
+                    <p>Знак $\pm$ читается как «плюс-минус» и означает, что корней <b>два</b>: один с плюсом, другой с минусом.</p>
+                    <p>Например: $x^2 = 16 \Rightarrow x = \pm 4$. То есть $x_1 = 4$ и $x_2 = -4$.</p>
+                </div>
+                <div class="key-idea blue">Помни: $\sqrt{a}$ — это всегда <b>положительное</b> число. Минус мы дописываем сами, чтобы получить второй корень уравнения.</div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag result-tag">Практика</span><h2 class="green">Найдите корни уравнения</h2><p class="subtitle">Будь внимателен со знаками.</p></div>
+            <div class="content">
+                <div class="static-grid">
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$x^2 = 100$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$x^2 = -1$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$x^2 = 1{,}44$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">$x^2 = \dfrac{1}{16}$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">д</span><div class="static-expr">$x^2 = 7$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">е</span><div class="static-expr">$x^2 = \dfrac{25}{49}$</div></div><div class="static-work"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag result-tag">Самостоятельная работа</span><h2 class="green">Проверь себя</h2><p class="subtitle">Реши в тетради. Затем проверим.</p></div>
+            <div class="content">
+                <div class="static-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">$x^2 = 81$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">$x^2 = 0{,}09$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">$x^2 = -25$</div></div><div class="static-work"></div></div>
+                    <div class="static-cell"><div class="static-head"><span class="static-letter">4</span><div class="static-expr">$x^2 = \dfrac{9}{25}$</div></div><div class="static-work"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Итог</span><h2>Что мы узнали?</h2></div>
+            <div class="content center">
+                <div class="theory-block" style="text-align:center;">
+                    <p style="font-size:18px;">Уравнение $x^2 = a$ может иметь:</p>
+                    <p style="font-size:20px; margin-top:10px;"><b style="color:var(--ok);">Два корня</b>, если $a > 0$ ($x = \pm\sqrt{a}$)</p>
+                    <p style="font-size:20px;"><b style="color:var(--amber-dark);">Один корень</b>, если $a = 0$ ($x = 0$)</p>
+                    <p style="font-size:20px;"><b style="color:var(--err);">Нет корней</b>, если $a < 0$</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= БЛОК 3: ЗАМИНКА ================= -->
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Задание 1 · Верно или неверно?</span><h2>Проверь утверждение</h2></div>
+            <div class="content"><div class="tf-grid">
+                <div class="tf-card" data-answer="true"><div class="tf-text">Уравнение $x^2 = 16$ имеет два корня.</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+                <div class="tf-card" data-answer="false"><div class="tf-text">Уравнение $x^2 = -9$ имеет корень $x = -3$.</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+                <div class="tf-card" data-answer="true"><div class="tf-text">Уравнение $x^2 = 0$ имеет один корень.</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+            </div></div>
+        </section>
+        
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Задание 2 · Выбери ответ</span><h2>Сколько корней имеет уравнение?</h2></div>
+            <div class="content"><div class="quiz-wrap"><div class="quiz-card">
+                <div class="quiz-expr">$x^2 = 7$</div>
+                <div class="quiz-options">
+                    <button class="quiz-opt" onclick="checkQuiz(this, false)">Один</button>
+                    <button class="quiz-opt" onclick="checkQuiz(this, true)">Два</button>
+                    <button class="quiz-opt" onclick="checkQuiz(this, false)">Ни одного</button>
+                </div>
+            </div></div></div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Задание 3 · Выбери ответ</span><h2>Сколько корней имеет уравнение?</h2></div>
+            <div class="content"><div class="quiz-wrap"><div class="quiz-card">
+                <div class="quiz-expr">$x^2 = -2$</div>
+                <div class="quiz-options">
+                    <button class="quiz-opt" onclick="checkQuiz(this, false)">Один</button>
+                    <button class="quiz-opt" onclick="checkQuiz(this, false)">Два</button>
+                    <button class="quiz-opt" onclick="checkQuiz(this, true)">Ни одного</button>
+                </div>
+            </div></div></div>
+        </section>
+
+        <section class="slide">
+            <div class="slide-header"><span class="slide-tag">Итог · Рефлексия</span><h2>Как ты себя чувствуешь?</h2></div>
+            <div class="content"><div class="reflect-grid">
+                <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">😎</div><div class="reflect-text">Всё понял!</div></div>
+                <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">🙂</div><div class="reflect-text">В основном понял</div></div>
+                <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">🤔</div><div class="reflect-text">Есть вопросы</div></div>
+                <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">😕</div><div class="reflect-text">Пока сложно</div></div>
+            </div></div>
+        </section>
+
+    </main>
+
+    <nav class="algebra-nav">
+        <button class="nav-prev" disabled>← Назад</button>
+        <div class="nav-info" id="navInfo">Слайд 1 из 19</div>
+        <button class="nav-next">Далее →</button>
+    </nav>
+
+    <script src="../js/algebra.js"></script>
+</body>
+</html>
