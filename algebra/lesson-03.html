@@ -3,30 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Урок · Приближенные значения</title>
+<title>Приближенные значения корня</title>
 <script>MathJax = { tex: {inlineMath: [['$','$'],['\\(','\\)']]}, svg: {fontCache: 'global'} };</script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-  :root{ --orange:#ea580c;--orange-dark:#c2410c;--amber:#f59e0b;--ok:#10b981;--ok-light:#d1fae5;--err:#ef4444;--err-light:#fee2e2;--blue:#2563eb;--blue-dark:#1e40af;--blue-light:#dbeafe;--text:#1e293b;--muted:#78716c;--border:#fed7aa; }
-  *{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif;} html,body{margin:0;padding:0;height:100%;overflow:hidden;}
-  body{ background:radial-gradient(1200px 600px at 5% -5%, #ffedd5 0%, transparent 55%), radial-gradient(900px 500px at 100% 100%, #fef3c7 0%, transparent 55%), #fffbf5; color:var(--text);height:100vh;display:flex;flex-direction:column;position:relative; }
-  header{padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,251,245,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;position:relative;z-index:10;}
-  .header-title{font-size:13px;font-weight:800;color:var(--orange-dark);}
-  .progress-pills{display:flex;gap:3px;align-items:center;flex-wrap:wrap;}
-  .progress-pill{height:22px;min-width:22px;padding:0 6px;border-radius:11px;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--muted);cursor:pointer;transition:.2s;}
-  .progress-pill.active{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;} 
+  :root{
+    --orange:#ea580c;--orange-dark:#c2410c;--amber:#f59e0b;
+    --ok:#10b981;--ok-light:#d1fae5;--err:#ef4444;--err-light:#fee2e2;
+    --blue:#2563eb;--blue-dark:#1e40af;--blue-light:#dbeafe;
+    --text:#1e293b;--muted:#78716c;--border:#fed7aa;
+  }
+  *{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif;}
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;}
+  body{
+    background:radial-gradient(1200px 600px at 5% -5%, #ffedd5 0%, transparent 55%),
+               radial-gradient(900px 500px at 100% 100%, #fef3c7 0%, transparent 55%), #fffbf5;
+    color:var(--text);height:100vh;display:flex;flex-direction:column;
+  }
+  header{
+    padding:12px 24px;display:flex;justify-content:space-between;align-items:center;
+    background:rgba(255,251,245,.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);z-index:10;flex-wrap:wrap;gap:10px;
+  }
+  .header-title{font-size:14px;font-weight:800;color:var(--orange-dark);}
+  .progress-pills{display:flex;gap:4px;flex-wrap:wrap;}
+  .progress-pill{
+    height:24px;min-width:24px;padding:0 8px;border-radius:12px;background:#fff;
+    border:2px solid var(--border);display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:800;color:var(--muted);cursor:pointer;transition:.2s;
+  }
+  .progress-pill.active{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;}
   .progress-pill.done{background:var(--ok-light);color:var(--ok);border-color:var(--ok);}
-  
-  main{flex:1;padding:16px 20px 90px;display:flex;justify-content:center;position:relative;z-index:5;overflow:hidden;min-height:0;}
-  .slide{display:none;background:#fffdf9;border-radius:20px;padding:22px 32px;box-shadow:0 14px 50px rgba(234,88,12,.12);border:1px solid var(--border);width:100%;max-width:1500px;animation:fade .4s ease;position:relative;overflow:hidden;height:100%;flex-direction:column;}
-  .slide.active{display:flex;} @keyframes fade{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
-  .slide-header{flex-shrink:0;margin-bottom:16px;position:relative;z-index:2;}
-  .slide-tag{display:inline-block;background:#fef3c7;color:#d97706;padding:4px 12px;border-radius:16px;font-size:11px;font-weight:700;margin-bottom:8px;}
-  .slide h2{font-size:24px;margin:0 0 4px;color:var(--orange-dark);font-weight:800;} .slide .subtitle{color:var(--muted);font-size:14px;margin:0;}
-  .content{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:2;}
-  .content.center{align-items:center;justify-content:center;}
 
-  /* Стили для разных типов заданий */
+  main{flex:1;padding:16px 20px 80px;display:flex;justify-content:center;overflow:hidden;}
+  .slide{
+    display:none;background:#fffdf9;border-radius:20px;padding:30px 40px;
+    box-shadow:0 14px 50px rgba(234,88,12,.12);border:1px solid var(--border);
+    width:100%;max-width:1200px;animation:fade .4s ease;flex-direction:column;
+  }
+  .slide.active{display:flex;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  
+  .slide-header{flex-shrink:0;margin-bottom:24px;}
+  .slide-tag{display:inline-block;background:var(--blue-light);color:var(--blue-dark);padding:6px 14px;border-radius:16px;font-size:12px;font-weight:800;margin-bottom:10px;border:1px solid #93c5fd;}
+  .slide h2{font-size:28px;margin:0 0 6px;color:var(--orange-dark);font-weight:800;}
+  .slide h2.blue{color:var(--blue-dark);}
+  .slide .subtitle{color:var(--muted);font-size:16px;margin:0;}
+
+  .content{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;}
+  
+  /* Сетки */
+  .input-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .input-card{background:#fff;border:3px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:20px;text-align:center;justify-content:center;}
+  .input-card .point{font-size:26px;font-weight:800;color:var(--orange-dark);}
+  .input-card .row input{width:120px;padding:12px;border:3px solid var(--border);border-radius:10px;font-size:24px;text-align:center;font-weight:800;}
+  .input-card .row input.correct{background:var(--ok-light);border-color:var(--ok);} 
+  .input-card .row input.wrong{background:var(--err-light);border-color:var(--err);}
+
+  /* Флип-карты */
   .flip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;flex:1;min-height:0;align-content:center;}
   .flip-card{perspective:1200px;height:180px;cursor:pointer;}
   .flip-inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d;}
@@ -35,232 +69,196 @@
   .flip-front{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:700;}
   .flip-back{background:linear-gradient(135deg,#ecfdf5,#d1fae5);color:#065f46;font-weight:700;transform:rotateY(180deg);border:2px solid var(--ok);font-size:16px;}
 
-  .input-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0;align-content:center;}
-  .input-card{background:#fff;border:3px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px;text-align:center;justify-content:center;}
-  .input-card .point{font-size:22px;font-weight:800;color:var(--orange-dark);}
-  .input-card .row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:800;}
-  .input-card .row input{width:90px;padding:10px 6px;border:2px solid var(--border);border-radius:9px;font-size:18px;text-align:center;font-weight:800;}
-  .input-card .row input.correct{background:var(--ok-light);border-color:var(--ok);} .input-card .row input.wrong{background:var(--err-light);border-color:var(--err);}
-
+  /* ТФ */
   .tf-grid{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center;max-width:900px;margin:0 auto;width:100%;}
   .tf-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:16px 22px;display:flex;align-items:center;gap:18px;transition:.25s;}
-  .tf-card .tf-text{flex:1;font-size:17px;font-weight:600;} .tf-card .tf-btns{display:flex;gap:8px;}
-  .tf-btn{padding:10px 22px;border:2px solid var(--border);background:#fff;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;color:var(--muted);}
+  .tf-card .tf-text{flex:1;font-size:18px;font-weight:600;} .tf-card .tf-btns{display:flex;gap:8px;}
+  .tf-btn{padding:10px 22px;border:2px solid var(--border);background:#fff;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;transition:.2s;color:var(--muted);}
   .tf-btn.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;} .tf-btn.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
 
-  .quiz-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
-  .quiz-card{background:#fff;border:3px solid var(--border);border-radius:18px;padding:28px 40px;text-align:center;max-width:700px;width:100%;}
-  .quiz-card .quiz-expr{font-size:32px;font-weight:800;color:var(--orange-dark);margin-bottom:20px;}
-  .quiz-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-  .quiz-opt{padding:16px;border:3px solid var(--border);background:#fff;border-radius:12px;font-size:20px;font-weight:800;cursor:pointer;transition:.2s;color:var(--orange-dark);}
-  .quiz-opt.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;} .quiz-opt.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
+  /* Теория */
+  .theory-block{background:#fff;border:2px solid var(--border);border-radius:16px;padding:24px 32px;width:100%;text-align:center;}
+  .theory-block h3{margin:0 0 16px;font-size:24px;color:var(--blue-dark);} 
+  .theory-block p{font-size:20px;line-height:1.6;margin:12px 0;}
+  .formula-highlight{background:linear-gradient(135deg,#ffedd5,#fed7aa);border:2px solid var(--orange);border-radius:12px;padding:16px 24px;text-align:center;font-size:30px;font-weight:700;color:var(--orange-dark);margin:16px 0;}
+  .key-idea{background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:6px solid #d97706;border-radius:12px;padding:16px 24px;font-size:18px;line-height:1.6;width:100%;margin-top:20px;}
 
-  .static-grid{flex:1;display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;min-height:0;}
-  .static-grid-2{grid-template-columns:repeat(2, 1fr);}
-  .static-grid-4{grid-template-columns:repeat(4, 1fr); grid-template-rows:repeat(2, 1fr);}
-  .static-cell{background:#fff;border:2px dashed #f59e0b;border-radius:12px;padding:12px 14px;position:relative;display:flex;flex-direction:column;gap:8px;min-height:0;}
-  .static-cell::before{content:'✏️ Решение';position:absolute;top:-10px;left:14px;background:#fff;padding:0 8px;font-size:9.5px;font-weight:800;color:#d97706;text-transform:uppercase;border-radius:5px;}
-  .static-head{display:flex;align-items:flex-start;gap:8px;flex-shrink:0;}
-  .static-letter{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:800;font-size:12px;width:26px;height:26px;border-radius:8px;flex-shrink:0;}
-  .static-expr{background:rgba(255,247,237,.95);border-radius:7px;padding:6px 10px;font-size:16px;font-weight:600;border:1px solid rgba(234,88,12,.15);flex:1;}
-  .static-work{flex:1;border-radius:8px;background:linear-gradient(#fed7aa 1px, transparent 1px), linear-gradient(90deg, #fed7aa 1px, transparent 1px);background-size:18px 18px;min-height:80px;border:1px solid rgba(245,158,11,.15);}
+  /* Практика (Клетка) */
+  .static-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .static-cell{background:#fff;border:2px dashed #f59e0b;border-radius:14px;padding:14px;position:relative;display:flex;flex-direction:column;gap:10px;}
+  .static-cell::before{content:'✏️ Решение';position:absolute;top:-10px;left:16px;background:#fff;padding:0 8px;font-size:10px;font-weight:800;color:#d97706;text-transform:uppercase;border-radius:5px;}
+  .static-head{display:flex;align-items:flex-start;gap:10px;}
+  .static-letter{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:800;font-size:13px;width:28px;height:28px;border-radius:8px;flex-shrink:0;}
+  .static-expr{background:rgba(255,247,237,.95);border-radius:8px;padding:8px 12px;font-size:18px;font-weight:700;border:1px solid rgba(234,88,12,.15);flex:1;}
+  .static-work{flex:1;border-radius:10px;background:linear-gradient(#fed7aa 1px, transparent 1px), linear-gradient(90deg, #fed7aa 1px, transparent 1px);background-size:20px 20px;min-height:100px;border:1px solid rgba(245,158,11,.15);}
 
-  .reflect-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;flex:1;align-content:center;max-width:900px;margin:0 auto;width:100%;}
-  .reflect-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:.25s;}
-  .reflect-card.selected{border-color:var(--orange);background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;}
-  .reflect-emoji{font-size:38px;} .reflect-text{font-size:16px;font-weight:700;}
-
-  .theory-block{background:#fff;border:2px solid var(--border);border-radius:12px;padding:18px 24px;position:relative;width:100%;max-width:900px;}
-  .theory-block h3{margin:0 0 12px;font-size:18px;color:var(--blue-dark);font-weight:800;} .theory-block p{font-size:16px;line-height:1.75;margin:8px 0;}
-  .formula-highlight{background:linear-gradient(135deg,#ffedd5,#fed7aa);border:2px solid var(--orange);border-radius:12px;padding:14px 22px;text-align:center;font-size:26px;font-weight:700;color:var(--orange-dark);margin:10px 0;}
-  .formula-highlight.big{font-size:34px;padding:20px 30px;}
-  .key-idea{background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:5px solid #d97706;border-radius:12px;padding:14px 20px;font-size:15px;line-height:1.65;margin:8px 0;width:100%;max-width:900px;}
-  .key-idea.blue{background:linear-gradient(135deg,#dbeafe,#bfdbfe);border-left-color:var(--blue-dark);}
-
-  nav{position:fixed;bottom:0;left:0;right:0;padding:10px 24px;background:rgba(255,251,245,.9);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;z-index:100;}
-  nav button{padding:9px 22px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;} nav .nav-prev{background:#fff;color:var(--orange);border:2px solid var(--orange);} nav .nav-next{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;} nav button:disabled{opacity:.4;}
-  nav .nav-info{font-size:12px;font-weight:700;color:var(--muted);}
+  /* Навигация */
+  nav{position:fixed;bottom:0;left:0;right:0;padding:12px 24px;background:rgba(255,251,245,.9);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;z-index:100;}
+  nav button{padding:10px 24px;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;} 
+  nav .nav-prev{background:#fff;color:var(--orange);border:2px solid var(--orange);} 
+  nav .nav-next{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;} 
+  nav button:disabled{opacity:.4;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-title">Приближенные значения · Полный урок</div>
+  <div class="header-title">Приближенные значения корня</div>
   <div class="progress-pills">
-    <div class="progress-pill active" data-slide="0">1</div><div class="progress-pill" data-slide="1">2</div><div class="progress-pill" data-slide="2">3</div><div class="progress-pill" data-slide="3">4</div><div class="progress-pill" data-slide="4">5</div><div class="progress-pill" data-slide="5">6</div><div class="progress-pill" data-slide="6">7</div><div class="progress-pill" data-slide="7">8</div><div class="progress-pill" data-slide="8">9</div><div class="progress-pill" data-slide="9">10</div><div class="progress-pill" data-slide="10">11</div><div class="progress-pill" data-slide="11">12</div><div class="progress-pill" data-slide="12">13</div><div class="progress-pill" data-slide="13">14</div><div class="progress-pill" data-slide="14">15</div><div class="progress-pill" data-slide="15">16</div><div class="progress-pill" data-slide="16">17</div><div class="progress-pill" data-slide="17">18</div><div class="progress-pill" data-slide="18">19</div><div class="progress-pill" data-slide="19">20</div><div class="progress-pill" data-slide="20">21</div><div class="progress-pill" data-slide="21">22</div>
+    <div class="progress-pill active" data-slide="0">1</div><div class="progress-pill" data-slide="1">2</div><div class="progress-pill" data-slide="2">3</div><div class="progress-pill" data-slide="3">4</div><div class="progress-pill" data-slide="4">5</div><div class="progress-pill" data-slide="5">6</div><div class="progress-pill" data-slide="6">7</div><div class="progress-pill" data-slide="7">8</div><div class="progress-pill" data-slide="8">9</div><div class="progress-pill" data-slide="9">10</div><div class="progress-pill" data-slide="10">11</div><div class="progress-pill" data-slide="11">12</div><div class="progress-pill" data-slide="12">13</div><div class="progress-pill" data-slide="13">14</div><div class="progress-pill" data-slide="14">15</div><div class="progress-pill" data-slide="15">16</div><div class="progress-pill" data-slide="16">17</div><div class="progress-pill" data-slide="17">18</div><div class="progress-pill" data-slide="18">19</div>
   </div>
 </header>
-<!-- ============ АКТУАЛИЗАЦИЯ ============ -->
 
-  <!-- Слайд 1: Флип-карточки (оценка) -->
+<main>
+  <!-- ====== 1-6: АКТУАЛИЗАЦИЯ ====== -->
   <section class="slide active">
-    <div class="slide-header">
-      <span class="slide-tag">Актуализация · Задание 1</span>
-      <h2>Что значит «оценить число»?</h2>
-      <p class="subtitle">Нажми на карточку, чтобы перевернуть</p>
-    </div>
-    <div class="content">
-      <div class="flip-grid">
-        <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner">
-          <div class="flip-front">Между какими целыми числами находится число $5{,}3$?</div>
-          <div class="flip-back">Между $5$ и $6$.<br><small>$5 < 5{,}3 < 6$</small></div>
-        </div></div>
-        <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner">
-          <div class="flip-front">Между какими целыми числами находится $0{,}8$?</div>
-          <div class="flip-back">Между $0$ и $1$.<br><small>$0 < 0{,}8 < 1$</small></div>
-        </div></div>
-        <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner">
-          <div class="flip-front">Что больше: $2{,}7$ или $2{,}71$?</div>
-          <div class="flip-back">$2{,}71$, так как $71 > 70$.</div>
-        </div></div>
-        <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner">
-          <div class="flip-front">Как округлить $4{,}38$ до десятых?</div>
-          <div class="flip-back">Смотрим на сотые (8). Если $\ge 5$, прибавляем 1 к десятым.<br><small>$\approx 4{,}4$</small></div>
-        </div></div>
-      </div>
-    </div>
+    <div class="slide-header"><span class="slide-tag">Актуализация · 1</span><h2>Что значит «оценить число»?</h2></div>
+    <div class="content"><div class="flip-grid">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Между какими целыми числами находится число $5{,}3$?</div><div class="flip-back">Между $5$ и $6$.<br><small>$5 < 5{,}3 < 6$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Между какими целыми числами находится $0{,}8$?</div><div class="flip-back">Между $0$ и $1$.<br><small>$0 < 0{,}8 < 1$</small></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Что больше: $2{,}7$ или $2{,}71$?</div><div class="flip-back">$2{,}71$, так как $71 > 70$.</div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">Как округлить $4{,}38$ до десятых?</div><div class="flip-back">Смотрим на сотые (8). Если $\ge 5$, то прибавляем 1 к десятым.<br><small>$\approx 4{,}4$</small></div></div></div>
+    </div></div>
   </section>
 
-  <!-- Слайд 2: Вставь целое число -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Актуализация · Задание 2</span>
-      <h2>Вставь целое число</h2>
-    </div>
-    <div class="content">
-      <div class="input-grid">
-        <div class="input-card" data-answer="3"><div class="point">$2 < \square < 4$</div><div class="row"><input type="text" data-k="3" onchange="checkInput(this)"></div></div>
-        <div class="input-card" data-answer="7"><div class="point">$6 < \square < 8$</div><div class="row"><input type="text" data-k="7" onchange="checkInput(this)"></div></div>
-        <div class="input-card" data-answer="0"><div class="point">$-1 < \square < 1$</div><div class="row"><input type="text" data-k="0" onchange="checkInput(this)"></div></div>
-      </div>
-    </div>
+    <div class="slide-header"><span class="slide-tag">Актуализация · 2</span><h2>Вставь целое число</h2></div>
+    <div class="content"><div class="input-grid">
+      <div class="input-card" data-answer="3"><div class="point">$2 < \square < 4$</div><div class="row"><input type="text" data-k="3" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="7"><div class="point">$6 < \square < 8$</div><div class="row"><input type="text" data-k="7" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="0"><div class="point">$-1 < \square < 1$</div><div class="row"><input type="text" data-k="0" onchange="checkInput(this)"></div></div>
+    </div></div>
   </section>
 
-  <!-- Слайд 3: Таблица квадратов -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Актуализация · Задание 3</span>
-      <h2>Вспомни таблицу квадратов</h2>
-      <p class="subtitle">Нажми на карточку, чтобы увидеть ответ</p>
-    </div>
-    <div class="content">
-      <div class="flip-grid" style="grid-template-columns:repeat(4,1fr);">
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$1^2$</div><div class="flip-back">$1$</div></div></div>
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$2^2$</div><div class="flip-back">$4$</div></div></div>
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$3^2$</div><div class="flip-back">$9$</div></div></div>
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$4^2$</div><div class="flip-back">$16$</div></div></div>
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$5^2$</div><div class="flip-back">$25$</div></div></div>
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$6^2$</div><div class="flip-back">$36$</div></div></div>
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$7^2$</div><div class="flip-back">$49$</div></div></div>
-        <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$8^2$</div><div class="flip-back">$64$</div></div></div>
-      </div>
-    </div>
+    <div class="slide-header"><span class="slide-tag">Актуализация · 3</span><h2>Вспомни таблицу квадратов</h2></div>
+    <div class="content"><div class="flip-grid" style="grid-template-columns:repeat(4,1fr);">
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$1^2$</div><div class="flip-back">$1$</div></div></div>
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$2^2$</div><div class="flip-back">$4$</div></div></div>
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$3^2$</div><div class="flip-back">$9$</div></div></div>
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$4^2$</div><div class="flip-back">$16$</div></div></div>
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$5^2$</div><div class="flip-back">$25$</div></div></div>
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$6^2$</div><div class="flip-back">$36$</div></div></div>
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$7^2$</div><div class="flip-back">$49$</div></div></div>
+      <div class="flip-card" style="height:120px;" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front">$8^2$</div><div class="flip-back">$64$</div></div></div>
+    </div></div>
   </section>
 
-  <!-- Слайд 4: Вычисли корни -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Актуализация · Задание 4</span>
-      <h2>Вычисли корни</h2>
-    </div>
-    <div class="content">
-      <div class="input-grid">
-        <div class="input-card" data-answer="4"><div class="point">$\sqrt{16}$</div><div class="row"><input type="text" data-k="4" onchange="checkInput(this)"></div></div>
-        <div class="input-card" data-answer="7"><div class="point">$\sqrt{49}$</div><div class="row"><input type="text" data-k="7" onchange="checkInput(this)"></div></div>
-        <div class="input-card" data-answer="10"><div class="point">$\sqrt{100}$</div><div class="row"><input type="text" data-k="10" onchange="checkInput(this)"></div></div>
-      </div>
-    </div>
+    <div class="slide-header"><span class="slide-tag">Актуализация · 4</span><h2>Округли до указанного разряда</h2></div>
+    <div class="content"><div class="input-grid" style="grid-template-columns:repeat(3,1fr); gap:20px;">
+      <div class="input-card" data-answer="3.8"><div class="point">$3{,}76$ до десятых</div><div class="row"><input type="text" data-k="3.8" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="5"><div class="point">$5{,}42$ до целых</div><div class="row"><input type="text" data-k="5" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="7.1"><div class="point">$7{,}05$ до десятых</div><div class="row"><input type="text" data-k="7.1" onchange="checkInput(this)"></div></div>
+    </div></div>
   </section>
 
-  <!-- Слайд 5: Выбери ответ (сравнение) -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Актуализация · Задание 5</span>
-      <h2>Сравни числа</h2>
-    </div>
-    <div class="content center">
-      <div class="quiz-card" style="max-width:600px;">
-        <div class="quiz-expr">$\sqrt{10}$ или $3$?</div>
-        <p style="color:var(--muted); font-size:16px; margin-bottom:20px;">(Подсказка: возведи 3 в квадрат)</p>
-        <div class="quiz-options" style="grid-template-columns:repeat(2,1fr);">
-          <button class="quiz-opt" onclick="checkQuizGeneric(this, true)">$\sqrt{10}$</button>
-          <button class="quiz-opt" onclick="checkQuizGeneric(this, false)">$3$</button>
-        </div>
+    <div class="slide-header"><span class="slide-tag">Актуализация · 5</span><h2>Сравни числа</h2></div>
+    <div class="content">
+      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; flex:1; align-content:center; max-width:900px; margin:0 auto; width:100%;">
+        <div class="tf-card" data-answer=">"><div class="tf-text">$\sqrt{10} \ \square \ 3$</div><div class="tf-btns"><button class="tf-btn" onclick="checkCompare(this, '<')">&lt;</button><button class="tf-btn" onclick="checkCompare(this, '>')">&gt;</button><button class="tf-btn" onclick="checkCompare(this, '=')">=</button></div></div>
+        <div class="tf-card" data-answer="<"><div class="tf-text">$\sqrt{15} \ \square \ 4$</div><div class="tf-btns"><button class="tf-btn" onclick="checkCompare(this, '<')">&lt;</button><button class="tf-btn" onclick="checkCompare(this, '>')">&gt;</button><button class="tf-btn" onclick="checkCompare(this, '=')">=</button></div></div>
+        <div class="tf-card" data-answer="="><div class="tf-text">$\sqrt{16} \ \square \ 4$</div><div class="tf-btns"><button class="tf-btn" onclick="checkCompare(this, '<')">&lt;</button><button class="tf-btn" onclick="checkCompare(this, '>')">&gt;</button><button class="tf-btn" onclick="checkCompare(this, '=')">=</button></div></div>
+        <div class="tf-card" data-answer=">"><div class="tf-text">$\sqrt{20} \ \square \ 4{,}5$</div><div class="tf-btns"><button class="tf-btn" onclick="checkCompare(this, '<')">&lt;</button><button class="tf-btn" onclick="checkCompare(this, '>')">&gt;</button><button class="tf-btn" onclick="checkCompare(this, '=')">=</button></div></div>
       </div>
     </div>
   </section>
-  <!-- ============ ОТКРЫТИЕ ============ -->
 
-  <!-- Слайд 6: Титул -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag">Актуализация · 6</span><h2>Извлеки корень</h2></div>
+    <div class="content"><div class="input-grid">
+      <div class="input-card" data-answer="4"><div class="point">$\sqrt{16}$</div><div class="row"><input type="text" data-k="4" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="7"><div class="point">$\sqrt{49}$</div><div class="row"><input type="text" data-k="7" onchange="checkInput(this)"></div></div>
+      <div class="input-card" data-answer="10"><div class="point">$\sqrt{100}$</div><div class="row"><input type="text" data-k="10" onchange="checkInput(this)"></div></div>
+    </div></div>
+  </section>
+
+  <!-- ====== 7-12: ОТКРЫТИЕ ====== -->
   <section class="slide">
     <div class="content center">
       <div style="text-align:center;">
-        <span class="slide-tag theory-tag">Новая тема</span>
+        <span class="slide-tag">Новая тема</span>
         <h2 style="font-size:44px;margin:18px 0 8px;">Приближенные значения</h2>
-        <p style="font-size:19px;color:var(--muted);margin:0 0 34px;">Как найти корень, если он не извлекается?</p>
-        <div class="formula-highlight big" style="display:inline-block;">$\sqrt{2} \approx ?$</div>
+        <p style="font-size:20px;color:var(--muted);margin:0 0 34px;">Как найти корень, если он не извлекается?</p>
+        <div class="formula-highlight big" style="display:inline-block;">$\sqrt{15} \approx ?$</div>
       </div>
     </div>
   </section>
 
-  <!-- Слайд 7: Целеполагание -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag theory-tag">Проблема</span>
-      <h2 class="blue">Как найти $\sqrt{2}$?</h2>
-    </div>
+    <div class="slide-header"><span class="slide-tag">Шаг 1 · Целая часть</span><h2 class="blue">Оцениваем корень</h2></div>
     <div class="content center">
       <div class="theory-block">
-        <h3>Мы знаем, что:</h3>
-        <p>$1^2 = 1$ и $2^2 = 4$. Значит, $\sqrt{2}$ — это какое-то число между $1$ и $2$.</p>
-      </div>
-      <div class="key-idea blue"><b>Цель:</b> научиться находить приближенные значения корней с точностью до десятых и сотых.</div>
-    </div>
-  </section>
-
-  <!-- Слайд 8: Открытие (оценка корня) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag theory-tag">Открытие</span>
-      <h2 class="blue">Оценка корня по квадратам</h2>
-    </div>
-    <div class="content center">
-      <div class="theory-block">
-        <h3>Пример: $\sqrt{15}$</h3>
-        <p>Найдем два соседних числа, квадраты которых «окружают» $15$.</p>
-        <p>$3^2 = 9$, &nbsp; $4^2 = 16$.</p>
-        <p>Так как $9 < 15 < 16$, то $\sqrt{9} < \sqrt{15} < \sqrt{16}$, то есть $3 < \sqrt{15} < 4$.</p>
+        <h3>Возьмем число $\sqrt{15}$</h3>
+        <p>Нам нужны два соседних целых числа, между которыми он находится.</p>
+        <p>Возведем в квадрат $3$ и $4$:</p>
+        <div class="formula-highlight" style="font-size:24px;">$3^2 = 9$ &nbsp;&nbsp;&nbsp; $4^2 = 16$</div>
+        <p>Так как $9 < 15 < 16$, то корень находится между $3$ и $4$.</p>
         <div class="formula-highlight">$3 < \sqrt{15} < 4$</div>
       </div>
-      <div class="key-idea">Значит, $\sqrt{15} \approx 3{,}8\ldots$ (уточняем дальше).</div>
     </div>
   </section>
 
-  <!-- Слайд 9: Алгоритм -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag theory-tag">Алгоритм</span>
-      <h2 class="blue">Как найти с точностью до десятых?</h2>
-    </div>
+    <div class="slide-header"><span class="slide-tag">Шаг 2 · Десятые</span><h2 class="blue">Уточняем до десятых</h2></div>
     <div class="content center">
       <div class="theory-block">
-        <p><b>Шаг 1.</b> Находим целую часть (между какими целыми лежит).</p>
-        <p><b>Шаг 2.</b> Возводим в квадрат числа с десятыми: $3{,}1^2$, $3{,}2^2$ и т.д.</p>
-        <p><b>Шаг 3.</b> Смотрим, между квадратами каких чисел лежит наше число.</p>
+        <p>Проверим числа с десятыми между $3$ и $4$: $3{,}1; 3{,}2; 3{,}3$ и т.д.</p>
+        <p>Нам нужно найти такие два соседних, чтобы $15$ оказалось между их квадратами.</p>
+        <div class="formula-highlight" style="font-size:24px;">$3{,}8^2 = 14{,}44$ &nbsp;&nbsp;&nbsp; $3{,}9^2 = 15{,}21$</div>
+        <p>Мы видим, что $14{,}44 < 15 < 15{,}21$.</p>
+        <div class="formula-highlight">$3{,}8 < \sqrt{15} < 3{,}9$</div>
+        <p style="font-size:20px; font-weight:bold; color:var(--ok); margin-top:16px;">Значит, $\sqrt{15} \approx 3{,}8$</p>
       </div>
-      <div class="key-idea blue">Например, для $\sqrt{15}$: $3{,}8^2 = 14{,}44$, $3{,}9^2 = 15{,}21$. Так как $14{,}44 < 15 < 15{,}21$, то $\sqrt{15} \approx 3{,}8$.</div>
     </div>
   </section>
 
-  <!-- Слайд 10: Практика (оцените корень) -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Практика</span>
-      <h2 class="green">Оцените корень</h2>
-      <p class="subtitle">Запишите ответ в виде двойного неравенства.</p>
+    <div class="slide-header"><span class="slide-tag">Шаг 3 · Калькулятор</span><h2 class="blue">Как найти корень на практике?</h2></div>
+    <div class="content center">
+      <div class="theory-block">
+        <p>На практике приближенное значение вычисляют с помощью калькулятора.</p>
+        <p>Набираем число и нажимаем кнопку <b>$\sqrt{\phantom{a}}$</b>.</p>
+        <div class="formula-highlight" style="display:flex; justify-content:center; align-items:center; gap:10px; font-size:22px;">
+          <span style="border:2px solid var(--border); padding:4px 12px; border-radius:8px;">$1444$</span><span>$\rightarrow$</span><span style="border:2px solid var(--border); padding:4px 12px; border-radius:8px;">$\sqrt{\phantom{a}}$</span><span>$\rightarrow$</span><span style="border:2px solid var(--border); padding:4px 12px; border-radius:8px;">$38$</span>
+        </div>
+        <p style="font-size:24px; font-weight:bold; color:var(--ok);">$\sqrt{1444} = 38$</p>
+      </div>
     </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag">Шаг 4 · Многоточие</span><h2 class="blue">Не для всех чисел корень — целый</h2></div>
+    <div class="content center">
+      <div class="theory-block" style="text-align:left;">
+        <p>Например, с помощью калькулятора находим:</p>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:24px; font-weight:bold; margin:20px 0; color:var(--orange-dark); text-align:center;">
+          <p>$\sqrt{2} = 1{,}41421356\ldots$</p><p>$\sqrt{3} = 1{,}73050807\ldots$</p><p>$\sqrt{5} = 2{,}23360679\ldots$</p>
+        </div>
+        <div class="key-idea"><b>Важно:</b> Многоточие показывает, что дробь <b>бесконечно продолжается</b>. Мы никогда не получим точный ответ, поэтому берут <b>приближенные значения</b>.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag">Шаг 5 · Точность</span><h2 class="blue">По недостатку и по избытку</h2></div>
     <div class="content">
-      <div class="static-grid-2 static-grid">
+      <div class="theory-block" style="text-align: left; padding: 20px 30px;">
+        <p style="font-size:18px;">Запишем систему двойных неравенств для $\sqrt{2}$:</p>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:8px; margin:20px 0; font-size:22px; font-weight:600; color:var(--blue-dark);">
+          <div>$1 < \sqrt{2} < 2$</div><div>$1{,}4 < \sqrt{2} < 1{,}5$</div><div>$1{,}41 < \sqrt{2} < 1{,}42$</div><div>$1{,}414 < \sqrt{2} < 1{,}415$</div>
+        </div>
+        <p style="font-size:16px; color:var(--muted);">Числа слева — <b>по недостатку</b> (меньше). Числа справа — <b>по избытку</b> (больше).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 13-17: ПРАКТИКА ====== -->
+  <section class="slide">
+    <div class="slide-header"><span class="slide-tag" style="background:var(--ok-light); color:#065f46;">Практика · 1</span><h2 class="green">Оцените корень</h2><p class="subtitle">Запишите ответ в виде двойного неравенства.</p></div>
+    <div class="content">
+      <div class="static-grid">
         <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$\sqrt{20}$</div></div><div class="static-work"></div></div>
         <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$\sqrt{38}$</div></div><div class="static-work"></div></div>
         <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$\sqrt{75}$</div></div><div class="static-work"></div></div>
@@ -269,95 +267,21 @@
     </div>
   </section>
 
-  <!-- Слайд 11: Сравнение чисел -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag theory-tag">Применение</span>
-      <h2 class="blue">Сравнение чисел</h2>
-    </div>
-    <div class="content center">
-      <div class="theory-block">
-        <h3>Пример: Сравним $\sqrt{10}$ и $3{,}2$</h3>
-        <p>Возведем оба числа в квадрат:</p>
-        <p>$(\sqrt{10})^2 = 10$</p>
-        <p>$(3{,}2)^2 = 10{,}24$</p>
-        <p>Так как $10 < 10{,}24$, то $\sqrt{10} < 3{,}2$.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 12: Итог -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Итог</span>
-      <h2>Что мы узнали?</h2>
-    </div>
-    <div class="content center">
-      <div class="theory-block" style="text-align:center;">
-        <p style="font-size:18px;">Чтобы найти приближенное значение корня, нужно:</p>
-        <p style="font-size:20px; margin-top:10px;">1. Найти соседние целые числа.</p>
-        <p style="font-size:20px;">2. Уточнить десятые доли.</p>
-        <p style="font-size:20px;">3. Возводить в квадрат для проверки.</p>
-      </div>
-    </div>
-  </section>
-  <!-- ============ ОСНОВНОЙ УРОК (ЗАКРЕПЛЕНИЕ) ============ -->
-
-  <!-- Слайд 13: Титул -->
-  <section class="slide">
-    <div class="content center">
-      <div style="text-align:center;">
-        <span class="slide-tag theory-tag">Урок 2</span>
-        <h2 style="font-size:44px;margin:18px 0 8px;">Приближенные значения</h2>
-        <p style="font-size:19px;color:var(--muted);margin:0 0 34px;">Закрепление. Работа с координатной прямой</p>
-        <div class="formula-highlight big" style="display:inline-block;">$\sqrt{a} \approx ?$</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 14: Подбери числа (№ 329) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 1 · Оценка</span>
-      <h2 class="green">Подберите два последовательных целых числа</h2>
-      <p class="subtitle">Между которыми заключено число.</p>
-    </div>
+    <div class="slide-header"><span class="slide-tag" style="background:var(--ok-light); color:#065f46;">Практика · 2</span><h2 class="green">Подберите целые числа</h2><p class="subtitle">№ 329</p></div>
     <div class="content">
-      <div class="static-grid-4 static-grid">
+      <div class="static-grid">
         <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$\sqrt{27}$</div></div><div class="static-work"></div></div>
         <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$\sqrt{40}$</div></div><div class="static-work"></div></div>
         <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$\sqrt{120}$</div></div><div class="static-work"></div></div>
         <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">$\sqrt{9{,}2}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">д</span><div class="static-expr">$\sqrt{0{,}4}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">е</span><div class="static-expr">$\sqrt{15}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">ж</span><div class="static-expr">$\sqrt{167}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">з</span><div class="static-expr">$\sqrt{288}$</div></div><div class="static-work"></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Слайд 15: Цифры разрядов (№ 330) -->
+   <!-- ====== 17: ПРАКТИКА (Продолжение) ====== -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 2 · Разряды</span>
-      <h2 class="green">Найдите цифры разрядов</h2>
-      <p class="subtitle">Единиц, десятых, сотых в десятичной записи чисел.</p>
-    </div>
-    <div class="content">
-      <div class="static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$\sqrt{3}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$\sqrt{5}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$\sqrt{6}$</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 16: Верно ли (№ 331) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 3 · Верно ли?</span>
-      <h2 class="green">Верно ли утверждение</h2>
-    </div>
+    <div class="slide-header"><span class="slide-tag" style="background:var(--ok-light); color:#065f46;">Практика · 3</span><h2 class="green">Верно ли утверждение?</h2><p class="subtitle">№ 331</p></div>
     <div class="content">
       <div class="tf-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:1000px;">
         <div class="tf-card" data-answer="true"><div class="tf-text">число $\sqrt{5}$ больше 2</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
@@ -368,12 +292,9 @@
     </div>
   </section>
 
-  <!-- Слайд 17: Координатная прямая (№ 332, 333, 166) -->
+  <!-- ====== 18: ПРАКТИКА (Прямая) ====== -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 4 · Прямая</span>
-      <h2 class="green">Какое число отмечено точкой?</h2>
-    </div>
+    <div class="slide-header"><span class="slide-tag" style="background:var(--ok-light); color:#065f46;">Практика · 4</span><h2 class="green">Какое число отмечено точкой?</h2><p class="subtitle">№ 332, 333</p></div>
     <div class="content">
       <div class="static-grid">
         <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Точка $A$ (рис. 14): $\sqrt{1{,}4}; \sqrt{2}; \sqrt{7}; \sqrt{5{,}2}$</div></div><div class="static-work"></div></div>
@@ -383,104 +304,40 @@
     </div>
   </section>
 
-  <!-- Слайд 18: Прямая (№ 167, 168) -->
+  <!-- ====== 19: ЗАМИНКА (Блиц) ====== -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 5 · Построй точки</span>
-      <h2 class="green">Координатная прямая</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid-2 static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">Отметьте приближенные значения: $\sqrt{2}; \sqrt{5}; \sqrt{7}$ (1 ед. = 10 клеток)</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">Постройте точки $A(3); B(-\frac{1}{2}); C(\sqrt{2}); D(-2{,}5); E(-\sqrt{3})$</div></div><div class="static-work"></div></div>
+    <div class="slide-header"><span class="slide-tag">Заминка · Задание 1</span><h2>Между какими целыми числами?</h2></div>
+    <div class="content center">
+      <div class="input-grid">
+        <div class="input-card" data-answer="2"><div class="point">$\sqrt{5}$</div><div class="row">$\square < \sqrt{5} < \square$</div><input type="text" data-k="2" onchange="checkInput(this)"></div>
+        <div class="input-card" data-answer="5"><div class="point">$\sqrt{30}$</div><div class="row">$\square < \sqrt{30} < \square$</div><input type="text" data-k="5" onchange="checkInput(this)"></div>
+        <div class="input-card" data-answer="8"><div class="point">$\sqrt{70}$</div><div class="row">$\square < \sqrt{70} < \square$</div><input type="text" data-k="8" onchange="checkInput(this)"></div>
       </div>
     </div>
   </section>
 
-  <!-- Слайд 19: Самостоятельная работа -->
+  <!-- ====== 20: ЗАМИНКА (Что больше) ====== -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Самостоятельная работа</span>
-      <h2 class="green">Проверь себя</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid-2 static-grid" style="grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Отметьте приближенные значения: $\sqrt{3}; \sqrt{10}; \sqrt{15}; -\sqrt{3}; -\sqrt{10}; -\sqrt{15}$ (1 ед. = 2 клетки)</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">Постройте точки $A(2); B(-0{,}8); C(-\sqrt{2}); D(3{,}5); E(\sqrt{5})$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">Назовите два последовательных целых числа, между которыми заключено: $\sqrt{3}; \sqrt{10}; \sqrt{17}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">4</span><div class="static-expr">Найдите все целые числа между $\sqrt{45}$ и $\sqrt{102}$</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-  <!-- ============ ЗАМИНКА ============ -->
-
-  <!-- Слайд 20: Верно/Неверно -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Заминка · Задание 1</span>
-      <h2>Верно или неверно?</h2>
-    </div>
-    <div class="content">
-      <div class="tf-grid">
-        <div class="tf-card" data-answer="true"><div class="tf-text">$\sqrt{5}$ находится между 2 и 3</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
-        <div class="tf-card" data-answer="false"><div class="tf-text">$\sqrt{12}$ находится между 2 и 3</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
-        <div class="tf-card" data-answer="true"><div class="tf-text">$4 < \sqrt{20} < 5$</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+    <div class="slide-header"><span class="slide-tag">Заминка · Задание 2</span><h2>Что больше?</h2></div>
+    <div class="content center">
+      <div class="tf-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:900px;">
+        <div class="tf-card" data-answer=">"><div class="tf-text">$\sqrt{10}$ и $3$</div><div class="tf-btns"><button class="tf-btn" onclick="checkCompare(this, '<')">&lt;</button><button class="tf-btn" onclick="checkCompare(this, '>')">&gt;</button><button class="tf-btn" onclick="checkCompare(this, '=')">=</button></div></div>
+        <div class="tf-card" data-answer="<"><div class="tf-text">$\sqrt{5}$ и $2{,}5$</div><div class="tf-btns"><button class="tf-btn" onclick="checkCompare(this, '<')">&lt;</button><button class="tf-btn" onclick="checkCompare(this, '>')">&gt;</button><button class="tf-btn" onclick="checkCompare(this, '=')">=</button></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Слайд 21: Блиц (между какими целыми) -->
+  <!-- ====== 21: РЕФЛЕКСИЯ ====== -->
   <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Заминка · Задание 2</span>
-      <h2>Между какими целыми числами?</h2>
-    </div>
-    <div class="content">
-      <div class="quiz-wrap">
-        <div class="quiz-card">
-          <div class="quiz-expr">$\sqrt{8}$</div>
-          <div class="quiz-options">
-            <button class="quiz-opt" onclick="checkQuizGeneric(this, false)">1 и 2</button>
-            <button class="quiz-opt" onclick="checkQuizGeneric(this, true)">2 и 3</button>
-            <button class="quiz-opt" onclick="checkQuizGeneric(this, false)">3 и 4</button>
-          </div>
+    <div class="slide-header"><span class="slide-tag">Рефлексия</span><h2>Как ты себя чувствуешь?</h2></div>
+    <div class="content center">
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px; max-width:800px;">
+        <div style="background:#fff; padding:20px; border-radius:14px; border:2px solid var(--border); text-align:center; cursor:pointer;">
+          <div style="font-size:40px;">😎</div><div style="font-size:18px; font-weight:bold; margin-top:10px;">Всё понял!</div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 22: Блиц (что больше) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag">Заминка · Задание 3</span>
-      <h2>Что больше?</h2>
-    </div>
-    <div class="content">
-      <div class="quiz-wrap">
-        <div class="quiz-card">
-          <div class="quiz-expr">$\sqrt{10}$ или $3{,}1$</div>
-          <div class="quiz-options">
-            <button class="quiz-opt" onclick="checkQuizGeneric(this, true)">$\sqrt{10}$</button>
-            <button class="quiz-opt" onclick="checkQuizGeneric(this, false)">$3{,}1$</button>
-            <button class="quiz-opt" onclick="checkQuizGeneric(this, false)">Равны</button>
-          </div>
+        <div style="background:#fff; padding:20px; border-radius:14px; border:2px solid var(--border); text-align:center; cursor:pointer;">
+          <div style="font-size:40px;">🤔</div><div style="font-size:18px; font-weight:bold; margin-top:10px;">Есть вопросы</div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 23: Рефлексия -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag reflect-tag">Рефлексия</span>
-      <h2>Как ты себя чувствуешь?</h2>
-    </div>
-    <div class="content">
-      <div class="reflect-grid">
-        <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">😎</div><div class="reflect-text">Всё понял!</div></div>
-        <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">🙂</div><div class="reflect-text">В основном понял</div></div>
-        <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">🤔</div><div class="reflect-text">Есть вопросы</div></div>
-        <div class="reflect-card" onclick="selectReflect(this)"><div class="reflect-emoji">😕</div><div class="reflect-text">Пока сложно</div></div>
       </div>
     </div>
   </section>
@@ -489,7 +346,7 @@
 
 <nav>
   <button class="nav-prev" onclick="changeSlide(-1)" disabled>← Назад</button>
-  <div class="nav-info" id="navInfo">Слайд 1 из 23</div>
+  <div class="nav-info" id="navInfo">Слайд 1 из 21</div>
   <button class="nav-next" onclick="changeSlide(1)">Далее →</button>
 </nav>
 
@@ -497,16 +354,20 @@
 var current = 0;
 var slides = document.querySelectorAll('.slide');
 var total = slides.length;
+var prevBtn = document.querySelector('.nav-prev');
+var nextBtn = document.querySelector('.nav-next');
+var navInfo = document.getElementById('navInfo');
+var pills = document.querySelectorAll('.progress-pill');
 
 function showSlide(i){
   slides.forEach((s, idx)=>s.classList.toggle('active', idx === i));
-  document.querySelectorAll('.progress-pill').forEach((p, idx)=>{
+  pills.forEach((p, idx)=>{
     p.classList.toggle('active', idx === i);
     p.classList.toggle('done', idx < i);
   });
-  document.querySelector('.nav-prev').disabled = (i === 0);
-  document.querySelector('.nav-next').disabled = (i === total - 1);
-  document.getElementById('navInfo').textContent = 'Слайд ' + (i + 1) + ' из ' + total;
+  prevBtn.disabled = (i === 0);
+  nextBtn.disabled = (i === total - 1);
+  navInfo.textContent = 'Слайд ' + (i + 1) + ' из ' + total;
   renderMath();
 }
 
@@ -515,7 +376,7 @@ function changeSlide(dir){
   showSlide(current);
 }
 
-document.querySelectorAll('.progress-pill').forEach((p, idx)=>{
+pills.forEach((p, idx)=>{
   p.addEventListener('click', function(){ current = idx; showSlide(current); });
 });
 
@@ -523,7 +384,7 @@ function renderMath(){
   if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
 }
 
-/* Проверка ввода целых чисел */
+/* Проверка ввода (целые и десятичные) */
 function checkInput(inp){
   var card = inp.closest('.input-card');
   if(card.dataset.answered === 'true') return;
@@ -552,33 +413,21 @@ function checkTF(btn, answer){
   }
 }
 
-/* Универсальная проверка квиза (одна правильная кнопка) */
-function checkQuizGeneric(btn, isCorrect){
-  var card = btn.closest('.quiz-card') || btn.closest('.quiz-options').parentElement;
+/* Сравнение (больше/меньше) */
+function checkCompare(btn, sign){
+  var card = btn.closest('.tf-card');
   if(card.dataset.answered === 'true') return;
-  var opts = btn.parentElement.querySelectorAll('.quiz-opt');
-  opts.forEach(b=>b.disabled=true);
-  if(isCorrect){
+  card.querySelectorAll('.tf-btn').forEach(b=>b.disabled=true);
+  if(sign === card.dataset.answer){
     btn.classList.add('correct');
     card.dataset.answered = 'true';
   } else {
     btn.classList.add('wrong');
-    setTimeout(()=>{
-      btn.classList.remove('wrong');
-      opts.forEach(b=>b.disabled=false);
-    }, 900);
+    setTimeout(()=>{ btn.classList.remove('wrong'); card.querySelectorAll('.tf-btn').forEach(b=>b.disabled=false); }, 900);
   }
 }
 
-/* Рефлексия */
-function selectReflect(card){
-  document.querySelectorAll('.reflect-card').forEach(c=>c.classList.remove('selected'));
-  card.classList.add('selected');
-}
-  
 window.addEventListener('load', ()=>{ showSlide(0); renderMath(); });
 </script>
 </body>
 </html>
-
-<main>
