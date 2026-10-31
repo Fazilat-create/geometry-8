@@ -1,221 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Приближенные значения корня · Полный урок</title>
-<script>MathJax = { tex: {inlineMath: [['$','$'],['\\(','\\)']]}, svg: {fontCache: 'global'} };</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-<style>
-  :root{
-    --orange:#ea580c;--orange-dark:#c2410c;--amber:#f59e0b;
-    --ok:#10b981;--ok-light:#d1fae5;--err:#ef4444;--err-light:#fee2e2;
-    --blue:#2563eb;--blue-dark:#1e40af;--blue-light:#dbeafe;
-    --green:#16a34a;--green-light:#dcfce7;
-    --text:#1e293b;--muted:#78716c;--border:#fed7aa;
-  }
-  *{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif;}
-  html,body{margin:0;padding:0;height:100%;overflow:hidden;}
-  body{
-    background:radial-gradient(1400px 700px at 5% -5%, #ffedd5 0%, transparent 55%),
-               radial-gradient(1000px 600px at 100% 100%, #fef3c7 0%, transparent 55%),
-               #fffbf5;
-    color:var(--text);height:100vh;display:flex;flex-direction:column;position:relative;
-  }
-  header{
-    padding:8px 20px;display:flex;justify-content:space-between;align-items:center;
-    background:rgba(255,251,245,.85);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;position:relative;z-index:10;
-  }
-  .header-title{font-size:12px;font-weight:800;color:var(--orange-dark);}
-  .header-title span{color:var(--muted);margin-left:6px;font-weight:600;}
-  .progress-pills{display:flex;gap:3px;align-items:center;flex-wrap:wrap;}
-  .progress-pill{
-    height:22px;min-width:22px;padding:0 7px;border-radius:11px;background:#fff;
-    border:2px solid var(--border);display:flex;align-items:center;justify-content:center;
-    font-size:9px;font-weight:800;color:var(--muted);cursor:pointer;transition:.2s;
-  }
-  .progress-pill.active{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;}
-  .progress-pill.done{background:var(--ok-light);color:var(--ok);border-color:var(--ok);}
-  .progress-pill.theory{background:var(--blue-light);color:var(--blue-dark);border-color:#93c5fd;}
-  .progress-pill.theory.active{background:linear-gradient(135deg,var(--blue),#1d4ed8);color:#fff;}
-  .progress-pill.result-pill{background:var(--green-light);color:var(--green);border-color:#86efac;}
-  .progress-pill.result-pill.active{background:linear-gradient(135deg,var(--green),#15803d);color:#fff;}
-
-  main{flex:1;padding:14px 20px 80px;display:flex;justify-content:center;position:relative;z-index:5;overflow:hidden;min-height:0;}
-  .slide{
-    display:none;background:#fffdf9;border-radius:18px;padding:16px 26px;
-    box-shadow:0 12px 40px rgba(234,88,12,.12);border:1px solid var(--border);
-    width:100%;max-width:1600px;animation:fade .4s ease;
-    position:relative;overflow:hidden;height:100%;flex-direction:column;
-  }
-  .slide.active{display:flex;}
-  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
-  .slide-header{flex-shrink:0;margin-bottom:10px;position:relative;z-index:2;}
-  .slide-tag{
-    display:inline-block;background:#fef3c7;color:#d97706;padding:3px 10px;
-    border-radius:14px;font-size:10px;font-weight:700;margin-bottom:4px;
-  }
-  .slide-tag.theory-tag{background:var(--blue-light);color:var(--blue-dark);border:1px solid #93c5fd;}
-  .slide-tag.result-tag{background:var(--green-light);color:#166534;border:1px solid #86efac;}
-  .slide-tag.reflect-tag{background:#f3e8ff;color:#7c3aed;border:1px solid #c4b5fd;}
-  .slide h2{font-size:20px;margin:0 0 2px;color:var(--orange-dark);font-weight:800;}
-  .slide h2.blue{color:var(--blue-dark);}
-  .slide h2.green{color:#166534;}
-  .slide .subtitle{color:var(--muted);font-size:12px;margin:0;}
-  .content{flex:1;display:flex;flex-direction:column;gap:12px;position:relative;z-index:2;min-height:0;overflow:hidden;}
-  .content.center{align-items:center;justify-content:center;}
-
-  /* Theory */
-  .theory-block{background:#fff;border:2px solid var(--border);border-radius:12px;padding:18px 24px;position:relative;width:100%;max-width:900px;}
-  .theory-block h3{margin:0 0 12px;font-size:18px;color:var(--blue-dark);font-weight:800;}
-  .theory-block p{font-size:16px;line-height:1.75;margin:8px 0;}
-  .formula-highlight{
-    background:linear-gradient(135deg,#ffedd5,#fed7aa);border:2px solid var(--orange);
-    border-radius:12px;padding:14px 22px;text-align:center;font-size:26px;
-    font-weight:700;color:var(--orange-dark);margin:10px 0;
-  }
-  .formula-highlight.blue{background:linear-gradient(135deg,#dbeafe,#bfdbfe);border-color:var(--blue);color:var(--blue-dark);}
-  .formula-highlight.big{font-size:34px;padding:20px 30px;}
-  .key-idea{
-    background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:5px solid #d97706;
-    border-radius:12px;padding:14px 20px;font-size:15px;line-height:1.65;margin:8px 0;width:100%;max-width:900px;
-  }
-  .key-idea.blue{background:linear-gradient(135deg,#dbeafe,#bfdbfe);border-left-color:var(--blue-dark);}
-
-  /* Flip cards */
-  .flip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;flex:1;min-height:0;align-content:center;}
-  .flip-card{perspective:1200px;height:180px;cursor:pointer;}
-  .flip-inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d;}
-  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
-  .flip-front,.flip-back{
-    position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:18px;
-    display:flex;align-items:center;justify-content:center;padding:22px;text-align:center;
-    font-size:18px;box-shadow:0 8px 24px rgba(15,23,42,.12);
-  }
-  .flip-front{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:700;}
-  .flip-back{
-    background:linear-gradient(135deg,#ecfdf5,#d1fae5);color:#065f46;font-weight:700;
-    transform:rotateY(180deg);border:2px solid var(--ok);font-size:16px;
-  }
-
-  /* Input cards */
-  .input-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0;align-content:center;}
-  .input-card{
-    background:#fff;border:3px solid var(--border);border-radius:14px;padding:20px;
-    display:flex;flex-direction:column;gap:16px;text-align:center;justify-content:center;
-  }
-  .input-card .point{font-size:22px;font-weight:800;color:var(--orange-dark);}
-  .input-card .row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:800;}
-  .input-card .row input{width:90px;padding:10px 6px;border:2px solid var(--border);border-radius:9px;font-size:18px;text-align:center;font-weight:800;}
-  .input-card .row input.correct{background:var(--ok-light);border-color:var(--ok);}
-  .input-card .row input.wrong{background:var(--err-light);border-color:var(--err);}
-
-  /* Static grid (practice) */
-  .static-grid{flex:1;display:grid;grid-template-columns:repeat(3, 1fr);gap:14px;min-height:0;}
-  .static-grid-2{grid-template-columns:repeat(2, 1fr);}
-  .static-cell{
-    background:#fff;border:2px dashed #f59e0b;border-radius:12px;padding:10px 12px;
-    position:relative;display:flex;flex-direction:column;gap:8px;min-height:0;
-  }
-  .static-cell::before{
-    content:'✏️ Решение';position:absolute;top:-10px;left:14px;background:#fff;
-    padding:0 8px;font-size:9.5px;font-weight:800;color:#d97706;
-    text-transform:uppercase;border-radius:5px;
-  }
-  .static-head{display:flex;align-items:flex-start;gap:8px;flex-shrink:0;}
-  .static-letter{
-    display:inline-flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;
-    font-weight:800;font-size:12px;width:26px;height:26px;border-radius:8px;flex-shrink:0;
-  }
-  .static-expr{background:rgba(255,247,237,.95);border-radius:7px;padding:6px 10px;font-size:16px;font-weight:600;border:1px solid rgba(234,88,12,.15);flex:1;}
-  .static-work{
-    flex:1;border-radius:8px;
-    background:linear-gradient(#fed7aa 1px, transparent 1px),
-               linear-gradient(90deg, #fed7aa 1px, transparent 1px);
-    background-size:18px 18px;min-height:80px;border:1px solid rgba(245,158,11,.15);
-  }
-
-  /* True/False */
-  .tf-grid{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center;max-width:900px;margin:0 auto;width:100%;}
-  .tf-card{
-    background:#fff;border:2px solid var(--border);border-radius:14px;padding:16px 22px;
-    display:flex;align-items:center;gap:18px;transition:.25s;
-  }
-  .tf-card .tf-text{flex:1;font-size:17px;font-weight:600;}
-  .tf-card .tf-btns{display:flex;gap:8px;}
-  .tf-btn{
-    padding:10px 22px;border:2px solid var(--border);background:#fff;border-radius:10px;
-    font-size:15px;font-weight:800;cursor:pointer;transition:.2s;color:var(--muted);
-  }
-  .tf-btn.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;}
-  .tf-btn.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
-
-  /* Quiz */
-  .quiz-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
-  .quiz-card{background:#fff;border:3px solid var(--border);border-radius:18px;padding:28px 40px;text-align:center;max-width:700px;width:100%;}
-  .quiz-card .quiz-expr{font-size:32px;font-weight:800;color:var(--orange-dark);margin-bottom:20px;}
-  .quiz-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-  .quiz-opt{
-    padding:16px;border:3px solid var(--border);background:#fff;border-radius:12px;
-    font-size:20px;font-weight:800;cursor:pointer;transition:.2s;color:var(--orange-dark);
-  }
-  .quiz-opt.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;}
-  .quiz-opt.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
-
-  /* Reflection */
-  .reflect-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;flex:1;align-content:center;max-width:900px;margin:0 auto;width:100%;}
-  .reflect-card{
-    background:#fff;border:2px solid var(--border);border-radius:14px;padding:20px 24px;
-    display:flex;align-items:center;gap:16px;cursor:pointer;transition:.25s;
-  }
-  .reflect-card.selected{border-color:var(--orange);background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;}
-  .reflect-emoji{font-size:38px;}
-  .reflect-text{font-size:16px;font-weight:700;}
-
-  /* Navigation */
-  nav{
-    position:fixed;bottom:0;left:0;right:0;padding:8px 20px;
-    background:rgba(255,251,245,.9);border-top:1px solid var(--border);
-    display:flex;justify-content:space-between;align-items:center;z-index:100;
-  }
-  nav button{padding:8px 20px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;}
-  nav .nav-prev{background:#fff;color:var(--orange);border:2px solid var(--orange);}
-  nav .nav-next{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;}
-  nav button:disabled{opacity:.4;}
-  nav .nav-info{font-size:12px;font-weight:700;color:var(--muted);}
-</style>
-</head>
-<body>
-
-<header>
-  <div class="header-title">Приближенные значения корня <span>· Актуализация → Открытие → Заминка</span></div>
-  <div class="progress-pills">
-    <!-- Актуализация (5) -->
-    <div class="progress-pill active" data-slide="0">1</div>
-    <div class="progress-pill" data-slide="1">2</div>
-    <div class="progress-pill" data-slide="2">3</div>
-    <div class="progress-pill" data-slide="3">4</div>
-    <div class="progress-pill" data-slide="4">5</div>
-    <!-- Открытие (7) -->
-    <div class="progress-pill theory" data-slide="5">6</div>
-    <div class="progress-pill theory" data-slide="6">7</div>
-    <div class="progress-pill theory" data-slide="7">8</div>
-    <div class="progress-pill theory" data-slide="8">9</div>
-    <div class="progress-pill result-pill" data-slide="9">10</div>
-    <div class="progress-pill result-pill" data-slide="10">11</div>
-    <div class="progress-pill" data-slide="11">12</div>
-    <!-- Заминка (4) -->
-    <div class="progress-pill" data-slide="12">13</div>
-    <div class="progress-pill" data-slide="13">14</div>
-    <div class="progress-pill" data-slide="14">15</div>
-    <div class="progress-pill reflect-tag" data-slide="15">16</div>
-  </div>
-</header>
-
-<main>
-
   <!-- ============ АКТУАЛИЗАЦИЯ ============ -->
 
   <!-- Слайд 1: Флип-карточки (оценка) -->
@@ -315,7 +97,6 @@
       </div>
     </div>
   </section>
-
   <!-- ============ ОТКРЫТИЕ ============ -->
 
   <!-- Слайд 6: Титул -->
@@ -606,7 +387,20 @@ function selectReflect(card){
   document.querySelectorAll('.reflect-card').forEach(c=>c.classList.remove('selected'));
   card.classList.add('selected');
 }
-
+function checkQuizGeneric(btn, isCorrect){
+  var card = btn.closest('div'); // находим блок с кнопками
+  card.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true); // блокируем все кнопки
+  if(isCorrect) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    setTimeout(() => {
+      btn.classList.remove('wrong');
+      card.querySelectorAll('.quiz-opt').forEach(b => b.disabled = false); // разблокируем, если ошибся
+    }, 1000);
+  }
+}
+  
 window.addEventListener('load', ()=>{ showSlide(0); renderMath(); });
 </script>
 </body>
