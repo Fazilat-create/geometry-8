@@ -1,4 +1,89 @@
-  <!-- ============ АКТУАЛИЗАЦИЯ ============ -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Урок · Приближенные значения</title>
+<script>MathJax = { tex: {inlineMath: [['$','$'],['\\(','\\)']]}, svg: {fontCache: 'global'} };</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root{ --orange:#ea580c;--orange-dark:#c2410c;--amber:#f59e0b;--ok:#10b981;--ok-light:#d1fae5;--err:#ef4444;--err-light:#fee2e2;--blue:#2563eb;--blue-dark:#1e40af;--blue-light:#dbeafe;--text:#1e293b;--muted:#78716c;--border:#fed7aa; }
+  *{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif;} html,body{margin:0;padding:0;height:100%;overflow:hidden;}
+  body{ background:radial-gradient(1200px 600px at 5% -5%, #ffedd5 0%, transparent 55%), radial-gradient(900px 500px at 100% 100%, #fef3c7 0%, transparent 55%), #fffbf5; color:var(--text);height:100vh;display:flex;flex-direction:column;position:relative; }
+  header{padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,251,245,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;position:relative;z-index:10;}
+  .header-title{font-size:13px;font-weight:800;color:var(--orange-dark);}
+  .progress-pills{display:flex;gap:6px;align-items:center;}
+  .progress-pill{height:28px;min-width:28px;padding:0 11px;border-radius:14px;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;}
+  .progress-pill.active{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;} .progress-pill.done{background:var(--ok-light);color:var(--ok);border-color:var(--ok);}
+  main{flex:1;padding:16px 20px 90px;display:flex;justify-content:center;position:relative;z-index:5;overflow:hidden;min-height:0;}
+  .slide{display:none;background:#fffdf9;border-radius:20px;padding:22px 32px;box-shadow:0 14px 50px rgba(234,88,12,.12);border:1px solid var(--border);width:100%;max-width:1400px;animation:fade .4s ease;position:relative;overflow:hidden;height:100%;flex-direction:column;}
+  .slide.active{display:flex;} @keyframes fade{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+  .slide-header{flex-shrink:0;margin-bottom:16px;position:relative;z-index:2;}
+  .slide-tag{display:inline-block;background:#fef3c7;color:#d97706;padding:4px 12px;border-radius:16px;font-size:11px;font-weight:700;margin-bottom:8px;}
+  .slide h2{font-size:22px;margin:0 0 4px;color:var(--orange-dark);font-weight:800;} .slide .subtitle{color:var(--muted);font-size:13px;margin:0;}
+  .content{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:2;}
+  
+  .flip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;flex:1;min-height:0;align-content:center;}
+  .flip-card{perspective:1200px;height:180px;cursor:pointer;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d;}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front,.flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:18px;display:flex;align-items:center;justify-content:center;padding:22px;text-align:center;font-size:18px;box-shadow:0 8px 24px rgba(15,23,42,.12);}
+  .flip-front{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:700;}
+  .flip-back{background:linear-gradient(135deg,#ecfdf5,#d1fae5);color:#065f46;font-weight:700;transform:rotateY(180deg);border:2px solid var(--ok);font-size:16px;}
+
+  .input-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0;align-content:center;}
+  .input-card{background:#fff;border:3px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px;text-align:center;justify-content:center;}
+  .input-card .point{font-size:22px;font-weight:800;color:var(--orange-dark);}
+  .input-card .row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:800;}
+  .input-card .row input{width:90px;padding:10px 6px;border:2px solid var(--border);border-radius:9px;font-size:18px;text-align:center;font-weight:800;}
+  .input-card .row input.correct{background:var(--ok-light);border-color:var(--ok);} .input-card .row input.wrong{background:var(--err-light);border-color:var(--err);}
+
+  .tf-grid{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center;max-width:900px;margin:0 auto;width:100%;}
+  .tf-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:16px 22px;display:flex;align-items:center;gap:18px;transition:.25s;}
+  .tf-card .tf-text{flex:1;font-size:17px;font-weight:600;} .tf-card .tf-btns{display:flex;gap:8px;}
+  .tf-btn{padding:10px 22px;border:2px solid var(--border);background:#fff;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;color:var(--muted);}
+  .tf-btn.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;} .tf-btn.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
+
+  nav{position:fixed;bottom:0;left:0;right:0;padding:10px 24px;background:rgba(255,251,245,.9);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;z-index:100;}
+  nav button{padding:9px 22px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;} nav .nav-prev{background:#fff;color:var(--orange);border:2px solid var(--orange);} nav .nav-next{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;} nav button:disabled{opacity:.4;}
+  nav .nav-info{font-size:12px;font-weight:700;color:var(--muted);}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-title">Приближенные значения · Полный урок</div>
+  <div class="progress-pills">
+    <!-- Актуализация -->
+    <div class="progress-pill active" data-slide="0">1</div>
+    <div class="progress-pill" data-slide="1">2</div>
+    <div class="progress-pill" data-slide="2">3</div>
+    <div class="progress-pill" data-slide="3">4</div>
+    <div class="progress-pill" data-slide="4">5</div>
+    <!-- Открытие -->
+    <div class="progress-pill" data-slide="5">6</div>
+    <div class="progress-pill" data-slide="6">7</div>
+    <div class="progress-pill" data-slide="7">8</div>
+    <div class="progress-pill" data-slide="8">9</div>
+    <div class="progress-pill" data-slide="9">10</div>
+    <div class="progress-pill" data-slide="10">11</div>
+    <div class="progress-pill" data-slide="11">12</div>
+    <!-- Закрепление -->
+    <div class="progress-pill" data-slide="12">13</div>
+    <div class="progress-pill" data-slide="13">14</div>
+    <div class="progress-pill" data-slide="14">15</div>
+    <div class="progress-pill" data-slide="15">16</div>
+    <div class="progress-pill" data-slide="16">17</div>
+    <div class="progress-pill" data-slide="17">18</div>
+    <div class="progress-pill" data-slide="18">19</div>
+    <div class="progress-pill" data-slide="19">20</div>
+    <!-- Заминка -->
+    <div class="progress-pill" data-slide="20">21</div>
+    <div class="progress-pill" data-slide="21">22</div>
+  </div>
+</header>
+<main>
+
+<!-- ============ АКТУАЛИЗАЦИЯ ============ -->
 
   <!-- Слайд 1: Флип-карточки (оценка) -->
   <section class="slide active">
@@ -80,17 +165,17 @@
     </div>
   </section>
 
-  <!-- Слайд 5: Выбери ответ (сравнение) -->
+   <!-- Слайд 5: Выбери ответ (сравнение) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Актуализация · Задание 5</span>
       <h2>Сравни числа</h2>
     </div>
     <div class="content center">
-      <div style="background:#fff; padding:30px; border-radius:16px; border:2px dashed var(--border); font-size:24px; text-align:center; max-width:600px;">
-        <p>Что больше: $\sqrt{10}$ или $3$?</p>
-        <p style="margin-top:20px; color:var(--muted); font-size:18px;">(Подсказка: возведи 3 в квадрат)</p>
-        <div class="quiz-options" style="margin-top:20px; grid-template-columns:repeat(2,1fr);">
+      <div class="quiz-card" style="max-width:600px;">
+        <div class="quiz-expr">$\sqrt{10}$ или $3$?</div>
+        <p style="color:var(--muted); font-size:16px; margin-bottom:20px;">(Подсказка: возведи 3 в квадрат)</p>
+        <div class="quiz-options" style="grid-template-columns:repeat(2,1fr);">
           <button class="quiz-opt" onclick="checkQuizGeneric(this, true)">$\sqrt{10}$</button>
           <button class="quiz-opt" onclick="checkQuizGeneric(this, false)">$3$</button>
         </div>
@@ -210,9 +295,219 @@
     </div>
   </section>
 
+    <!-- ============ ОСНОВНОЙ УРОК (ЗАКРЕПЛЕНИЕ) ============ -->
+
+  <!-- Слайд 6: Титул -->
+  <section class="slide">
+    <div class="content center">
+      <div style="text-align:center;">
+        <span class="slide-tag theory-tag">Урок 2</span>
+        <h2 style="font-size:44px;margin:18px 0 8px;">Приближенные значения</h2>
+        <p style="font-size:19px;color:var(--muted);margin:0 0 34px;">Закрепление. Работа с координатной прямой</p>
+        <div class="formula-highlight big" style="display:inline-block;">$\sqrt{a} \approx ?$</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 7: Подбери числа (№ 329) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 1 · Оценка</span>
+      <h2 class="green">Подберите два последовательных целых числа</h2>
+      <p class="subtitle">Между которыми заключено число.</p>
+    </div>
+    <div class="content">
+      <div class="static-grid-4 static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$\sqrt{27}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$\sqrt{40}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$\sqrt{120}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">$\sqrt{9{,}2}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">д</span><div class="static-expr">$\sqrt{0{,}4}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">е</span><div class="static-expr">$\sqrt{15}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">ж</span><div class="static-expr">$\sqrt{167}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">з</span><div class="static-expr">$\sqrt{288}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 8: Цифры разрядов (№ 330) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 2 · Разряды</span>
+      <h2 class="green">Найдите цифры разрядов</h2>
+      <p class="subtitle">Единиц, десятых, сотых в десятичной записи чисел.</p>
+    </div>
+    <div class="content">
+      <div class="static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$\sqrt{3}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">$\sqrt{5}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">$\sqrt{6}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 9: Верно ли (№ 331) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 3 · Верно ли?</span>
+      <h2 class="green">Верно ли утверждение</h2>
+    </div>
+    <div class="content">
+      <div class="tf-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:1000px;">
+        <div class="tf-card" data-answer="true"><div class="tf-text">число $\sqrt{5}$ больше 2</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+        <div class="tf-card" data-answer="false"><div class="tf-text">число $\sqrt{5{,}2}$ меньше 2</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+        <div class="tf-card" data-answer="true"><div class="tf-text">число $\sqrt{170}$ меньше 13</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+        <div class="tf-card" data-answer="true"><div class="tf-text">число $\sqrt{39}$ больше $\sqrt{38}$</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 10: Координатная прямая (№ 332, 333, 166) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 4 · Прямая</span>
+      <h2 class="green">Какое число отмечено точкой?</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Точка $A$ (рис. 14): $\sqrt{1{,}4}; \sqrt{2}; \sqrt{7}; \sqrt{5{,}2}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">Точка $A$ (рис. 15): $0{,}6; \frac{142}{29}; 3; \sqrt{33}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">Точка на рис. 8: $\sqrt{90}$ (между 9 и 10)</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 11: Множества (№ 164, 165) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 5 · Множества</span>
+      <h2 class="green">Числа и множества</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Привести 2 примера $a \in \mathbb{Z}$, но $a \notin \mathbb{N}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">Привести 2 примера $a \in \mathbb{R}$, но $a \notin \mathbb{I}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">Из чисел $\frac{5}{9}; \sqrt{15}; \frac{23}{41}; 0{,}2$ выберите те, что можно представить в виде бесконечной периодической дроби.</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 12: Прямая (№ 167, 168) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 6 · Построй точки</span>
+      <h2 class="green">Координатная прямая</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid-2 static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">Отметьте приближенные значения: $\sqrt{2}; \sqrt{5}; \sqrt{7}$ (1 ед. = 10 клеток)</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">Постройте точки $A(3); B(-\frac{1}{2}); C(\sqrt{2}); D(-2{,}5); E(-\sqrt{3})$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 13: Между числами (№ 169, 170) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 7 · Оценка</span>
+      <h2 class="green">Назовите два последовательных целых</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid-2 static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$\sqrt{2}; \ \sqrt{5}; \ \sqrt{15}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">Какие из чисел $\sqrt{18}; \sqrt{26}; \sqrt{30}$ между 5 и 6?</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 14: Все целые (№ 171, 172, 184) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 8 · Все целые</span>
+      <h2 class="green">Найдите все целые числа</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid-2 static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">Найдите целое число между $\sqrt{73}$ и $\sqrt{92}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">Между $\sqrt{31}$ и $\sqrt{89}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">Между $-\sqrt{17}$ и $\sqrt{26}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">Между $-\sqrt{120}$ и $-\sqrt{8}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">д</span><div class="static-expr">Между $\sqrt{45}$ и $\sqrt{102}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 15: Верно ли (№ 173) и Сравнение (№ 174, 185) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 9 · Сравнение</span>
+      <h2 class="green">Сравните числа и проверьте утверждения</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">$\sqrt{26}$ и $5$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">$\sqrt{3}$ и $1{,}7$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">$\pi$ и $3{,}141$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">4</span><div class="static-expr">$\frac{\pi}{2}$ и $\sqrt{2}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">5</span><div class="static-expr">Верно ли $\sqrt{29} + \sqrt{41} > 11$?</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">6</span><div class="static-expr">Верно ли $\sqrt{79} + \sqrt{13} < 13$?</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">7</span><div class="static-expr">$\sqrt{35}$ и $6$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">8</span><div class="static-expr">$\sqrt{2}$ и $1{,}4$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">9</span><div class="static-expr">$\pi$ и $3{,}1415$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 16: Порядок (№ 175, 186) и Неравенства (№ 176) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 10 · Порядок и Неравенства</span>
+      <h2 class="green">Расположите и найдите</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid-2 static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">В порядке убывания: $4; \sqrt{6}; \sqrt{17}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">В порядке возрастания: $\sqrt{13}; \sqrt{7}; 3$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">Все целые положительные решения $3x \le \sqrt{37}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">Все целые отрицательные решения $-2x \le \sqrt{63}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 17: Оценка выражения (№ 177, 187) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Задание 11 · Оцените выражение</span>
+      <h2 class="green">Используя двойные неравенства</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid-2 static-grid">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Зная $2{,}2 < \sqrt{5} < 2{,}3$ и $1{,}7 < \sqrt{3} < 1{,}8$<br>Оцените: $2\sqrt{5} + \sqrt{3}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">Оцените: $3\sqrt{5} - 2\sqrt{3}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">Зная $1{,}4 < \sqrt{2} < 1{,}5$ и $1{,}7 < \sqrt{3} < 1{,}8$<br>Оцените: $2\sqrt{2} + \sqrt{3}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Слайд 18: Самостоятельная работа (№ 181, 182, 183) -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="slide-tag result-tag">Самостоятельная работа</span>
+      <h2 class="green">Проверь себя</h2>
+    </div>
+    <div class="content">
+      <div class="static-grid-2 static-grid" style="grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;">
+        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Отметьте приближенные значения: $\sqrt{3}; \sqrt{10}; \sqrt{15}; -\sqrt{3}; -\sqrt{10}; -\sqrt{15}$ (1 ед. = 2 клетки)</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">Постройте точки $A(2); B(-0{,}8); C(-\sqrt{2}); D(3{,}5); E(\sqrt{5})$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">Назовите два последовательных целых числа, между которыми заключено: $\sqrt{3}; \sqrt{10}; \sqrt{17}$</div></div><div class="static-work"></div></div>
+        <div class="static-cell"><div class="static-head"><span class="static-letter">4</span><div class="static-expr">Найдите все целые числа между $\sqrt{45}$ и $\sqrt{102}$</div></div><div class="static-work"></div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ ЗАМИНКА ============ -->
 
-  <!-- Слайд 13: Верно/Неверно -->
+  <!-- Слайд 19: Верно/Неверно (итог) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Заминка · Задание 1</span>
@@ -220,32 +515,14 @@
     </div>
     <div class="content">
       <div class="tf-grid">
-        <div class="tf-card" data-answer="true">
-          <div class="tf-text">$\sqrt{5}$ находится между $2$ и $3$</div>
-          <div class="tf-btns">
-            <button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button>
-            <button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button>
-          </div>
-        </div>
-        <div class="tf-card" data-answer="false">
-          <div class="tf-text">$\sqrt{12}$ находится между $2$ и $3$</div>
-          <div class="tf-btns">
-            <button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button>
-            <button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button>
-          </div>
-        </div>
-        <div class="tf-card" data-answer="true">
-          <div class="tf-text">$4 < \sqrt{20} < 5$</div>
-          <div class="tf-btns">
-            <button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button>
-            <button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button>
-          </div>
-        </div>
+        <div class="tf-card" data-answer="true"><div class="tf-text">$\sqrt{5}$ находится между 2 и 3</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+        <div class="tf-card" data-answer="false"><div class="tf-text">$\sqrt{12}$ находится между 2 и 3</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
+        <div class="tf-card" data-answer="true"><div class="tf-text">$4 < \sqrt{20} < 5$</div><div class="tf-btns"><button class="tf-btn" onclick="checkTF(this, 'true')">Верно</button><button class="tf-btn" onclick="checkTF(this, 'false')">Неверно</button></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Слайд 14: Блиц (между какими целыми) -->
+  <!-- Слайд 20: Блиц (между какими целыми) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Заминка · Задание 2</span>
@@ -265,7 +542,7 @@
     </div>
   </section>
 
-  <!-- Слайд 15: Блиц (что больше) -->
+  <!-- Слайд 21: Блиц (что больше) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Заминка · Задание 3</span>
@@ -285,7 +562,7 @@
     </div>
   </section>
 
-  <!-- Слайд 16: Рефлексия -->
+  <!-- Слайд 22: Рефлексия -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag reflect-tag">Рефлексия</span>
@@ -305,7 +582,7 @@
 
 <nav>
   <button class="nav-prev" onclick="changeSlide(-1)" disabled>← Назад</button>
-  <div class="nav-info" id="navInfo">Слайд 1 из 16</div>
+  <div class="nav-info" id="navInfo">Слайд 1 из 22</div>
   <button class="nav-next" onclick="changeSlide(1)">Далее →</button>
 </nav>
 
@@ -386,19 +663,6 @@ function checkQuizGeneric(btn, isCorrect){
 function selectReflect(card){
   document.querySelectorAll('.reflect-card').forEach(c=>c.classList.remove('selected'));
   card.classList.add('selected');
-}
-function checkQuizGeneric(btn, isCorrect){
-  var card = btn.closest('div'); // находим блок с кнопками
-  card.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true); // блокируем все кнопки
-  if(isCorrect) {
-    btn.classList.add('correct');
-  } else {
-    btn.classList.add('wrong');
-    setTimeout(() => {
-      btn.classList.remove('wrong');
-      card.querySelectorAll('.quiz-opt').forEach(b => b.disabled = false); // разблокируем, если ошибся
-    }, 1000);
-  }
 }
   
 window.addEventListener('load', ()=>{ showSlide(0); renderMath(); });
