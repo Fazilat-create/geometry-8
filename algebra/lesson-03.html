@@ -12,17 +12,21 @@
   body{ background:radial-gradient(1200px 600px at 5% -5%, #ffedd5 0%, transparent 55%), radial-gradient(900px 500px at 100% 100%, #fef3c7 0%, transparent 55%), #fffbf5; color:var(--text);height:100vh;display:flex;flex-direction:column;position:relative; }
   header{padding:10px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,251,245,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;position:relative;z-index:10;}
   .header-title{font-size:13px;font-weight:800;color:var(--orange-dark);}
-  .progress-pills{display:flex;gap:6px;align-items:center;}
-  .progress-pill{height:28px;min-width:28px;padding:0 11px;border-radius:14px;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;}
-  .progress-pill.active{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;} .progress-pill.done{background:var(--ok-light);color:var(--ok);border-color:var(--ok);}
+  .progress-pills{display:flex;gap:3px;align-items:center;flex-wrap:wrap;}
+  .progress-pill{height:22px;min-width:22px;padding:0 6px;border-radius:11px;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--muted);cursor:pointer;transition:.2s;}
+  .progress-pill.active{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;border-color:transparent;} 
+  .progress-pill.done{background:var(--ok-light);color:var(--ok);border-color:var(--ok);}
+  
   main{flex:1;padding:16px 20px 90px;display:flex;justify-content:center;position:relative;z-index:5;overflow:hidden;min-height:0;}
-  .slide{display:none;background:#fffdf9;border-radius:20px;padding:22px 32px;box-shadow:0 14px 50px rgba(234,88,12,.12);border:1px solid var(--border);width:100%;max-width:1400px;animation:fade .4s ease;position:relative;overflow:hidden;height:100%;flex-direction:column;}
+  .slide{display:none;background:#fffdf9;border-radius:20px;padding:22px 32px;box-shadow:0 14px 50px rgba(234,88,12,.12);border:1px solid var(--border);width:100%;max-width:1500px;animation:fade .4s ease;position:relative;overflow:hidden;height:100%;flex-direction:column;}
   .slide.active{display:flex;} @keyframes fade{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
   .slide-header{flex-shrink:0;margin-bottom:16px;position:relative;z-index:2;}
   .slide-tag{display:inline-block;background:#fef3c7;color:#d97706;padding:4px 12px;border-radius:16px;font-size:11px;font-weight:700;margin-bottom:8px;}
-  .slide h2{font-size:22px;margin:0 0 4px;color:var(--orange-dark);font-weight:800;} .slide .subtitle{color:var(--muted);font-size:13px;margin:0;}
+  .slide h2{font-size:24px;margin:0 0 4px;color:var(--orange-dark);font-weight:800;} .slide .subtitle{color:var(--muted);font-size:14px;margin:0;}
   .content{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:2;}
-  
+  .content.center{align-items:center;justify-content:center;}
+
+  /* Стили для разных типов заданий */
   .flip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;flex:1;min-height:0;align-content:center;}
   .flip-card{perspective:1200px;height:180px;cursor:pointer;}
   .flip-inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d;}
@@ -44,45 +48,48 @@
   .tf-btn{padding:10px 22px;border:2px solid var(--border);background:#fff;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s;color:var(--muted);}
   .tf-btn.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;} .tf-btn.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
 
+  .quiz-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+  .quiz-card{background:#fff;border:3px solid var(--border);border-radius:18px;padding:28px 40px;text-align:center;max-width:700px;width:100%;}
+  .quiz-card .quiz-expr{font-size:32px;font-weight:800;color:var(--orange-dark);margin-bottom:20px;}
+  .quiz-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .quiz-opt{padding:16px;border:3px solid var(--border);background:#fff;border-radius:12px;font-size:20px;font-weight:800;cursor:pointer;transition:.2s;color:var(--orange-dark);}
+  .quiz-opt.correct{background:var(--ok-light);border-color:var(--ok);color:#065f46;} .quiz-opt.wrong{background:var(--err-light);border-color:var(--err);color:#991b1b;}
+
+  .static-grid{flex:1;display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;min-height:0;}
+  .static-grid-2{grid-template-columns:repeat(2, 1fr);}
+  .static-grid-4{grid-template-columns:repeat(4, 1fr); grid-template-rows:repeat(2, 1fr);}
+  .static-cell{background:#fff;border:2px dashed #f59e0b;border-radius:12px;padding:12px 14px;position:relative;display:flex;flex-direction:column;gap:8px;min-height:0;}
+  .static-cell::before{content:'✏️ Решение';position:absolute;top:-10px;left:14px;background:#fff;padding:0 8px;font-size:9.5px;font-weight:800;color:#d97706;text-transform:uppercase;border-radius:5px;}
+  .static-head{display:flex;align-items:flex-start;gap:8px;flex-shrink:0;}
+  .static-letter{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;font-weight:800;font-size:12px;width:26px;height:26px;border-radius:8px;flex-shrink:0;}
+  .static-expr{background:rgba(255,247,237,.95);border-radius:7px;padding:6px 10px;font-size:16px;font-weight:600;border:1px solid rgba(234,88,12,.15);flex:1;}
+  .static-work{flex:1;border-radius:8px;background:linear-gradient(#fed7aa 1px, transparent 1px), linear-gradient(90deg, #fed7aa 1px, transparent 1px);background-size:18px 18px;min-height:80px;border:1px solid rgba(245,158,11,.15);}
+
+  .reflect-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;flex:1;align-content:center;max-width:900px;margin:0 auto;width:100%;}
+  .reflect-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:.25s;}
+  .reflect-card.selected{border-color:var(--orange);background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;}
+  .reflect-emoji{font-size:38px;} .reflect-text{font-size:16px;font-weight:700;}
+
+  .theory-block{background:#fff;border:2px solid var(--border);border-radius:12px;padding:18px 24px;position:relative;width:100%;max-width:900px;}
+  .theory-block h3{margin:0 0 12px;font-size:18px;color:var(--blue-dark);font-weight:800;} .theory-block p{font-size:16px;line-height:1.75;margin:8px 0;}
+  .formula-highlight{background:linear-gradient(135deg,#ffedd5,#fed7aa);border:2px solid var(--orange);border-radius:12px;padding:14px 22px;text-align:center;font-size:26px;font-weight:700;color:var(--orange-dark);margin:10px 0;}
+  .formula-highlight.big{font-size:34px;padding:20px 30px;}
+  .key-idea{background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:5px solid #d97706;border-radius:12px;padding:14px 20px;font-size:15px;line-height:1.65;margin:8px 0;width:100%;max-width:900px;}
+  .key-idea.blue{background:linear-gradient(135deg,#dbeafe,#bfdbfe);border-left-color:var(--blue-dark);}
+
   nav{position:fixed;bottom:0;left:0;right:0;padding:10px 24px;background:rgba(255,251,245,.9);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;z-index:100;}
   nav button{padding:9px 22px;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;} nav .nav-prev{background:#fff;color:var(--orange);border:2px solid var(--orange);} nav .nav-next{background:linear-gradient(135deg,var(--orange),var(--amber));color:#fff;} nav button:disabled{opacity:.4;}
   nav .nav-info{font-size:12px;font-weight:700;color:var(--muted);}
 </style>
 </head>
 <body>
+
 <header>
   <div class="header-title">Приближенные значения · Полный урок</div>
   <div class="progress-pills">
-    <!-- Актуализация -->
-    <div class="progress-pill active" data-slide="0">1</div>
-    <div class="progress-pill" data-slide="1">2</div>
-    <div class="progress-pill" data-slide="2">3</div>
-    <div class="progress-pill" data-slide="3">4</div>
-    <div class="progress-pill" data-slide="4">5</div>
-    <!-- Открытие -->
-    <div class="progress-pill" data-slide="5">6</div>
-    <div class="progress-pill" data-slide="6">7</div>
-    <div class="progress-pill" data-slide="7">8</div>
-    <div class="progress-pill" data-slide="8">9</div>
-    <div class="progress-pill" data-slide="9">10</div>
-    <div class="progress-pill" data-slide="10">11</div>
-    <div class="progress-pill" data-slide="11">12</div>
-    <!-- Закрепление -->
-    <div class="progress-pill" data-slide="12">13</div>
-    <div class="progress-pill" data-slide="13">14</div>
-    <div class="progress-pill" data-slide="14">15</div>
-    <div class="progress-pill" data-slide="15">16</div>
-    <div class="progress-pill" data-slide="16">17</div>
-    <div class="progress-pill" data-slide="17">18</div>
-    <div class="progress-pill" data-slide="18">19</div>
-    <div class="progress-pill" data-slide="19">20</div>
-    <!-- Заминка -->
-    <div class="progress-pill" data-slide="20">21</div>
-    <div class="progress-pill" data-slide="21">22</div>
+    <div class="progress-pill active" data-slide="0">1</div><div class="progress-pill" data-slide="1">2</div><div class="progress-pill" data-slide="2">3</div><div class="progress-pill" data-slide="3">4</div><div class="progress-pill" data-slide="4">5</div><div class="progress-pill" data-slide="5">6</div><div class="progress-pill" data-slide="6">7</div><div class="progress-pill" data-slide="7">8</div><div class="progress-pill" data-slide="8">9</div><div class="progress-pill" data-slide="9">10</div><div class="progress-pill" data-slide="10">11</div><div class="progress-pill" data-slide="11">12</div><div class="progress-pill" data-slide="12">13</div><div class="progress-pill" data-slide="13">14</div><div class="progress-pill" data-slide="14">15</div><div class="progress-pill" data-slide="15">16</div><div class="progress-pill" data-slide="16">17</div><div class="progress-pill" data-slide="17">18</div><div class="progress-pill" data-slide="18">19</div><div class="progress-pill" data-slide="19">20</div><div class="progress-pill" data-slide="20">21</div><div class="progress-pill" data-slide="21">22</div>
   </div>
 </header>
-<main>
-
 <!-- ============ АКТУАЛИЗАЦИЯ ============ -->
 
   <!-- Слайд 1: Флип-карточки (оценка) -->
@@ -165,7 +172,7 @@
     </div>
   </section>
 
-   <!-- Слайд 5: Выбери ответ (сравнение) -->
+  <!-- Слайд 5: Выбери ответ (сравнение) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Актуализация · Задание 5</span>
@@ -294,10 +301,9 @@
       </div>
     </div>
   </section>
+  <!-- ============ ОСНОВНОЙ УРОК (ЗАКРЕПЛЕНИЕ) ============ -->
 
-    <!-- ============ ОСНОВНОЙ УРОК (ЗАКРЕПЛЕНИЕ) ============ -->
-
-  <!-- Слайд 6: Титул -->
+  <!-- Слайд 13: Титул -->
   <section class="slide">
     <div class="content center">
       <div style="text-align:center;">
@@ -309,7 +315,7 @@
     </div>
   </section>
 
-  <!-- Слайд 7: Подбери числа (№ 329) -->
+  <!-- Слайд 14: Подбери числа (№ 329) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag result-tag">Задание 1 · Оценка</span>
@@ -330,7 +336,7 @@
     </div>
   </section>
 
-  <!-- Слайд 8: Цифры разрядов (№ 330) -->
+  <!-- Слайд 15: Цифры разрядов (№ 330) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag result-tag">Задание 2 · Разряды</span>
@@ -346,7 +352,7 @@
     </div>
   </section>
 
-  <!-- Слайд 9: Верно ли (№ 331) -->
+  <!-- Слайд 16: Верно ли (№ 331) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag result-tag">Задание 3 · Верно ли?</span>
@@ -362,7 +368,7 @@
     </div>
   </section>
 
-  <!-- Слайд 10: Координатная прямая (№ 332, 333, 166) -->
+  <!-- Слайд 17: Координатная прямая (№ 332, 333, 166) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag result-tag">Задание 4 · Прямая</span>
@@ -377,25 +383,10 @@
     </div>
   </section>
 
-  <!-- Слайд 11: Множества (№ 164, 165) -->
+  <!-- Слайд 18: Прямая (№ 167, 168) -->
   <section class="slide">
     <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 5 · Множества</span>
-      <h2 class="green">Числа и множества</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Привести 2 примера $a \in \mathbb{Z}$, но $a \notin \mathbb{N}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">Привести 2 примера $a \in \mathbb{R}$, но $a \notin \mathbb{I}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">Из чисел $\frac{5}{9}; \sqrt{15}; \frac{23}{41}; 0{,}2$ выберите те, что можно представить в виде бесконечной периодической дроби.</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 12: Прямая (№ 167, 168) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 6 · Построй точки</span>
+      <span class="slide-tag result-tag">Задание 5 · Построй точки</span>
       <h2 class="green">Координатная прямая</h2>
     </div>
     <div class="content">
@@ -406,90 +397,7 @@
     </div>
   </section>
 
-  <!-- Слайд 13: Между числами (№ 169, 170) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 7 · Оценка</span>
-      <h2 class="green">Назовите два последовательных целых</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid-2 static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">$\sqrt{2}; \ \sqrt{5}; \ \sqrt{15}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">Какие из чисел $\sqrt{18}; \sqrt{26}; \sqrt{30}$ между 5 и 6?</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 14: Все целые (№ 171, 172, 184) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 8 · Все целые</span>
-      <h2 class="green">Найдите все целые числа</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid-2 static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">Найдите целое число между $\sqrt{73}$ и $\sqrt{92}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">Между $\sqrt{31}$ и $\sqrt{89}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">Между $-\sqrt{17}$ и $\sqrt{26}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">Между $-\sqrt{120}$ и $-\sqrt{8}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">д</span><div class="static-expr">Между $\sqrt{45}$ и $\sqrt{102}$</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 15: Верно ли (№ 173) и Сравнение (№ 174, 185) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 9 · Сравнение</span>
-      <h2 class="green">Сравните числа и проверьте утверждения</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">$\sqrt{26}$ и $5$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">$\sqrt{3}$ и $1{,}7$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">$\pi$ и $3{,}141$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">4</span><div class="static-expr">$\frac{\pi}{2}$ и $\sqrt{2}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">5</span><div class="static-expr">Верно ли $\sqrt{29} + \sqrt{41} > 11$?</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">6</span><div class="static-expr">Верно ли $\sqrt{79} + \sqrt{13} < 13$?</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">7</span><div class="static-expr">$\sqrt{35}$ и $6$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">8</span><div class="static-expr">$\sqrt{2}$ и $1{,}4$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">9</span><div class="static-expr">$\pi$ и $3{,}1415$</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 16: Порядок (№ 175, 186) и Неравенства (№ 176) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 10 · Порядок и Неравенства</span>
-      <h2 class="green">Расположите и найдите</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid-2 static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">а</span><div class="static-expr">В порядке убывания: $4; \sqrt{6}; \sqrt{17}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">б</span><div class="static-expr">В порядке возрастания: $\sqrt{13}; \sqrt{7}; 3$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">в</span><div class="static-expr">Все целые положительные решения $3x \le \sqrt{37}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">г</span><div class="static-expr">Все целые отрицательные решения $-2x \le \sqrt{63}$</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 17: Оценка выражения (№ 177, 187) -->
-  <section class="slide">
-    <div class="slide-header">
-      <span class="slide-tag result-tag">Задание 11 · Оцените выражение</span>
-      <h2 class="green">Используя двойные неравенства</h2>
-    </div>
-    <div class="content">
-      <div class="static-grid-2 static-grid">
-        <div class="static-cell"><div class="static-head"><span class="static-letter">1</span><div class="static-expr">Зная $2{,}2 < \sqrt{5} < 2{,}3$ и $1{,}7 < \sqrt{3} < 1{,}8$<br>Оцените: $2\sqrt{5} + \sqrt{3}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">2</span><div class="static-expr">Оцените: $3\sqrt{5} - 2\sqrt{3}$</div></div><div class="static-work"></div></div>
-        <div class="static-cell"><div class="static-head"><span class="static-letter">3</span><div class="static-expr">Зная $1{,}4 < \sqrt{2} < 1{,}5$ и $1{,}7 < \sqrt{3} < 1{,}8$<br>Оцените: $2\sqrt{2} + \sqrt{3}$</div></div><div class="static-work"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Слайд 18: Самостоятельная работа (№ 181, 182, 183) -->
+  <!-- Слайд 19: Самостоятельная работа -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag result-tag">Самостоятельная работа</span>
@@ -504,10 +412,9 @@
       </div>
     </div>
   </section>
-
   <!-- ============ ЗАМИНКА ============ -->
 
-  <!-- Слайд 19: Верно/Неверно (итог) -->
+  <!-- Слайд 20: Верно/Неверно -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Заминка · Задание 1</span>
@@ -522,7 +429,7 @@
     </div>
   </section>
 
-  <!-- Слайд 20: Блиц (между какими целыми) -->
+  <!-- Слайд 21: Блиц (между какими целыми) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Заминка · Задание 2</span>
@@ -542,7 +449,7 @@
     </div>
   </section>
 
-  <!-- Слайд 21: Блиц (что больше) -->
+  <!-- Слайд 22: Блиц (что больше) -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag">Заминка · Задание 3</span>
@@ -562,7 +469,7 @@
     </div>
   </section>
 
-  <!-- Слайд 22: Рефлексия -->
+  <!-- Слайд 23: Рефлексия -->
   <section class="slide">
     <div class="slide-header">
       <span class="slide-tag reflect-tag">Рефлексия</span>
@@ -582,7 +489,7 @@
 
 <nav>
   <button class="nav-prev" onclick="changeSlide(-1)" disabled>← Назад</button>
-  <div class="nav-info" id="navInfo">Слайд 1 из 22</div>
+  <div class="nav-info" id="navInfo">Слайд 1 из 23</div>
   <button class="nav-next" onclick="changeSlide(1)">Далее →</button>
 </nav>
 
@@ -607,6 +514,10 @@ function changeSlide(dir){
   current = Math.min(Math.max(current + dir, 0), total - 1);
   showSlide(current);
 }
+
+document.querySelectorAll('.progress-pill').forEach((p, idx)=>{
+  p.addEventListener('click', function(){ current = idx; showSlide(current); });
+});
 
 function renderMath(){
   if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
@@ -669,3 +580,5 @@ window.addEventListener('load', ()=>{ showSlide(0); renderMath(); });
 </script>
 </body>
 </html>
+
+<main>
